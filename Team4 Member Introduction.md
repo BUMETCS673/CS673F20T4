@@ -22,3 +22,12 @@ Hi everyone! My name is Duan Lin and this is my second year studying CS in BU. I
 **Role: Configuration leader**
 
 My name is Hussain Alibrahim and I am a first year graduate student in Computer Science. I graduated my bachelors degree in June 2020 in Computer Science, and hopefully after my masters degree I will pursue a phd. I specialize in Java mostly and know how to code in Python, SQL, PostgreSQL, HTML, Javascript, and more. I am always ready for a new project for me to bloom into a finished product I'd be proud of. I hope to further my understanding of software engineering in this course as well as develop more teamwork skills.
+
+-------
+
+###  Ming Yuan(mingy@bu.edu)
+
+**Role: Security leader**
+
+My name is Ming Yuan. This is my second year in BU. My undergraduate major is mathematics and statistics and my undergraduate thesis is bimodal data pattern recognition based on machine learning. I'm quite interested in machine learning and artificial intelligence and I also want to challenge myself to learn some novel knowledge or abilities. So I changed my major to computer science. I have little experience in software and programming. R is my most used programming language(most used in statistics). My python is at the primary level. I hope I can learn basic concepts and how to use specific tools to do soft engineering.
+
