@@ -31,3 +31,15 @@ My name is Hussain Alibrahim and I am a first year graduate student in Computer 
 
 My name is Ming Yuan. This is my second year in BU. My undergraduate major is mathematics and statistics and my undergraduate thesis is bimodal data pattern recognition based on machine learning. I'm quite interested in machine learning and artificial intelligence and I also want to challenge myself to learn some novel knowledge or abilities. So I changed my major to computer science. I have little experience in software and programming. R is my most used programming language(most used in statistics). My python is at the primary level. I hope I can learn basic concepts and how to use specific tools to do soft engineering.
 
+###  Shreyas Prakash(shreyasp@bu.edu)
+
+**Role: Design and Implementation leader**
+
+Hi Everyone,
+
+I'm Shreyas Prakash pursuing my Master's in Computer Science at Boston University. This is my 2nd year here at Boston University.
+I have 1.5 years of Industrial experience as a Software Engineer prior to my Master's Degree. Recently i finished my summer Internship at Nokia as an R&D Software Engineer Intern where i was responsible for creating RESTful API's using Flask and auto integrated them with MongoDB using SQLAlchemy. I was also responsible for creating Dynamic content using Jinja2 and Flask. Implemented Serialization and Deserialization of JSON data using Marshmallow. Designed high level Architecture for the distributed system which is responsible for checking health of the server and maintain transaction details. Implemented LRU Cache Eviction Technique, Consistent Hashing Database Partitioning Technique and IP Hash Load balancing technique which improved the system performance by 50 %.
+
+I'm very proficient in C++, Python,  Java, HTML5, CSS3, PHP, JavaScript, Node.js, and React.js where i have worked on these technologies since my undergraduate studies along various projects.
+
+I'm looking forward to have a great semester ahead :)
