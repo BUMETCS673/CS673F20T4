@@ -43,3 +43,15 @@ I have 1.5 years of Industrial experience as a Software Engineer prior to my Mas
 I'm very proficient in C++, Python,  Java, HTML5, CSS3, PHP, JavaScript, Node.js, and React.js where i have worked on these technologies since my undergraduate studies along various projects.
 
 I'm looking forward to have a great semester ahead :)
+
+###  Bhavesh Tadikonda(bhavesht@bu.edu)
+
+**Role: Backup Team leader**
+
+Hi Everyone,
+
+I am Bhavesh Tadikonda, this is my Second year of Masters in Computer Science. 
+I had two years of experience. I have Interned at Agot.ai as an SDE intern worked on building RESTful API's using Python, Databases and Couple of Front end using HTML,CSS, JavaScript. 
+I hope I can extend my experience on coding and learn more about real-world software development from the course. 
+
+I am looking forward to working with you guys. 
