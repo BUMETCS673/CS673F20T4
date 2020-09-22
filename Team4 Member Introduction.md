@@ -42,7 +42,7 @@ I have 1.5 years of Industrial experience as a Software Engineer prior to my Mas
 
 I'm very proficient in C++, Python,  Java, HTML5, CSS3, PHP, JavaScript, Node.js, and React.js where i have worked on these technologies since my undergraduate studies along various projects.
 
-I'm looking forward to have a great semester ahead :)
+Looking forward to work on a great project with amazing teammates :) 
 
 ###  Bhavesh Tadikonda(bhavesht@bu.edu)
 
