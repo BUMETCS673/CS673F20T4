@@ -55,3 +55,16 @@ I had two years of experience. I have Interned at Agot.ai as an SDE intern worke
 I hope I can extend my experience on coding and learn more about real-world software development from the course. 
 
 I am looking forward to working with you guys. 
+
+
+### Neha Jadhav Sarnaik(nsarnaik@bu.edu)
+
+**Role: Design and Implementation leader**
+
+Hello Everyone,
+
+I am Neha Jadhav Sarnaik with dual master’s in project management and Computer Science at Boston University. This is my third year at Boston university. I have a year of work experience in software field as Software Developer prior to my master studies. Since spring I have been working with Harvard university where I am responsible for constructing python scripts and building Flask server using Postgres database to execute python scripts. I worked on technologies like Java, Python, C++,C , JavaScript ,HTML5,CSS,AWS, Node.js,React.js on various projects during my prior work ,masters and undergraduate studies.I am excited to learn and work more on the real world software development through this course and also practise it in the near future .
+
+I look forward to working with you all!
+
+
