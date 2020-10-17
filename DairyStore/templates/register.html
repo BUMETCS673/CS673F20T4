@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>User Register</h1>
+    <form action="/register-result" method="POST">
+        <input type="email" id="email" name="email" placeholder="enter email"/><br/>
+        <input type="text" id="name" name="name" placeholder="enter your name"/><br/>
+        <input type="number" id="age" name="age" placeholder="enter your age"/><br/>
+        <input type="text" id = "username" name="username" placeholder="enter your username"><br/>
+        <input type="password" id="password" name="password" placeholder="enter your password"/><br/>
+        <label id="gender">Gender:</label>
+        <input type="radio" name="gender" value="Male">Male
+        <input type="radio" name="gender" value="Female">Female
+        <input type="radio" name="gender" value="Others">Not sure<br/>
+
+        <input type="date" id="birthday" name="birthday"/><br/>
+
+<!--        <input type="password" id="password" name="password" placeholder="enter password"/>-->
+        <button type="submit">Register</button>
+
+    </form>
+</body>
+</html>
