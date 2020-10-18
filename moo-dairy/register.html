@@ -13,22 +13,22 @@
 		  			 <p id="image_logo"><a href="index.html"><img src="css/images/logo.png"></p></a>
 		  			 <p class = "p1">Join Dairy Farm today</p>
 		  			 
-		  			 <form class="login-form">
-				      <input type="first name" placeholder="First Name"/>
-					  <input type="last name" placeholder="Last Name"/>
-		  			  <input type="email" placeholder="Email Address"/>
+		  			 <form class="login-form" id="form1" action="/register-result" method="POST">
+				      <input type="first name" name="firstname" placeholder="First Name"/>
+					  <input type="last name" name="lastname" placeholder="Last Name"/>
+		  			  <input type="email" name="email" placeholder="Email Address"/>
 					  
 					  <div class="div_txt">
 					  <span class="txt">Don’t worry. We’ll never share your email with anyone</span>
 					  </div>
 					  
 					  <div class="password">
-		  			  <input type="password" placeholder="Password"/>
-					  <input type="confirm password" placeholder="Confirm Password"/>
+		  			  <input type="password" name="password1" placeholder="Password"/>
+					  <input type="confirm password" name="password2" placeholder="Confirm Password"/>
 					  </div>
 					  </form>
 					  
-		  			  <button id="submit_button">submit</button>
+		  			  <button id="submit_button" form="form1" type="submit">submit</button>
 		  			  <a href="index.html"><button id="cancel_button">cancel</button></a>
 		  	
 		  			  <p class="message">Already have an account? <a href="login.html">Log in</a></p>
