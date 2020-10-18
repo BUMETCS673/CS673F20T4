@@ -19,15 +19,19 @@ def login_page():
     return render_template("login.html")
 
 
+@login_api.route("/login.html", methods=['GET'])
+def login_page1():
+    return render_template("login.html")
+
 @login_api.route('/login-result', methods=['POST'])
 def login():
     _email = request.form.get("email")
-    _username = request.form.get("username")
+    # _username = request.form.get("username")
     _password = request.form.get("password")
 
     _password = hashlib.md5(_password.encode('utf8')).hexdigest()
 
-    if not _email and not _username:
+    if not _email:
         return render_template("login_fail.html")
 
     if _email:
@@ -36,10 +40,4 @@ def login():
         else:
             return render_template("login_fail.html")
 
-    if _username:
-        if db_collection_User.find_one({"username": _username, "password": _password}):
-            return render_template("login_success.html")
-        else:
-            return render_template("login_fail.html")
-
-    return render_template("login.html")
+    return render_template("index.html")

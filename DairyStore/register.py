@@ -18,32 +18,38 @@ db = client[yaml_reader['db']]
 db_collection_User = db[yaml_reader['collection_User']]
 
 
-
 @register_api.route('/register', methods=['GET'])
 def register_page():
+    return render_template("register.html")
+
+
+@register_api.route('/register.html', methods=['GET'])
+def register_page1():
     return render_template("register.html")
 
 
 @register_api.route('/register-result', methods=['POST'])
 def register():
     web_email = request.form.get("email")
-    web_name = request.form.get("name")
-    web_age = request.form.get("age")
-    web_username = request.form.get("username")
-    web_password = request.form.get("password")
-    web_gender = request.form.get("gender")
+    web_firstname = request.form.get("firstname")
+    web_lastname = request.form.get("lastname")
+    web_password1 = request.form.get("password1")
+    web_password2 = request.form.get("password2")
 
     email_regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
     warning_empty = "The username or Email cannot be empty!"
-    warning_emailFormatInvalid = "The Email format is invalid! Please check and retry."
+    warning_email_format_invalid = "The Email format is invalid! Please check and retry."
 
     def password_encrypt(password):
         _password = hashlib.md5(password.encode('utf8')).hexdigest()
         return _password
 
+    def password_confirm_check(passwd: str, cfm_passwd: str):
+        return passwd == cfm_passwd
+
     # Function to validate the username and email
-    def nullfield_check(email: str, username: str):
-        if email.split() == "" or username.split() == "":
+    def null_check(email: str, field: str):
+        if email.split() == "" or field.split() == "":
             return False
 
         return True
@@ -62,7 +68,7 @@ def register():
 
     # Function to validate the password
     def password_check(passwd):
-        special_sym = ['$', '@', '#', '%']
+        # special_sym = ['$', '@', '#', '%']
         message = ""
 
         if not (8 <= len(passwd) <= 20):
@@ -76,36 +82,48 @@ def register():
 
         if not any(char.islower() for char in passwd):
             message = 'Password should have at least one lowercase letter'
-
-        if not any(char in special_sym for char in passwd):
-            message = 'Password should have at least one of the symbols $@#'
+        #
+        # if not any(char in special_sym for char in passwd):
+        #     message = 'Password should have at least one of the symbols $@#'
 
         return message
 
-    msg = password_check(web_password)
+    msg = password_check(web_password1)
 
     # insert one user into DB if passed all checks
-    if nullfield_check(web_email, web_username) and email_format_check(web_email) \
-            and msg == "" and unique_email_check(web_email):
+    if null_check(web_email, web_firstname) and \
+            null_check(web_email, web_lastname) and \
+            password_confirm_check(web_password1, web_password2) and \
+            email_format_check(web_email) and msg == "" and \
+            unique_email_check(web_email):
         user = {"email": web_email,
-                "name": web_name,
-                "age": web_age,
-                "username": web_username,
-                "password": password_encrypt(web_password),
-                "gender": web_gender}
+                "fullname": web_firstname + " " + web_lastname,
+                "firstname": web_firstname,
+                "lastname": web_lastname,
+                "password": password_encrypt(web_password1),
+                }
         _id = db_collection_User.insert_one(user)
-        flash("You have successfully created your account. Congrats!")
+        print("You have successfully created your account. Congrats!")
         return redirect(url_for("default"))
 
     error_ = ""
 
-    if not nullfield_check(web_email, web_username):
+    if not null_check(web_email, web_firstname) or not null_check(web_email, web_lastname):
         error_ = warning_empty
 
     if not email_format_check(web_email):
-        error_ = warning_emailFormatInvalid
+        error_ = warning_email_format_invalid
+
+    if not password_confirm_check(web_password1, web_password2):
+        error_ = "Password and confirm password must be same. Please try again!"
+
+    if not unique_email_check(web_email):
+        error_ = "This Email account has been registered, please try another!"
 
     if msg != "":
         error_ = msg
 
-    return render_template("register.html", error=error_)
+
+    print(error_)
+
+    return redirect("register.html")

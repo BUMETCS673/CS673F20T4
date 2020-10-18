@@ -28,19 +28,22 @@ db_collection_User = db['User']
 
 @app.route('/', methods=['GET'])
 def default():
-    print(db_collection_User.find_one({"email": "test@dairy.com"})["email"])
-    return render_template("home.html")
+    return render_template("index.html")
 
 
 @app.route('/home', methods=['GET'])
-def home_page():
-    return render_template("home.html")
+def home_page1():
+    return render_template("index.html")
 
+
+@app.route('/index.html', methods=['GET'])
+def home_page2():
+    return render_template("index.html")
 
 if __name__ == '__main__':
     app.run(
         host='127.0.0.1',
-        port=5001,
+        port=5002,
         debug=True
     )
 
