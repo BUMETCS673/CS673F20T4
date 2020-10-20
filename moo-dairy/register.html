@@ -10,7 +10,7 @@
 		<div class="login-page">
 		  <div class="form">
 		  
-		  			 <p id="image_logo"><a href="index.html"><img src="css/images/logo.png"></p></a>
+		  			 <p id="image_logo"><a href="index.html"><img src="css/images/logo.png"></a></p>
 		  			 <p class = "p1">Join Dairy Farm today</p>
 		  			 
 		  			 <form class="login-form" id="form1" action="/register-result" method="POST">
@@ -23,8 +23,18 @@
 					  </div>
 					  
 					  <div class="password">
-		  			  <input type="password" name="password1" placeholder="Password"/>
-					  <input type="confirm password" name="password2" placeholder="Confirm Password"/>
+		  			  <input type="password" id="password2" name="password2" placeholder="Password"/>
+					  <input type="password" id="password3" name="password3" placeholder="Confirm Password"/>
+					  </div>
+					  
+					  <div class="eye" id="eye2">
+					  	<i class="far fa-eye" id="fa-eye2"></i>
+					  	<i class="far fa-eye-slash" id="fa-eye-slash2"></i>
+					  </div>
+					  
+					  <div class="eye" id="eye3">
+					  	<i class="far fa-eye" id="fa-eye3"></i>
+					  	<i class="far fa-eye-slash" id="fa-eye-slash3"></i>
 					  </div>
 					  </form>
 					  
@@ -54,5 +64,6 @@
 				</footer>
 
 		</div>
+	<script src="js/login_register.js"></script>
 	</body>
 </html>

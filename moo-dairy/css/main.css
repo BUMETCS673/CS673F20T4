@@ -16,7 +16,7 @@
 	footer, header, nav, section {
 		display: block;
 	}
-xf
+
 	body {
 		line-height: 1;
 	}
@@ -409,12 +409,60 @@ xf
 	  padding: 15px;
 	  color: #FFFFFF;
 	  font-size: 14px;
-/* 	  -webkit-transition: all 0.3 ease;
-	  transition: all 0.3 ease;
-	  cursor: pointer;
-	 */
 	  position: relative;
 	  top: -100px;
+	}
+	
+	#fa-eye1 {
+	  position: absolute;
+	  right: 12%;
+	  top: 29%;
+	  cursor: pointer;
+	  color: #b8b8b8;
+	}
+	
+	#fa-eye-slash1 {
+	  position: absolute;
+	  right: 12%;
+	  top: 29%;
+	  cursor: pointer;
+	  display: none;
+	  color: #b8b8b8;
+	}
+	
+	/* register password */
+	#fa-eye2 {
+	  position: absolute;
+	  right: 12%;
+	  top: 52%;
+	  cursor: pointer;
+	  color: #b8b8b8;
+	}
+	
+	#fa-eye-slash2 {
+	  position: absolute;
+	  right: 12%;
+	  top: 52%;
+	  cursor: pointer;
+	  display: none;
+	  color: #b8b8b8;
+	}
+	/* register confirm password */
+	#fa-eye3 {
+	  position: absolute;
+	  right: 12%;
+	  top: 62%;
+	  cursor: pointer;
+	  color: #b8b8b8;
+	}
+	
+	#fa-eye-slash3{
+	  position: absolute;
+	  right: 12%;
+	  top: 62%;
+	  cursor: pointer;
+	  display: none;
+	  color: #b8b8b8;
 	}
 	
 	#cancel_button{
