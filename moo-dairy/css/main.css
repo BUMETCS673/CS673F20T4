@@ -235,7 +235,7 @@
 		position: fixed;
 		top: 0;
 		width: 100%;
-		z-index: 10000;
+		z-index: 800;
 	}
 
 		#header h1 {
@@ -548,8 +548,97 @@
 		float:left;
 		}
 
-
+/* product */
+			.goods_list{
+				background-attachment:fixed;
+				background-color: #666;
+				background-image:url("images/productback.jpeg");
+				background-position:center center;
+				background-repeat: no-repeat;
+				background-size:cover;
+				color: #fff;
+				padding: 20em 0;
+				text-align: center;
+			}
+			
+			.grid-container {
+				width: 900px;
+				height: 700px;
+				padding: 13px;
+				
+				position: absolute;	 
+				left: 0;
+				top: 35%;
+				right: 0;
+				bottom: 0;
+				margin: auto;
 	
+				background-color: rgba(240, 255, 255, 0.5);
+					 
+				border-radius: 10px;
+				text-align: center;
+				display: grid;
+				grid-template-columns: repeat(4, 1fr);
+				align-items: stretch;
+            }
+			
+            .card {	
+				position: relative;
+				top: -25%;
+				background-color: rgba(255, 255, 255, 0.8);
+				border-radius: 10px;
+				max-width: 190px;
+				height: 300px;
+				margin: auto;
+				text-align: center;
+				font-family: AppleGothic, sans-serif;
+            }
+			
+			.product-pic{
+				position: relative;
+				top: 5%;
+			}
+            .price {
+				margin-left: 15px;
+				margin-top: 15px;
+				margin-bottom: 0;
+                color: black;
+                font-size: 18px;
+				font-weight:bold;
+				text-align: left;
+            }
+			
+			.product-name{
+				margin-left: 15px;
+				color: #605f61;
+				font-size: 12px;
+				text-align: left;
+				line-height:120%
+			}
+
+            .card button {
+				position: absolute;
+				top: 5%;
+				right: 5%;
+                border-color: #4CAF50;            
+                padding: 12px;
+                color: #4CAF50;
+                background-color: #FFFFFF;
+                text-align: center;
+				font-weight: bold;
+                cursor: pointer;
+                width: 40px;
+				height: 40px;
+                font-size: 12px;
+				border-radius: 50%;
+            }
+
+            .card button:hover {
+                opacity: 0.7;
+            }
+			
+
+				
 	
 /* Footer */
 
