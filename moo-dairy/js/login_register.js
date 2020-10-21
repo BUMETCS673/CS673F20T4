@@ -60,3 +60,115 @@ if(eye3){
 	  }
 	});
 }
+
+//validation
+$.validator.setDefaults({
+            submitHandler: function () {
+                alert("success!");
+            }
+        });
+        $().ready(function () {
+            //login/register validation
+            $(".login-form").validate({
+                rules: {
+					//password cannot be empty
+                    password: {
+                        required: true
+                    },
+					//email cannot be empty, must follow email format
+                    email: {
+                        required: true,
+                        email: true
+                    },
+					firstname:{
+						required:true
+					},
+					lastname:{
+						required:true
+					},
+					//register password
+					password2:{
+						required: true,
+						minlength: 8,
+						maxlength:20
+					},
+					//register confirm password
+					password3:{
+						required: true,
+						equalTo: "#password2"
+					}
+                },
+				//tips style
+                showErrors: function (errorMap, errorList) {
+                    var msg = "";
+                    $.each(errorList, function (i, v) {
+                        layer.tips("<span style='color:black'>"+v.message+"</span>", v.element, { 
+							time: 2000,
+							tips:[1,'rgba(255, 255, 255, 0.8)']
+							});
+                        return false;
+                    });  
+                },
+				//no focus remove tips
+                onfocusout: false
+            });
+        });
+		
+		//password validation 
+		var myInput = document.getElementById("password2");
+		var letter = document.getElementById("letter");
+		var capital = document.getElementById("capital");
+		var number = document.getElementById("number");
+		var length = document.getElementById("length");
+		
+		// When the user clicks on the password field, show the message box
+		myInput.onfocus = function() {
+		  document.getElementById("password-requirement").style.display = "block";
+		}
+		
+		// When the user clicks outside of the password field, hide the message box
+		myInput.onblur = function() {
+		  document.getElementById("password-requirement").style.display = "none";
+		}
+		
+		// When the user starts to type something inside the password field
+		myInput.onkeyup = function() {
+		  // Validate lowercase letters
+		  var lowerCaseLetters = /[a-z]/g;
+		  if(myInput.value.match(lowerCaseLetters)) {  
+		    letter.classList.remove("invalid");
+		    letter.classList.add("valid");
+		  } else {
+		    letter.classList.remove("valid");
+		    letter.classList.add("invalid");
+		  }
+		  
+		  // Validate capital letters
+		  var upperCaseLetters = /[A-Z]/g;
+		  if(myInput.value.match(upperCaseLetters)) {  
+		    capital.classList.remove("invalid");
+		    capital.classList.add("valid");
+		  } else {
+		    capital.classList.remove("valid");
+		    capital.classList.add("invalid");
+		  }
+		
+		  // Validate numbers
+		  var numbers = /[0-9]/g;
+		  if(myInput.value.match(numbers)) {  
+		    number.classList.remove("invalid");
+		    number.classList.add("valid");
+		  } else {
+		    number.classList.remove("valid");
+		    number.classList.add("invalid");
+		  }
+		  
+		  // Validate length
+		  if(myInput.value.length >= 8 && myInput.value.length <= 20) {
+		    length.classList.remove("invalid");
+		    length.classList.add("valid");
+		  } else {
+		    length.classList.remove("valid");
+		    length.classList.add("invalid");
+		  }
+		}

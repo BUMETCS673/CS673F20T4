@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Dairy Farm</title>
+		<title>Moo Dairy</title>
 		<meta charset="utf-8" />
 		<link rel="stylesheet" href="css/main.css" />
 	</head>
@@ -11,7 +11,7 @@
 		  <div class="form">
 		  
 		  			 <p id="image_logo"><a href="index.html"><img src="css/images/logo.png"></a></p>
-		  			 <p class = "p1">Join Dairy Farm today</p>
+		  			 <p class = "p1">Join Moo Dairy today</p>
 		  			 
 		  			 <form class="login-form" id="form1" action="/register-result" method="POST">
 				      <input type="first name" name="firstname" placeholder="First Name"/>
@@ -36,13 +36,22 @@
 					  	<i class="far fa-eye" id="fa-eye3"></i>
 					  	<i class="far fa-eye-slash" id="fa-eye-slash3"></i>
 					  </div>
+					  
+					  <div id="password-requirement">
+					    <h1>Password must contain the following:</h1>
+					    <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+					    <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+					    <p id="number" class="invalid">A <b>number</b></p>
+					    <p id="length" class="invalid">Length <b>between 8-20</b></p>
+					  </div>
+					  
 					  </form>
 					  
 		  			  <button id="submit_button" form="form1" type="submit">submit</button>
 		  			  <a href="index.html"><button id="cancel_button">cancel</button></a>
 		  	
 		  			  <p class="message">Already have an account? <a href="login.html">Log in</a></p>
-		  			  <p class="terms">By signing up you confirm that you accept the terms of the Dairy Farm Usage Agreement and Privacy Notice.</p>
+		  			  <p class="terms">By signing up you confirm that you accept the terms of the Moo Dairy Usage Agreement and Privacy Notice.</p>
 		  			  </div>
 		  			
 		  </div>
@@ -59,11 +68,14 @@
 						<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
 					</ul>
 					<ul class="copyright">
-						<li>&copy; Untitled. All rights reserved.</li><li>Design: Dairy Farm</li>
+						<li>&copy; Untitled. All rights reserved.</li><li>Design: Moo Dairy</li>
 					</ul>
 				</footer>
 
 		</div>
+	<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+	<script src="js/jquery.validate.js"></script>
+	<script src="js/layer/layer.js"></script>
 	<script src="js/login_register.js"></script>
 	</body>
 </html>

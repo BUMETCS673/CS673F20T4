@@ -1,6 +1,7 @@
 var num = 0;
 
 function addCart(event) {
+	var cart = $('#cart');
 	var s_left =event.clientX;
 	var s_top =event.clientY;
 	var e_left =$("#cart").offset().left;
@@ -20,6 +21,7 @@ function addCart(event) {
 			left: e_left,
 			top: e_top
 		},
+		
 		onEnd:function(){
 			flyer.fadeOut("slow",function(){
 				$(this).remove();

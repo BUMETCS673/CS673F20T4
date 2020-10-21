@@ -465,6 +465,54 @@
 	  color: #b8b8b8;
 	}
 	
+	#password-requirement{
+	  font-family: "Roboto", sans-serif;
+	  display:none;
+	  background: rgba(255, 255, 255, 0.7);
+	  border-radius: 10px;
+	  color: #000;
+	  position: absolute;
+	  top: 50%;
+	  left: -70%;
+	  font-size: 12px;
+	  font-weight: bold;
+	  height: 180px;
+	  width: 250px;
+	}
+	#password-requirement h1{
+		margin: 5%;
+		margin-bottom: 10%;
+		font-size: 14px;
+		line-height:70%;
+	}
+	#password-requirement p {
+	  position: relative;
+	  margin-left: 25%;
+	  font-size: 12px;
+	  line-height:90%;
+	  text-align: left;
+	}
+	.valid {
+	  color: #519D60;
+	}
+	
+	.valid:before {
+	  position: relative;
+	  left: -35px;
+	  content: "✔";
+	}
+	
+	.invalid {
+	  color: red;
+	}
+	
+	.invalid:before {
+	  position: relative;
+	  left: -35px;
+	  content: "✖";
+	}
+
+	
 	#cancel_button{
 		background: #c9c9c9;
 		position: relative;
@@ -472,10 +520,14 @@
 		
 	}
 	
-	
-/* 	.form button:hover,.form button:active,.form button:focus {
+
+	#login_button:hover,#login_button:active,#login_button:focus,#submit_button:hover,#submit_button:active,#submit_button:focus{
 	  background: #519D60;
-	} */
+	}
+	#cancel_button:hover,#cancel_button:active,#cancel_button:focus{
+	  background: #bdbfc4;
+	}
+
 	
 	#google_button{
 		position: relative;
@@ -489,7 +541,12 @@
 		top: -110px;
 		background: #4267B2;
 	}
-	
+	#google_button:hover,#google_button:active,#google_button:focus{
+	  background: #f3eff5;
+	}
+	#facebook_button:hover,#facebook_button:active,#facebook_button:focus{
+	  background: #355493;
+	}
 	.line_div {
 	    height: 60px;
 	    line-height: 60px;
@@ -547,6 +604,8 @@
 		font-size: 24px; 
 		float:left;
 		}
+	
+
 
 /* product */
 			.goods_list{
@@ -584,11 +643,10 @@
 			
             .card {	
 				position: relative;
-				top: -25%;
 				background-color: rgba(255, 255, 255, 0.8);
 				border-radius: 10px;
 				max-width: 190px;
-				height: 300px;
+				height: 305px;
 				margin: auto;
 				text-align: center;
 				font-family: AppleGothic, sans-serif;
@@ -610,12 +668,19 @@
 			
 			.product-name{
 				margin-left: 15px;
+				margin-bottom: 5px;
 				color: #605f61;
 				font-size: 12px;
 				text-align: left;
 				line-height:120%
 			}
-
+			.product-vol{
+				margin-left: 15px;
+				color: #89898d;
+				font-size: 12px;
+				text-align: left;
+				line-height:120%
+			}
             .card button {
 				position: absolute;
 				top: 5%;
