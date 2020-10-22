@@ -88,6 +88,7 @@ def register():
 
         return message
 
+    print(web_password1)
     msg = password_check(web_password1)
 
     # insert one user into DB if passed all checks

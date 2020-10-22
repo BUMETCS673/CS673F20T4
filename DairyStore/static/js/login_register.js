@@ -63,9 +63,9 @@ if(eye3){
 
 //validation
 $.validator.setDefaults({
-            submitHandler: function () {
-                alert("success!");
-            }
+            // submitHandler: function () {
+            //     alert("success!");
+            // }
         });
         $().ready(function () {
             //login/register validation
