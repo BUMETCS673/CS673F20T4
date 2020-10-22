@@ -14,7 +14,7 @@ db = client[yaml_reader['db']]
 db_collection_User = db[yaml_reader['collection_User']]
 
 
-@login_api.route("/login", methods=['GET'])
+@login_api.route("/login1", methods=['GET'])
 def login_page():
     return render_template("login.html")
 
