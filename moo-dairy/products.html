@@ -7,6 +7,7 @@
 	</head>
 	<body class="landing is-preload">
 		<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+		<script src="js/jquery-ui-1.12.1/jquery-ui.js"></script>
 		<script src="js/jquery.fly.js"></script>
 		<script src="js/jquery.fly.min.js"></script>
 		<script src="js/cart.js"></script>
@@ -24,7 +25,10 @@
 							<li><a href="#">About</a></li>
 							<li><a href="#" class="fas fa-search"></a></li>
 							<input type="text" class="input" placeholder="Search..">
-							<li><a href="#" class="fas fa-shopping-cart" id="cart"></a></li>
+							<li>
+								<a href="#" class="fas fa-shopping-cart" id="cart"></a>
+								<span class="badge badge-warning" id="lblCartCount">0</span>
+							</li>
 							<li><a href="login.html" class="fas fa-user"></a></li>
 						</ul>
 					</nav>
