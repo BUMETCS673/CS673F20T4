@@ -64,6 +64,7 @@ productname={
               10002007008:"Product-8"
             }
 
+
 @app.route('/', methods=['GET'])
 def default():
     return render_template("index.html")
@@ -98,25 +99,64 @@ def authorize():
     session.permanent = True  # make the session permanant so it keeps existing after broweser gets closed
     return redirect('/')
 
-@app.route('/products.html', methods=['GET','POST'])
+@app.route('/products.html', methods=['GET'])
 def product():
-    if request.method=="POST":
-        temp_list=request.form.get('receive')
-        to_be_checked=int(temp_list)
-        query = {"_id":to_be_checked}
-        docs_list = list(db_collection_product.find(query))
-        tempOutput=[]
-        for curr in docs_list:
-            tempOutput.append(curr) 
-        headerOutput=[]
-        valueOutput=[]
-        for temp in tempOutput[0]:
-            if temp!="_id":
-                headerOutput.append(temp)
-                valueOutput.append(tempOutput[0][temp])
-        res_product=productname[to_be_checked]
-        return render_template("product.html",headerOutput=headerOutput,valueOutput=valueOutput,res_product=res_product)
     return render_template("products.html")
+
+def database_retrieval(to_be_checked):
+    query = {"_id":to_be_checked}
+    docs_list = list(db_collection_product.find(query))
+    tempOutput=[]
+    for curr in docs_list:
+        tempOutput.append(curr) 
+    headerOutput=[]
+    valueOutput=[]
+    for temp in tempOutput[0]:
+        if temp!="_id":
+            headerOutput.append(temp)
+            valueOutput.append(tempOutput[0][temp])
+    res_product=productname[to_be_checked]
+    return render_template("product.html",headerOutput=headerOutput,valueOutput=valueOutput,res_product=res_product)
+
+@app.route('/product1', methods=['GET'])
+def product1():
+    to_be_checked=10002007001
+    return database_retrieval(to_be_checked)
+
+@app.route('/product2', methods=['GET'])
+def product2():
+    to_be_checked=10002007002
+    return database_retrieval(to_be_checked)
+
+@app.route('/product3', methods=['GET'])
+def product3():
+    to_be_checked=10002007003
+    return database_retrieval(to_be_checked)
+
+@app.route('/product4', methods=['GET'])
+def product4():
+    to_be_checked=10002007004
+    return database_retrieval(to_be_checked)
+
+@app.route('/product5', methods=['GET'])
+def product5():
+    to_be_checked=10002007005
+    return database_retrieval(to_be_checked)
+
+@app.route('/product6', methods=['GET'])
+def product6():
+    to_be_checked=10002007006
+    return database_retrieval(to_be_checked)
+
+@app.route('/product7', methods=['GET'])
+def product7():
+    to_be_checked=10002007007
+    return database_retrieval(to_be_checked)
+
+@app.route('/product8', methods=['GET'])
+def product8():
+    to_be_checked=10002007008
+    return database_retrieval(to_be_checked)
 
 if __name__ == '__main__':
     app.run(
