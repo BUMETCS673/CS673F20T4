@@ -114,3 +114,33 @@ function imgShow(event){
 	
 	return false
 }
+
+
+//cart page
+function updatenum(event){
+	var _this =$(event.target);
+	var input = _this.closest('div').find('input');
+	var value = parseInt(input.val());
+	var _class =  _this.attr("class");
+	var price_loc = _this.closest('div').next();
+	var price = parseFloat(price_loc.attr("value"));	
+
+	if (_class=="plus-btn"){
+		value ++
+	}else{
+		if (value>0){
+			value--
+		}else{
+			 _this.closest('.item').remove();
+		}
+	};
+	input.val(value);
+	
+	price_loc.text("$"+price*value.toFixed(2));
+
+}
+//remove from cart
+function removefromcart(event){
+	var _this =$(event.target);
+	_this.closest('.item').remove();
+}

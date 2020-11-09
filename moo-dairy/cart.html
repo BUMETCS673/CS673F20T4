@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Moo Dairy</title>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="css/main.css" />
+	</head>
+	<body class="landing is-preload">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<header id="header" class="alt">
+					<h1><a href="index.html"><img src="css/images/logo.png" alt=""><span></span></a></h1>
+					<nav id="nav">
+						<ul>
+                            <li><a href="index.html">Home</a></li>
+							<li><a href="products.html">Product</a></li>
+							<li><a href="#">About</a></li>
+							<li><a href="#" class="fas fa-search"></a></li>
+							<input type="text" class="input" placeholder="Search..">
+							<li>
+								<a href="cart.html" class="fas fa-shopping-cart" id="cart"></a>
+								<span class="badge badge-warning" id="lblCartCount">0</span>
+							</li>
+							<li><a href="login.html" class="fas fa-user"></a></li>
+						</ul>
+					</nav>
+				</header>
+
+			<!-- cart -->
+			<div class="goods_list">				
+				<div class="shopping-cart">
+				  <!-- Title -->
+				  <div class="title">My Cart</div>
+				 
+				  <!-- Product #1 -->
+				  <div class="item">
+				 
+				    <div class="image">
+				      <img src="css/images/milk1.png" alt="" />
+				    </div>
+				 
+				    <div class="description">
+					  <p class="product-name"> Whole Ultra-Filtered Milk</p>
+				      <p class="product-vol">52 oz</p>
+				    </div>
+				 
+				    <div class="quantity">
+				     <button class="minus-btn" type="button" name="button" onclick="updatenum(event)">-</button>
+				      <input type="text" name="name" value="1">
+					  <button class="plus-btn" type="button" name="button" onclick="updatenum(event)">+</button>
+				    </div>
+				 
+				    <div class="total-price" value="5.79">$5.79</div>
+					
+					<div class="cart-buttons">
+					  <i class="far fa-trash-alt" id="cart-delete" onclick="removefromcart(event)"></i>
+					</div>
+					
+				  </div>
+				 
+				  <!-- Product #2 -->
+				  <div class="item">				  				 
+				    <div class="image">
+				      <img src="css/images/milk1.png" alt="" />
+				    </div>
+				  				 
+				    <div class="description" >
+					  <p class="product-name">Fairlife Whole Ultra-Filtered Milk</p>
+				      <p class="product-vol">52 oz</p>
+				    </div>
+				  				 
+				    <div class="quantity">
+				     <button class="minus-btn" type="button" name="button" onclick="updatenum(event)">-</button>
+				      <input type="text" name="name" value="1">
+					  <button class="plus-btn" type="button" name="button" onclick="updatenum(event)">+</button>
+				    </div>
+							 
+				    <div class="total-price" value="5.79">$5.79</div>
+					<div class="cart-buttons">
+					  <i class="far fa-trash-alt" id="cart-delete" onclick="removefromcart(event)"></i>
+					</div>
+				  </div>
+				 
+				  <!-- Product #3 -->
+				
+				</div>
+				
+				<div class="cart-total">
+					
+				</div>
+			</div>
+			
+			
+			<!-- Footer -->
+				<footer id="footer">
+					<ul class="icons">
+						<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+						<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+						<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; Untitled. All rights reserved.</li><li>Design: Moo Dairy</li>
+					</ul>
+				</footer>
+		</div>
+	<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+	<script src="js/jquery-ui-1.12.1/jquery-ui.js"></script>
+	<script src="js/sweetalert2/dist/sweetalert2.all.min.js"></script>
+	<script src="js/jquery.zoom.js"></script>
+	<script src="js/jquery.zoom.min.js"></script>
+	<script src="js/jquery.fly.js"></script>
+	<script src="js/jquery.fly.min.js"></script>
+	<script src="js/cart.js"></script>
+	</body>
+</html>
+
