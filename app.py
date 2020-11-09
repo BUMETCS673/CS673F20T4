@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, redirect,url_for,session
+from flask import Flask, render_template, request, redirect,url_for,session,jsonify
 from login import login_api
 from register import register_api
 import pymongo
@@ -28,6 +28,7 @@ client = pymongo.MongoClient(yaml_reader['connection_url'])
 db = client['dairy_user_info']
 db_collection_User = db['User']
 db_collection_userlogin=db['OAUTH_USER_DETAILS']
+db_collection_product=db['Product']
 
 # dotenv setup
 from dotenv import load_dotenv
@@ -51,6 +52,17 @@ google = oauth.register(
     # userinfo_endpoint='https://openidconnect.googleapis.com/v1/userinfo',  # This is only needed if using openId to fetch user info
     client_kwargs={'scope': 'openid email profile'},
 )
+
+productname={
+              10002007001:"Product-1",
+              10002007002:"Product-2", 
+              10002007003:"Product-3",
+              10002007004:"Product-4",
+              10002007005:"Product-5",
+              10002007006:"Product-6",
+              10002007007:"Product-7",
+              10002007008:"Product-8"
+            }
 
 @app.route('/', methods=['GET'])
 def default():
@@ -79,7 +91,6 @@ def authorize():
     resp = google.get('userinfo',token=token)  # userinfo contains stuff u specificed in the scrope
     user_info = resp.json()
     db_collection_userlogin.insert_one(user_info)
-    # return {"shreyas":user_info}
     # user = oauth.google.userinfo(token=token)  # uses openid endpoint to fetch user info
     # Here you use the profile/user data that you got and query your database find/register the user
     # and set ur own data in the session not the profile from google
@@ -87,11 +98,30 @@ def authorize():
     session.permanent = True  # make the session permanant so it keeps existing after broweser gets closed
     return redirect('/')
 
+@app.route('/products.html', methods=['GET','POST'])
+def product():
+    if request.method=="POST":
+        temp_list=request.form.get('receive')
+        to_be_checked=int(temp_list)
+        query = {"_id":to_be_checked}
+        docs_list = list(db_collection_product.find(query))
+        tempOutput=[]
+        for curr in docs_list:
+            tempOutput.append(curr) 
+        headerOutput=[]
+        valueOutput=[]
+        for temp in tempOutput[0]:
+            if temp!="_id":
+                headerOutput.append(temp)
+                valueOutput.append(tempOutput[0][temp])
+        res_product=productname[to_be_checked]
+        return render_template("product.html",headerOutput=headerOutput,valueOutput=valueOutput,res_product=res_product)
+    return render_template("products.html")
+
 if __name__ == '__main__':
     app.run(
         host='127.0.0.1',
         port=5000,
         debug=True
     )
-
 
