@@ -1,5 +1,6 @@
 import os
-from flask import Flask, render_template, request, redirect,url_for,session
+import collections
+from flask import Flask, render_template, request, redirect,url_for,session,jsonify
 from login import login_api
 from register import register_api
 import pymongo
@@ -28,6 +29,7 @@ client = pymongo.MongoClient(yaml_reader['connection_url'])
 db = client['dairy_user_info']
 db_collection_User = db['User']
 db_collection_userlogin=db['OAUTH_USER_DETAILS']
+db_collection_product=db['Product']
 
 # dotenv setup
 from dotenv import load_dotenv
@@ -52,8 +54,21 @@ google = oauth.register(
     client_kwargs={'scope': 'openid email profile'},
 )
 
+productname={
+              10002007001:"Product-1",
+              10002007002:"Product-2",
+              10002007003:"Product-3",
+              10002007004:"Product-4",
+              10002007005:"Product-5",
+              10002007006:"Product-6",
+              10002007007:"Product-7",
+              10002007008:"Product-8"
+            }
+
+
 @app.route('/', methods=['GET'])
 def default():
+
     return render_template("index.html")
 
 
@@ -88,7 +103,71 @@ def authorize():
 
 @app.route('/products.html', methods=['GET'])
 def product():
-    return render_template("products.html")
+    # click product, query db and show all items
+    Product_Dictionary = collections.defaultdict(dict)
+    for each_product in db_collection_product.find({}):
+        _id = str(each_product['_id'])
+        Product_Dictionary[_id] = each_product
+    return render_template("products.html", product_dict = Product_Dictionary)
+
+def database_retrieval(to_be_checked):
+    query = {"_id":to_be_checked}
+    docs_list = list(db_collection_product.find(query))
+    tempOutput=[]
+    for curr in docs_list:
+        tempOutput.append(curr)
+    headerOutput=[]
+    valueOutput=[]
+    for temp in tempOutput[0]:
+        if temp!="_id":
+            headerOutput.append(temp)
+            valueOutput.append(tempOutput[0][temp])
+    res_product=productname[to_be_checked]
+    print(headerOutput)
+    print(valueOutput)
+    return render_template("product.html",headerOutput=headerOutput,valueOutput=valueOutput,res_product=res_product)
+
+@app.route('/product1', methods=['GET'])
+def product1():
+    to_be_checked=10002007001
+    return database_retrieval(to_be_checked)
+
+@app.route('/product2', methods=['GET'])
+def product2():
+    to_be_checked=10002007002
+    return database_retrieval(to_be_checked)
+
+@app.route('/product3', methods=['GET'])
+def product3():
+    to_be_checked=10002007003
+    return database_retrieval(to_be_checked)
+
+@app.route('/product4', methods=['GET'])
+def product4():
+    to_be_checked=10002007004
+    return database_retrieval(to_be_checked)
+
+@app.route('/product5', methods=['GET'])
+def product5():
+    to_be_checked=10002007005
+    return database_retrieval(to_be_checked)
+
+@app.route('/product6', methods=['GET'])
+def product6():
+    to_be_checked=10002007006
+    return database_retrieval(to_be_checked)
+
+@app.route('/product7', methods=['GET'])
+def product7():
+    to_be_checked=10002007007
+    return database_retrieval(to_be_checked)
+
+@app.route('/product8', methods=['GET'])
+def product8():
+    to_be_checked=10002007008
+    return database_retrieval(to_be_checked)
+
+
 
 if __name__ == '__main__':
     app.run(
@@ -96,5 +175,4 @@ if __name__ == '__main__':
         port=5000,
         debug=True
     )
-
 

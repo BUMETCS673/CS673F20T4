@@ -18,24 +18,30 @@
 							<li><a href="#">About</a></li>
 							<li><a href="#" class="fas fa-search"></a></li>
 							<input type="text" class="input" placeholder="Search..">
-							<li><a href="#" class="fas fa-shopping-cart" id="cart"></a></li>
+							<li>
+								<a href="cart.html" class="fas fa-shopping-cart" id="cart"></a>
+								<span class="badge badge-warning" id="lblCartCount">0</span>
+							</li>
 							<li><a href="login.html" class="fas fa-user"></a></li>
 						</ul>
 					</nav>
 				</header>
 
 			<!-- Banner -->
+			{% block content %}
 				<section id="banner">
+					<p>Hi,{{firstname}}</p>
 					<p>We work to preserve the ability to pass down the farm to the next generation -- the best definition of sustainability</p><br />
 					<p align="right">Moo Dairy</p>
 				</section>
+			{% endblock %}
 			<!-- Footer -->
 				<footer id="footer">
 					<ul class="icons">
-						<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-						<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-						<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-						<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
+						<li><a href="https://twitter.com/" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="https://www.facebook.com/" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+						<li><a href="https://www.instagram.com/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+						<li><a href="https://www.github.com/" class="icon brands fa-github"><span class="label">Github</span></a></li>
 					</ul>
 					<ul class="copyright">
 						<li>&copy; Untitled. All rights reserved.</li><li>Design: Moo Dairy</li>
@@ -43,5 +49,13 @@
 				</footer>
 
 		</div>
+	<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+	<script src="../static/js/jquery-ui-1.12.1/jquery-ui.js"></script>
+	<script src="../static/js/sweetalert2/dist/sweetalert2.all.min.js"></script>
+	<script src="../static/js/jquery.zoom.js"></script>
+	<script src="../static/js/jquery.zoom.min.js"></script>
+	<script src="../static/js/jquery.fly.js"></script>
+	<script src="../static/js/jquery.fly.min.js"></script>
+	<script src="../static/js/cart.js"></script>
 	</body>
 </html>
