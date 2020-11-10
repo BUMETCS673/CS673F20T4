@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{res_product}}</title>
+</head>
+<link rel="stylesheet" href="/static/styles.css">
+<body>
+    <table border="1">
+        <thead>
+            <tr>
+                {% for temp in headerOutput%}
+                    <th>{{temp}}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                {% for temp in valueOutput %}
+                    <th>{{temp}}</th>
+                {% endfor %}
+            </tr>
+        </tbody>
+        </thead>
+    </table>
+</body>
+</html>
