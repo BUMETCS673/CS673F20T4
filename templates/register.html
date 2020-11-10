@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title>Moo Dairy</title>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="../static/css/main.css" />
+ </head>
+ <body class="landing is-preload">
+  <!-- LoginFrame -->
+  <div class="login-page">
+    <div class="form">
+
+        <p id="image_logo"><a href=" "><img src="../static/css/images/logo.png"></a ></p >
+        <p class = "p1">Join Moo Dairy today</p >
+
+        <form class="login-form" id="form1" action="/register-result" method="POST">
+          <input type="first name" name="firstname" placeholder="First Name"/>
+       <input type="last name" name="lastname" placeholder="Last Name"/>
+         <input type="email" name="email" placeholder="Email Address"/>
+
+       <div class="div_txt">
+       <span class="txt">Don’t worry. We’ll never share your email with anyone</span>
+       </div>
+
+       <div class="password">
+         <input type="password" id="password2" name="password2" placeholder="Password"/>
+       <input type="password" id="password3" name="password3" placeholder="Confirm Password"/>
+       </div>
+
+       <div class="eye" id="eye2">
+        <i class="far fa-eye" id="fa-eye2"></i>
+        <i class="far fa-eye-slash" id="fa-eye-slash2"></i>
+       </div>
+
+       <div class="eye" id="eye3">
+        <i class="far fa-eye" id="fa-eye3"></i>
+        <i class="far fa-eye-slash" id="fa-eye-slash3"></i>
+       </div>
+
+       <div id="password-requirement">
+         <h1>Password must contain the following:</h1>
+         <p id="letter" class="invalid">A <b>lowercase</b> letter</p >
+         <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p >
+         <p id="number" class="invalid">A <b>number</b></p >
+         <p id="length" class="invalid">Length <b>between 8-20</b></p >
+       </div>
+
+       </form>
+
+         <button id="submit_button" form="form1" type="submit">submit</button>
+         <a href="index.html"><button id="cancel_button">cancel</button></a >
+
+         <p class="message">Already have an account? <a href="login.html">Log in</a ></p >
+         <p class="terms">By signing up you confirm that you accept the terms of the Moo Dairy Usage Agreement and Privacy Notice.</p >
+         </div>
+
+    </div>
+  </div>
+
+   <!-- Banner -->
+    <section id="user_banner"></section>
+   <!-- Footer -->
+    <footer id="footer">
+     <ul class="icons">
+      <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a ></li>
+      <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a ></li>
+      <li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a ></li>
+      <li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a ></li>
+     </ul>
+     <ul class="copyright">
+      <li>&copy; Untitled. All rights reserved.</li><li>Design: Moo Dairy</li>
+     </ul>
+    </footer>
+
+  </div>
+ <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+ <script src="../static/js/jquery.validate.js"></script>
+ <script src="../static/js/layer/layer.js"></script>
+ <script src="../static/js/login_register.js"></script>
+ </body>
+</html>
