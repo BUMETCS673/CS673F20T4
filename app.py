@@ -74,7 +74,6 @@ app.add_template_global(getFirstName, 'getFirstName')
 
 @app.route('/', methods=['GET'])
 def default():
-    print(getFirstName())
     return render_template("index.html")
 
 
@@ -116,62 +115,69 @@ def product():
         Product_Dictionary[_id] = each_product
     return render_template("products.html", product_dict = Product_Dictionary)
 
-def database_retrieval(to_be_checked):
-    query = {"_id":to_be_checked}
-    docs_list = list(db_collection_product.find(query))
-    tempOutput=[]
-    for curr in docs_list:
-        tempOutput.append(curr)
-    headerOutput=[]
-    valueOutput=[]
-    for temp in tempOutput[0]:
-        if temp!="_id":
-            headerOutput.append(temp)
-            valueOutput.append(tempOutput[0][temp])
-    res_product=productname[to_be_checked]
-    print(headerOutput)
-    print(valueOutput)
-    return render_template("product.html",headerOutput=headerOutput,valueOutput=valueOutput,res_product=res_product)
+@app.route('/cart.html', methods=['GET'])
+def cart():
+    return render_template("cart.html")
 
-@app.route('/product1', methods=['GET'])
-def product1():
-    to_be_checked=10002007001
-    return database_retrieval(to_be_checked)
-
-@app.route('/product2', methods=['GET'])
-def product2():
-    to_be_checked=10002007002
-    return database_retrieval(to_be_checked)
-
-@app.route('/product3', methods=['GET'])
-def product3():
-    to_be_checked=10002007003
-    return database_retrieval(to_be_checked)
-
-@app.route('/product4', methods=['GET'])
-def product4():
-    to_be_checked=10002007004
-    return database_retrieval(to_be_checked)
-
-@app.route('/product5', methods=['GET'])
-def product5():
-    to_be_checked=10002007005
-    return database_retrieval(to_be_checked)
-
-@app.route('/product6', methods=['GET'])
-def product6():
-    to_be_checked=10002007006
-    return database_retrieval(to_be_checked)
-
-@app.route('/product7', methods=['GET'])
-def product7():
-    to_be_checked=10002007007
-    return database_retrieval(to_be_checked)
-
-@app.route('/product8', methods=['GET'])
-def product8():
-    to_be_checked=10002007008
-    return database_retrieval(to_be_checked)
+@app.route('/about.html', methods=['GET'])
+def about():
+    return render_template("about.html")
+# def database_retrieval(to_be_checked):
+#     query = {"_id":to_be_checked}
+#     docs_list = list(db_collection_product.find(query))
+#     tempOutput=[]
+#     for curr in docs_list:
+#         tempOutput.append(curr)
+#     headerOutput=[]
+#     valueOutput=[]
+#     for temp in tempOutput[0]:
+#         if temp!="_id":
+#             headerOutput.append(temp)
+#             valueOutput.append(tempOutput[0][temp])
+#     res_product=productname[to_be_checked]
+#     print(headerOutput)
+#     print(valueOutput)
+#     return render_template("product.html",headerOutput=headerOutput,valueOutput=valueOutput,res_product=res_product)
+# #
+# @app.route('/product1', methods=['GET'])
+# def product1():
+#     to_be_checked=10002007001
+#     return database_retrieval(to_be_checked)
+#
+# @app.route('/product2', methods=['GET'])
+# def product2():
+#     to_be_checked=10002007002
+#     return database_retrieval(to_be_checked)
+#
+# @app.route('/product3', methods=['GET'])
+# def product3():
+#     to_be_checked=10002007003
+#     return database_retrieval(to_be_checked)
+#
+# @app.route('/product4', methods=['GET'])
+# def product4():
+#     to_be_checked=10002007004
+#     return database_retrieval(to_be_checked)
+#
+# @app.route('/product5', methods=['GET'])
+# def product5():
+#     to_be_checked=10002007005
+#     return database_retrieval(to_be_checked)
+#
+# @app.route('/product6', methods=['GET'])
+# def product6():
+#     to_be_checked=10002007006
+#     return database_retrieval(to_be_checked)
+#
+# @app.route('/product7', methods=['GET'])
+# def product7():
+#     to_be_checked=10002007007
+#     return database_retrieval(to_be_checked)
+#
+# @app.route('/product8', methods=['GET'])
+# def product8():
+#     to_be_checked=10002007008
+#     return database_retrieval(to_be_checked)
 
 
 
