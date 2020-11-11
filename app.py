@@ -1,7 +1,10 @@
 import os
+import collections
 from flask import Flask, render_template, request, redirect,url_for,session,jsonify
-from login import login_api
+from login import login_api, getFirstName
 from register import register_api
+from search import search_api
+from flask_mail import Mail
 import pymongo
 import hashlib
 import re
@@ -23,6 +26,7 @@ Session(app)
 app.config['SECRET_KEY'] = os.urandom(24)
 app.register_blueprint(login_api)
 app.register_blueprint(register_api)
+app.register_blueprint(search_api)
 
 client = pymongo.MongoClient(yaml_reader['connection_url'])
 db = client['dairy_user_info']
@@ -55,7 +59,7 @@ google = oauth.register(
 
 productname={
               10002007001:"Product-1",
-              10002007002:"Product-2", 
+              10002007002:"Product-2",
               10002007003:"Product-3",
               10002007004:"Product-4",
               10002007005:"Product-5",
@@ -65,8 +69,12 @@ productname={
             }
 
 
+
+app.add_template_global(getFirstName, 'getFirstName')
+
 @app.route('/', methods=['GET'])
 def default():
+    print(getFirstName())
     return render_template("index.html")
 
 
@@ -101,14 +109,19 @@ def authorize():
 
 @app.route('/products.html', methods=['GET'])
 def product():
-    return render_template("products.html")
+    # click product, query db and show all items
+    Product_Dictionary = collections.defaultdict(dict)
+    for each_product in db_collection_product.find({}):
+        _id = str(each_product['_id'])
+        Product_Dictionary[_id] = each_product
+    return render_template("products.html", product_dict = Product_Dictionary)
 
 def database_retrieval(to_be_checked):
     query = {"_id":to_be_checked}
     docs_list = list(db_collection_product.find(query))
     tempOutput=[]
     for curr in docs_list:
-        tempOutput.append(curr) 
+        tempOutput.append(curr)
     headerOutput=[]
     valueOutput=[]
     for temp in tempOutput[0]:
@@ -168,4 +181,3 @@ if __name__ == '__main__':
         port=5000,
         debug=True
     )
-

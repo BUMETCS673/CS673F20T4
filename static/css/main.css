@@ -278,7 +278,7 @@
 						padding: 0 1em;
 						border-radius: 6px;
 					}
-					/* product按钮 */
+					/* product button */
 					#header nav > ul > li a:not(.button) {
 						color: #000000;
 						display: inline-block;
@@ -286,6 +286,7 @@
 						border: 0;
 						font-weight: bold;
 					}
+
 		.badge {
 		  position: relative;
 		  left: -25px;
@@ -305,7 +306,23 @@
 		    margin-left: -10px;
 			display: none;
 		}
+		#username{
+            font-family: "Roboto", sans-serif;
+            font-weight:bold;
+            color:black;
+		}
+		.search-form{
+		    width:200px;
+		}
 
+		#search-button{
+		    position: relative;
+		    right: 50px;
+		    width:3px;
+		    font-size:20px;
+		    border:none;
+		    background-color:transparent;
+		}
 			
 /* Banner */
 
@@ -363,7 +380,7 @@
 	 
 		position: absolute;
 		left: 50%;
-		top: 50%;
+		top: 45%;
 		margin-left: -200px;
 		margin-top: -300px;
 	 
@@ -371,6 +388,7 @@
 	 
 		border-radius: 10px;
 		text-align: center;
+
 	}
 	
 	.p1{
@@ -639,33 +657,33 @@
 			}
 			
 			.grid-container {
-				width: 900px;
-				height: 700px;
-				padding: 13px;
-				
-				position: absolute;	 
+				width: 950px;
+				height: 750px;
+				padding: 18px;
+
+				position: absolute;
 				left: 0;
-				top: 35%;
+				top: 25%;
 				right: 0;
 				bottom: 0;
 				margin: auto;
-	
+
 				background-color: rgba(240, 255, 255, 0.5);
-					 
+
 				border-radius: 10px;
 				text-align: center;
 				display: grid;
 				grid-template-columns: repeat(4, 1fr);
 				align-items: stretch;
             }
-			
-            .card {	
+
+            .card {
 				position: relative;
 				background-color: rgba(255, 255, 255, 0.8);
 				border-radius: 10px;
-				max-width: 190px;
-				height: 305px;
-				margin: auto;
+				max-width: 200px;
+				max-height:350px;
+				margin: 5%;
 				text-align: center;
 				font-family: AppleGothic, sans-serif;
             }
@@ -721,6 +739,7 @@
             }
 			
 			.pop-layer{
+			    display:none;
 				position: fixed;
 				top:0px;
 				left:0px;
@@ -734,6 +753,7 @@
 			}
 			
 			.pop-box{
+			    display:none;
 				position: absolute;
 				border-radius: 9px;
 			    width: 50%;
@@ -1052,9 +1072,10 @@ button[class*=btn] {
 /* Footer */
 	#footer {
 		background: #f0f0f0;
-		padding: 2em 0 2em 0;
+		padding-top:30px;
 		text-align: center;
 	}
+
 
 		#footer .icons a {
 			-moz-transition: opacity 0.2s ease-in-out;
@@ -1073,7 +1094,7 @@ button[class*=btn] {
 			font-size: 0.9em;
 			line-height: 1em;
 			margin: 2em 0 0 0;
-			padding: 0;
+			padding-top: 0;
 			text-align: center;
 		}
 

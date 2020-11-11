@@ -19,7 +19,7 @@ function addCart(event) {
 	var e_left =$("#cart").offset().left;
 	var e_top =$("#cart").offset().top;
 	var _this =$(event.target);
-	var img = _this.prevAll( ".product-pic" ).children("img").attr("src");
+	var img = _this.closest("div").find("img").attr("src");
 	var flyer = $("<img src='"+img+"' width='50' style='border-radius:50%'/>");
 	var num = parseInt($('#lblCartCount').text());
 	
@@ -64,11 +64,15 @@ function popwindow(event) {
 		
 		$(document).ready(function(){
 		  $('.product-detail-pic')
-			.wrap('<span style="display:inline-block"></span>')
-			.css('display', 'block')
-			.parent()
-			.zoom();
+		    .wrap('<span style="display:inline-block"></span>')
+		    .css('display', 'block')
+		    .parent()
+		    .zoom();
 		});
+		$('.product-detail-pic').zoom(); // add zoom
+		$('.product-detail-pic').trigger('zoom.destroy'); // remove zoom
+
+
 	}else{
 		layer.style.display='none';
 		box.style.display='none';
