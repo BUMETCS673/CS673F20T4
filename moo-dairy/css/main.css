@@ -684,3 +684,22 @@
 			}
 
 	}
+/* about container */
+.about-section {
+  padding: 50px;
+    margin-top: 69px;
+    background-image: url("images/cow.jpg");
+    background-repeat: no-repeat;
+    background-position: 50% 30%;
+    background-size: cover;
+  text-align: center;
+  background-color: #474e5d;
+  color: white;
+}
+
+/* about paragraph margins */
+
+.about-para {
+    display: flex;
+    margin: 20px
+}
