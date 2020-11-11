@@ -2,7 +2,7 @@
 {% block content %}
 	<div class="goods_list">
 		<div class="grid-container">
-			{% for _id, _info in product_dict.items() %}
+			{% for _id, _info in search_dict.items() %}
 			<div class="card">
                 {% set product_src = "../static/css/images/" + _id + ".png" %}
 				<img src={{ product_src }} alt="milk" style="width:100%"></a>
@@ -15,5 +15,3 @@
 		</div>
 	</div>
 {% endblock %}
-
-

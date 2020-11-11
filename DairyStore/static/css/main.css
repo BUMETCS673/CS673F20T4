@@ -3,7 +3,7 @@
 
 	html, body, div, span, h1, p, a, ul, li,
 	label,
-	footer, header, nav, 
+	footer, header, nav,
 	section {
 		margin: 0;
 		padding: 0;
@@ -224,7 +224,7 @@
 
 
 /* Header */
-    
+
 	#header {
 		background: #FFFFFF;
 		color: #bbb;
@@ -305,8 +305,24 @@
 		    margin-left: -10px;
 			display: none;
 		}
+		#username{
+            font-family: "Roboto", sans-serif;
+            font-weight:bold;
+            color:black;
+		}
+		.search-form{
+		    width:200px;
+		}
+		.search-button{
+		    position:absolute;
+		    top:20px;
+		    right:200px;
+		    width:3px;
+		    font-size:20px;
+		    border:none;
+		    background-color:transparent;
+		}
 
-			
 /* Banner */
 
 	#banner {
@@ -331,7 +347,7 @@
 			letter-spacing: normal;
 			line-height: normal;
 		}
-		
+
 	#user_banner{
 		background-attachment:scroll,							fixed;
 		background-color: #666;
@@ -354,25 +370,25 @@
 			letter-spacing: normal;
 			line-height: normal;
 		}
-		
+
 /* login */
 	.login-page {
 		width: 400px;
 		height: 600px;
 		padding: 13px;
-	 
+
 		position: absolute;
 		left: 50%;
 		top: 50%;
 		margin-left: -200px;
 		margin-top: -300px;
-	 
+
 		background-color: rgba(240, 255, 255, 0.5);
-	 
+
 		border-radius: 10px;
 		text-align: center;
 	}
-	
+
 	.p1{
 		font-size: 70%;
 		position: relative;
@@ -381,7 +397,7 @@
 		font-family: "Roboto", sans-serif;
 		color: #605f61;
 	}
-	
+
 	.p2{
 		position:relative;
 		top:-80px;
@@ -416,7 +432,7 @@
 	  position: relative;
 	  top: -70px;
 	}
-	
+
 	.form button {
 	  border-radius: 8px;
 	  font-family: "Roboto", sans-serif;
@@ -431,7 +447,7 @@
 	  position: relative;
 	  top: -100px;
 	}
-	
+
 	#fa-eye1 {
 	  position: absolute;
 	  right: 12%;
@@ -439,7 +455,7 @@
 	  cursor: pointer;
 	  color: #b8b8b8;
 	}
-	
+
 	#fa-eye-slash1 {
 	  position: absolute;
 	  right: 12%;
@@ -448,7 +464,7 @@
 	  display: none;
 	  color: #b8b8b8;
 	}
-	
+
 	/* register password */
 	#fa-eye2 {
 	  position: absolute;
@@ -457,7 +473,7 @@
 	  cursor: pointer;
 	  color: #b8b8b8;
 	}
-	
+
 	#fa-eye-slash2 {
 	  position: absolute;
 	  right: 12%;
@@ -474,7 +490,7 @@
 	  cursor: pointer;
 	  color: #b8b8b8;
 	}
-	
+
 	#fa-eye-slash3{
 	  position: absolute;
 	  right: 12%;
@@ -483,7 +499,7 @@
 	  display: none;
 	  color: #b8b8b8;
 	}
-	
+
 	#password-requirement{
 	  font-family: "Roboto", sans-serif;
 	  display:none;
@@ -514,31 +530,31 @@
 	.valid {
 	  color: #519D60;
 	}
-	
+
 	.valid:before {
 	  position: relative;
 	  left: -35px;
 	  content: "✔";
 	}
-	
+
 	.invalid {
 	  color: red;
 	}
-	
+
 	.invalid:before {
 	  position: relative;
 	  left: -35px;
 	  content: "✖";
 	}
 
-	
+
 	#cancel_button{
 		background: #c9c9c9;
 		position: relative;
 		top: -90px;
-		
+
 	}
-	
+
 
 	#login_button:hover,#login_button:active,#login_button:focus,#submit_button:hover,#submit_button:active,#submit_button:focus{
 	  background: #519D60;
@@ -547,14 +563,14 @@
 	  background: #bdbfc4;
 	}
 
-	
+
 	#google_button{
 		position: relative;
 		top: -120px;
 		background: #ffffff;
 		color:#605f61;
 	}
-	
+
 	#facebook_button{
 		position: relative;
 		top: -110px;
@@ -572,7 +588,7 @@
 	    text-align: center;
 		position: relative;
 		top: -110px;;
-		
+
 	}
 	.line_div .line {
 	    display: inline-block;
@@ -584,25 +600,25 @@
 		font-size: 15px;
 	    vertical-align: middle;
 		font-family: "Roboto", sans-serif;
-		
+
 	}
-	
-	
+
+
 	.form .message {
 		position: relative;
 		top: -100px;
 		margin: 15px 0 0;
 		color: #000000;
 		font-size: 12px;
-	  
+
 	}
-	
+
 	.form .message a {
 	  color: #006a00;
 	  font:bold;
 	  text-decoration: none;
 	}
-	
+
 	.terms{
 		position: relative;
 		margin-top: -100px;
@@ -613,17 +629,17 @@
 	.form .register-form {
 	  display: none;
 	}
-	
-	.fab.fa-google { 
-		font-size: 24px; 
+
+	.fab.fa-google {
+		font-size: 24px;
 		float:left;
 		}
-		
-	.fab.fa-facebook { 
-		font-size: 24px; 
+
+	.fab.fa-facebook {
+		font-size: 24px;
 		float:left;
 		}
-	
+
 
 
 /* product */
@@ -637,39 +653,38 @@
 				padding: 20em 0;
 				text-align: center;
 			}
-			
+
 			.grid-container {
-				width: 900px;
-				height: 700px;
-				padding: 13px;
-				
-				position: absolute;	 
+				width: 950px;
+				height: 750px;
+				padding: 18px;
+
+				position: absolute;
 				left: 0;
-				top: 35%;
+				top: 25%;
 				right: 0;
 				bottom: 0;
 				margin: auto;
-	
+
 				background-color: rgba(240, 255, 255, 0.5);
-					 
+
 				border-radius: 10px;
 				text-align: center;
 				display: grid;
 				grid-template-columns: repeat(4, 1fr);
 				align-items: stretch;
             }
-			
-            .card {	
+
+            .card {
 				position: relative;
 				background-color: rgba(255, 255, 255, 0.8);
 				border-radius: 10px;
-				max-width: 190px;
-				height: 305px;
-				margin: auto;
+				max-width: 200px;
+				margin: 5%;
 				text-align: center;
 				font-family: AppleGothic, sans-serif;
             }
-			
+
 			.product-pic{
 				position: relative;
 				top: 5%;
@@ -683,7 +698,7 @@
 				font-weight:bold;
 				text-align: left;
             }
-			
+
 			.product-name{
 				margin-left: 15px;
 				margin-bottom: 5px;
@@ -703,7 +718,7 @@
 				position: absolute;
 				top: 5%;
 				right: 5%;
-                border-color: #4CAF50;            
+                border-color: #4CAF50;
                 padding: 12px;
                 color: #4CAF50;
                 background-color: #FFFFFF;
@@ -719,8 +734,9 @@
             .card button:hover {
                 opacity: 0.7;
             }
-			
+
 			.pop-layer{
+			    display:none;
 				position: fixed;
 				top:0px;
 				left:0px;
@@ -730,10 +746,11 @@
 				width:100%;
 				background-color: gray;
 				z-index: 3;
-				opacity:0.8;				
+				opacity:0.8;
 			}
-			
+
 			.pop-box{
+			    display:none;
 				position: absolute;
 				border-radius: 9px;
 			    width: 50%;
@@ -742,9 +759,9 @@
 			    top: 0; left: 0; bottom: 0; right: 0;
 				background-color: rgb(255,255,255,1);
 				z-index: 4;
-				opacity:1;	
+				opacity:1;
 			}
-			
+
 			.product-detail-pic{
 				background-size: cover;
 				background-position: center;
@@ -755,11 +772,11 @@
 				height: 300px;
 				z-index: 5;
 			}
-			
+
 			.product-detail-pic img {
 				transform: scale(1.2);
 			}
-			
+
 			.product-detail-name{
 				position: absolute;
 				top: 0;
@@ -767,7 +784,7 @@
 				margin-left: 50%;
 				width: 45%;
 				height: 10%;
-				
+
 				font-size: 18px;
 				font-weight: bold;
 				color: black;
@@ -783,7 +800,7 @@
 				color: gray;
 				font-family: "Roboto", sans-serif;
 			}
-			
+
 			.product-detail-price{
 				position: absolute;
 				top: 0;
@@ -793,8 +810,8 @@
 				font-weight: bold;
 				color: black;
 /* 				font-family: "Roboto", sans-serif; */
-				
-			} 
+
+			}
 			.product-detail-quantity{
 				position: absolute;
 				top: 0;
@@ -812,7 +829,7 @@
 				margin-top: 40%;
 			}
 			.select-num{
-				border-color: #4CAF50;            
+				border-color: #4CAF50;
 				padding: 12px;
 				color: #4CAF50;
 				background-color: #FFFFFF;
@@ -846,13 +863,13 @@
 			  font-size: 0.7rem !important;
 			  -webkit-background-size: 50%;
 			}
-			
+
 			#zoom-icon{
 				color: gray;
 				font-size: 80%;
 				cursor:pointer;
 			}
-			
+
 			#close{
 				z-index: 7;
 				font-size: 35px;
@@ -860,7 +877,7 @@
 				cursor: pointer;
 				position: absolute;
 				right: -35px;
-				
+
 			}
 /* cart */
 .shopping-cart {
@@ -869,7 +886,7 @@
 	margin: 5%;
 	width: 60%;
 	height: 95%;
-	
+
     background: #FFFFFF;
     box-shadow: 1px 2px 3px 0px rgba(0,0,0,0.10);
     border-radius: 15px;
@@ -887,13 +904,13 @@
 	font-weight: 400;
 	text-align: left;
 }
- 
+
 .item {
 	position: relative;
 	margin: 10px;
 	padding: 20px 20px;
 	height: 120px;
-	display: flex;   
+	display: flex;
 	border-radius: 15px;
 	background-color: rgba( 255,255,255, 1);
 	width: 90%;
@@ -915,7 +932,7 @@
 .image{
 	position: absolute;
     top: 60%;
-    margin: -50px 0 0 0; 
+    margin: -50px 0 0 0;
 	width: 20%;
 	left: 0;
 }
@@ -924,14 +941,14 @@
 	justify-content: center;
 	width: 50%;
 }
- 
+
 .description {
 	position: absolute;
 	top:40%;
 	left: 20%;
 	width: 40%;
 }
- 
+
 .quantity {
 	position: absolute;
 	left: 50%;
@@ -976,7 +993,7 @@ button[class*=btn] {
 	margin: 5%;
 	height: 300px;
 	width: 350px;
-	
+
 	box-shadow: 1px 2px 3px 0px rgba(0,0,0,0.10);
 	background-color:rgb(229, 229, 229);
 }
@@ -1014,7 +1031,7 @@ button[class*=btn] {
 
 	top: 70%;
 	left: 5%;
-	
+
 	padding: 3%;
 	height: 20%;
 	width: 90%;
@@ -1035,7 +1052,7 @@ button[class*=btn] {
 	right: 5%;
 	margin: 5%;
 	width: 25%;
-	
+
 	border: 0;
 	margin-top: 10px;
 	padding: 15px 25px;
@@ -1052,10 +1069,12 @@ button[class*=btn] {
 /* Footer */
 	#footer {
 		background: #f0f0f0;
-		padding: 2em 0 2em 0;
+		padding: 10px;
 		text-align: center;
 	}
-
+    #footer .icons{
+		margin-top: 3%;
+	}
 		#footer .icons a {
 			-moz-transition: opacity 0.2s ease-in-out;
 			-webkit-transition: opacity 0.2s ease-in-out;

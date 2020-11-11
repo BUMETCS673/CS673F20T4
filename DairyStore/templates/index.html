@@ -14,15 +14,25 @@
 					<nav id="nav">
 						<ul>
 							<li><a href="index.html">Home</a></li>
-							<li><a href="products.html">Product</a></li>
+							<li><a href="products.html" onclick="getFirstname(event)">Product</a></li>
 							<li><a href="#">About</a></li>
-							<li><a href="#" class="fas fa-search"></a></li>
-							<input type="text" class="input" placeholder="Search..">
+
+							<li>
+								 <form class="search-form" id="form-search" action="/search-result" method="POST">
+									<input type="text" class="input" name="keyword" placeholder="Search..">
+								 </form>
+								 <button class="search-button" form="form-search" type="submit"><a class="fas fa-search"></a></button>
+							</li>
 							<li>
 								<a href="cart.html" class="fas fa-shopping-cart" id="cart"></a>
 								<span class="badge badge-warning" id="lblCartCount">0</span>
 							</li>
 							<li><a href="login.html" class="fas fa-user"></a></li>
+							<li><p id="username">
+								{% if getFirstName()!="" %}
+								{{"Hi, "+getFirstName()}}
+							    {% endif %}
+							</p></li>
 						</ul>
 					</nav>
 				</header>
@@ -30,7 +40,6 @@
 			<!-- Banner -->
 			{% block content %}
 				<section id="banner">
-					<p>Hi,{{firstname}}</p>
 					<p>We work to preserve the ability to pass down the farm to the next generation -- the best definition of sustainability</p><br />
 					<p align="right">Moo Dairy</p>
 				</section>

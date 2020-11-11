@@ -1,8 +1,10 @@
 import os
 import collections
 from flask import Flask, render_template, request, redirect,url_for,session,jsonify
-from login import login_api
+from login import login_api, getFirstName
 from register import register_api
+from search import search_api
+from flask_mail import Mail
 import pymongo
 import hashlib
 import re
@@ -24,6 +26,7 @@ Session(app)
 app.config['SECRET_KEY'] = os.urandom(24)
 app.register_blueprint(login_api)
 app.register_blueprint(register_api)
+app.register_blueprint(search_api)
 
 client = pymongo.MongoClient(yaml_reader['connection_url'])
 db = client['dairy_user_info']
@@ -66,9 +69,12 @@ productname={
             }
 
 
+
+app.add_template_global(getFirstName, 'getFirstName')
+
 @app.route('/', methods=['GET'])
 def default():
-
+    print(getFirstName())
     return render_template("index.html")
 
 
