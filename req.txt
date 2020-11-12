@@ -1,8 +1,0 @@
-pip3 install requests
-Fask
-oauthlib
-pyOpenSSL
-Flask-Login
-pymongo
-pymongo[srv]
-

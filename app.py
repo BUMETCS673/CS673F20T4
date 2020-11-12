@@ -1,176 +1,137 @@
-import json
 import os
-import sqlite3
+from flask import Flask, render_template, request, redirect,url_for,session
+from login import login_api
+from register import register_api
+import pymongo
+import hashlib
+import re
+import yaml
+from redis import Redis
+from flask_session import Session
+# from flask import Flask, redirect, url_for, session
+from authlib.integrations.flask_client import OAuth
+import os
+from datetime import timedelta
 
-# Third-party libraries
-from flask import Flask, redirect, request, url_for,render_template
-from flask_login import (
-    LoginManager,
-    current_user,
-    login_required,
-    login_user,
-    logout_user,
-)
-from oauthlib.oauth2 import WebApplicationClient
-import requests
-import logging
-import click
+import requests_oauthlib
+from requests_oauthlib.compliance_fixes import facebook_compliance_fix
 
-# Internal imports
-from db import init_db_command
-from user import User
-
-
-# GOOGLE_CLIENT_ID = os.environ.get("175681250166-qnkr17p6pvp3knl8au2ff4snuism42g1.apps.googleusercontent.com", None)
-GOOGLE_CLIENT_ID = "293323576604-8kn5l2954a35268eliajgd4u75dq8gfo.apps.googleusercontent.com"
-GOOGLE_CLIENT_SECRET = "8doTyA-giqRWnNbj-rZ87hHx"
-GOOGLE_DISCOVERY_URL = (
-    "https://accounts.google.com/.well-known/openid-configuration"
-)
-
-BASE_URL='https://127.0.0.1:5000'
+f = open("flask_yaml/mongo-credential.yaml")
+data = f.read()
+yaml_reader = yaml.load(data)
 
 app = Flask(__name__)
+app.config['SESSION_TYPE'] = 'filesystem'
+Session(app)
+app.config['SECRET_KEY'] = os.urandom(24)
+app.register_blueprint(login_api)
+app.register_blueprint(register_api)
+
+client = pymongo.MongoClient(yaml_reader['connection_url'])
+db = client['dairy_user_info']
+db_collection_User = db['User']
+db_collection_userlogin=db['OAUTH_USER_DETAILS']
+
+# dotenv setup
+from dotenv import load_dotenv
+load_dotenv()
+
+
+URL ='http://127.0.0.1:5000/'
 app.secret_key = os.urandom(24)
+app.config['SESSION_COOKIE_NAME'] = 'google-login-session'
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=5)
 
-login_manager = LoginManager()
-login_manager.init_app(app)
-
-# Naive database setup
-try:
-    init_db_command()
-except:
-    # Assume it's already been created
-    pass
-
-# OAuth 2 client setup
-client = WebApplicationClient(GOOGLE_CLIENT_ID)
-
-# Flask-Login helper to retrieve a user from our db
-@login_manager.user_loader
-def load_user(user_id):
-    return User.get(user_id)
-
+# oAuth Setup
+oauth = OAuth(app)
+google = oauth.register(
+    name='google',
+    client_id="510040117441-bhjkhpcm8r1l1skiaj6auagd7g0titpf.apps.googleusercontent.com",
+    client_secret="Vuw2wpmvi7teEqEGWrOXneF2",
+    access_token_url='https://accounts.google.com/o/oauth2/token',
+    access_token_params=None,
+    authorize_url='https://accounts.google.com/o/oauth2/auth',
+    authorize_params=None,
+    api_base_url='https://www.googleapis.com/oauth2/v1/',
+    # userinfo_endpoint='https://openidconnect.googleapis.com/v1/userinfo',  # This is only needed if using openId to fetch user info
+    client_kwargs={'scope': 'openid email profile'},
+)
 
 
-@app.route("/")
-def index():
-    return render_template('login.html')
-    # return '<div class="gloginbtn"><a class="button" href="/login">Login with google</a><div>'
+FB_CLIENT_ID = '130193744280198'
+FB_CLIENT_SECRET = '54432f153c538026224ea90a07809b37'
+
+FB_AUTHORIZATION_BASE_URL = "https://www.facebook.com/dialog/oauth"
+FB_TOKEN_URL = "https://graph.facebook.com/oauth/access_token"
+
+FB_SCOPE = ["email"]
+
+
+@app.route('/', methods=['GET'])
+def default():
+    return render_template("index.html")
+
+
+@app.route('/home', methods=['GET', 'POST'])
+def home_page1():
+    return render_template("index.html")
+
+
+@app.route('/index.html', methods=['GET'])
+def home_page2():
+    return render_template("index.html")
+
+@app.route('/login',methods=['POST'])
+def login():
+    google=oauth.create_client('google')
+    redirect_url=url_for('authorize',_external=True)
+    # code = request.args.get("code")
+    return google.authorize_redirect(redirect_url)
 
 
 
-@app.route("/userinfo")
-def userinfo():
-    print(current_user.is_authenticated)
-    #print(current_user.name)
-    if current_user.is_authenticated:
-        return (
-            "<p>Hello, {}! You're logged in! Email: {}</p>"
-            "<div><p>Google Profile Picture:</p>"
-            '<img src="{}" alt="Google profile pic"></img></div>'
-            '<a class="button" href="/logout">Logout</a>'.format(
-                current_user.name, current_user.email, current_user.profile_pic
-            )
-        )
-    else:
-        return ' '
-
-def get_google_provider_cfg():
-    return requests.get(GOOGLE_DISCOVERY_URL).json()
 
 
-@app.route("/authorize")
+
+
+@app.route('/authorize',methods=['GET','POST'])
 def authorize():
-    # Find out what URL to hit for Google login
-    google_provider_cfg = get_google_provider_cfg()
-    authorization_endpoint = google_provider_cfg["authorization_endpoint"]
-
-    # Use library to construct the request for Google login and provide
-    # scopes that let you retrieve user's profile from Google
-    request_uri = client.prepare_request_uri(
-        authorization_endpoint,
-        redirect_uri=BASE_URL+ "/token",#request.base_url 
-        scope=["openid", "email", "profile"],
-    )
-    return redirect(request_uri)
-
-
-@app.route("/token")
-def token():
-    # Get authorization code Google sent back to you
-    code = request.args.get("code")
-
-
-
-    google_provider_cfg = get_google_provider_cfg()
-    token_endpoint = google_provider_cfg["token_endpoint"]
-
-
-    # Prepare and send a request to get tokens! Yay tokens!
-    token_url, headers, body = client.prepare_token_request(
-        token_endpoint,
-        authorization_response=request.url,
-        redirect_url=request.base_url,
-        code=code
-    )
-    token_response = requests.post(
-        token_url,
-        headers=headers,
-        data=body,
-        auth=(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET),
-    )
-   
-
-
-    # Parse the tokens!
-    client.parse_request_body_response(json.dumps(token_response.json()))
-
-
-
-    # Now that you have tokens (yay) let's find and hit the URL
-    # from Google that gives you the user's profile information,
-    # including their Google profile image and email
-    userinfo_endpoint = google_provider_cfg["userinfo_endpoint"]
-    uri, headers, body = client.add_token(userinfo_endpoint)
-    userinfo_response = requests.get(uri, headers=headers, data=body)
     
+    if request.method == 'POST':
+        fid = request.args.get('fid') # Your form's
+        name = request.args.get('name') 
+        user_info={
+            "fid":fid,
+            "name":name
+        }
 
-    if userinfo_response.json().get("email_verified"):
-        unique_id = userinfo_response.json()["sub"]
-        users_email = userinfo_response.json()["email"]
-        picture = userinfo_response.json()["picture"]
-        users_name = userinfo_response.json()["given_name"]
     else:
-        return "User email not available or not verified by Google.", 400
+        google = oauth.create_client('google')  # create the google oauth client
+        token = google.authorize_access_token()  # Access token from google (needed to get user info)
+        resp = google.get('userinfo',token=token)  # userinfo contains stuff u specificed in the scrope
+        user_info = resp.json()
+        db_collection_userlogin.insert_one(user_info)
+        # return {"shreyas":user_info}
+        # user = oauth.google.userinfo(token=token)  # uses openid endpoint to fetch user info
+        # Here you use the profile/user data that you got and query your database find/register the user
+        # and set ur own data in the session not the profile from google
+        # session['profile'] = user_info
+        # session.permanent = True  # make the session permanant so it keeps existing after broweser gets closed
+        # return redirect('/')
+
+    session['profile'] = user_info
+    session.permanent = True  # make the session permanant so it keeps existing after broweser gets closed
+    return redirect('/')
 
 
-    user = User(
-        gid=unique_id, name=users_name, email=users_email, profile_pic=picture
+
+if __name__ == '__main__':
+    print('hello')
+    app.run(
+        ssl_context="adhoc",
+        host='127.0.0.1',
+        port=5000,
+        debug=True
     )
 
-    # don't store for now
-    if not User.get(unique_id):
-         User.create(unique_id, users_name, users_email, picture)
 
-    # Begin user session by logging the user in
-    login_user(user)
-
-    # Send user to the another page
-    return redirect(url_for("index"))
-
-
-
-
-
-
-@app.route("/logout")
-@login_required
-def logout():
-    logout_user()
-    return redirect(url_for("index"))
-
-
-
-if __name__ == "__main__":
-    app.run(ssl_context="adhoc")
