@@ -62,11 +62,11 @@ if(eye3){
 }
 
 //validation
-$.validator.setDefaults({
-            // submitHandler: function () {
-            //     alert("success!");
-            // }
-        });
+//$.validator.setDefaults({
+//            submitHandler: function () {
+//               alert("success!");
+//            }
+//        });
         $().ready(function () {
             //login/register validation
             $(".login-form").validate({
@@ -172,3 +172,4 @@ $.validator.setDefaults({
 		    length.classList.add("invalid");
 		  }
 		}
+

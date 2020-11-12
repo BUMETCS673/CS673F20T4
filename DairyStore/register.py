@@ -1,4 +1,6 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask_bcrypt import Bcrypt
+from login import setFirstName, getFirstName
 from flask_session import Session
 import pymongo
 import hashlib
@@ -8,14 +10,19 @@ import re
 from redis import Redis
 
 register_api = Blueprint('register_api', __name__)
-
+bcrypt = Bcrypt()
 f = open("flask_yaml/mongo-credential.yaml")
 data = f.read()
-yaml_reader = yaml.load(data)
-
+yaml_reader = yaml.safe_load(data)
 client = pymongo.MongoClient(yaml_reader['connection_url'])
 db = client[yaml_reader['db']]
 db_collection_User = db[yaml_reader['collection_User']]
+
+error_ = ""
+
+
+def getError():
+    return error_
 
 
 @register_api.route('/register', methods=['GET'])
@@ -33,15 +40,15 @@ def register():
     web_email = request.form.get("email")
     web_firstname = request.form.get("firstname")
     web_lastname = request.form.get("lastname")
-    web_password1 = request.form.get("password1")
-    web_password2 = request.form.get("password2")
+    web_password1 = request.form.get("password2")
+    web_password2 = request.form.get("password3")
 
     email_regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
     warning_empty = "The username or Email cannot be empty!"
     warning_email_format_invalid = "The Email format is invalid! Please check and retry."
 
     def password_encrypt(password):
-        _password = hashlib.md5(password.encode('utf8')).hexdigest()
+        _password = bcrypt.generate_password_hash(password).decode("utf-8")
         return _password
 
     def password_confirm_check(passwd: str, cfm_passwd: str):
@@ -88,7 +95,6 @@ def register():
 
         return message
 
-    print(web_password1)
     msg = password_check(web_password1)
 
     # insert one user into DB if passed all checks
@@ -101,13 +107,14 @@ def register():
                 "fullname": web_firstname + " " + web_lastname,
                 "firstname": web_firstname,
                 "lastname": web_lastname,
-                "password": password_encrypt(web_password1),
+                "password_hash": password_encrypt(web_password1),
                 }
         _id = db_collection_User.insert_one(user)
+        setFirstName(web_firstname)
         print("You have successfully created your account. Congrats!")
         return redirect(url_for("default"))
 
-    error_ = ""
+    global error_
 
     if not null_check(web_email, web_firstname) or not null_check(web_email, web_lastname):
         error_ = warning_empty
@@ -123,8 +130,5 @@ def register():
 
     if msg != "":
         error_ = msg
-
-
-    print(error_)
 
     return redirect("register.html")
