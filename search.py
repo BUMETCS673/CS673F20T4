@@ -10,7 +10,7 @@ search_api = Blueprint('search_api', __name__)
 bcrypt = Bcrypt()
 f = open("flask_yaml/mongo-credential.yaml")
 data = f.read()
-yaml_reader = yaml.load(data)
+yaml_reader = yaml.safe_load(data)
 
 client = pymongo.MongoClient(yaml_reader['connection_url'])
 db = client[yaml_reader['db']]

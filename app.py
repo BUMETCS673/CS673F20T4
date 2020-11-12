@@ -18,7 +18,7 @@ from datetime import timedelta
 
 f = open("flask_yaml/mongo-credential.yaml")
 data = f.read()
-yaml_reader = yaml.load(data)
+yaml_reader = yaml.safe_load(data)
 
 app = Flask(__name__)
 app.config['SESSION_TYPE'] = 'filesystem'
