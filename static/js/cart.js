@@ -134,3 +134,4 @@ function removefromcart(event){
 	var _this =$(event.target);
 	_this.closest('.item').remove();
 }
+

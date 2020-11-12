@@ -1,13 +1,13 @@
 {% extends "index.html" %}
 {% block content %}
-<div class="about-section">
-	<p style="font-size:80px">About us</p>
+<div class="about">
+	<video autoplay muted loop id="myVideo">
+		<source src="../static/css/images/mixkit-milk-poured-in-a-glass-8425-medium.mp4" type="video/mp4">
+	</video>
+	<div class="about-para">
+		<p class="about">About us</p>
+		<p classs="par">We here at Moo Dairy draw our roots from the many cow farms we visited as children. Those farms always brought us amazement and wonder. In our adult years, we wanted to help those farms and so we decided to start Moo Dairy. Moo Dairy draws in all kinds of natural dairy products made from cow farms where cows roam free. We pride ourselves on making sure we bring only the freshest Dairy Products to your doorstep as well as providing all the options you might need. We thank you for the trust you place into us and our products and welcome you to our website. Happy shopping!</p>
+		<a class="fas fa-arrow-circle-right" href="products.html" id="arrow"></a>
+	</div>
 </div>
-
-<!-- About Paragraph and Picture -->
-<div class="about-para">
-	<img src="../static/css/images/milk.jpg" alt="Milk" width="400" height="300";>
-	<p style="margin-left:20px" >We here at Moo Dairy draw our roots from the many cow farms we visited as children. Those farms always brought us amazement and wonder. In our adult years, We wanted to help those farms and so we decided to start Moo Dairy. Moo Dairy draws in all kinds of natural dairy products made from cow farms where cows roam free. We pride ourselves on making sure we bring only the freshest Dairy Products to your doorstep as well as providing all the options you might need. We thank you for the trust you place into us and our products and welcome you to our website. Happy shopping!</p>
-</div>
-
 {% endblock %}

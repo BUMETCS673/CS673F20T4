@@ -1117,21 +1117,30 @@ button[class*=btn] {
 				}
 
 /* about container */
-.about-section {
-  padding: 50px;
-    margin-top: 69px;
-    background-image: url("../static/css/images/cow.jpg");
-    background-repeat: no-repeat;
-    background-position: 50% 30%;
-    background-size: cover;
-  text-align: center;
-  background-color: #474e5d;
-  color: white;
+#myVideo {
+    width:100%;
 }
 
-/* about paragraph margins */
+.about-para{
+  position: fixed;
+  top:10%;
+  color: #f1f1f1;
+  margin: 10%;
+  font-size:20px;
+}
 
-.about-para {
-    display: flex;
-    margin: 20px
+.about{
+     font-size:100px;
+     text-align:center;
+     margin-bottom:10%;
+}
+
+.par{
+    margin:0;
+}
+
+#arrow{
+    font-size:65px;
+    text-decoration: none;
+    color:white;
 }
