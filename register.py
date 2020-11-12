@@ -1,11 +1,13 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import Blueprint, render_template, request, flash, redirect, url_for,jsonify
 from flask_session import Session
 import pymongo
 import hashlib
 import yaml
 import re
-
+import jwt
+from functools import wraps
 from redis import Redis
+
 
 register_api = Blueprint('register_api', __name__)
 
@@ -88,6 +90,7 @@ def register():
 
         return message
 
+    print(web_password1)
     msg = password_check(web_password1)
 
     # insert one user into DB if passed all checks
@@ -102,6 +105,7 @@ def register():
                 "lastname": web_lastname,
                 "password": password_encrypt(web_password1),
                 }
+        global _id 
         _id = db_collection_User.insert_one(user)
         print("You have successfully created your account. Congrats!")
         return redirect(url_for("default"))
@@ -127,3 +131,23 @@ def register():
     print(error_)
 
     return redirect("register.html")
+
+
+# def token_requried(f):
+#     @wraps(f)
+#     def decorated(*args,**kwargs):
+#         token = None
+
+#         if 'x-acces-token' in request.headers:
+#             token = request.headers['x-access-token']
+
+#         if not token:
+#             return jsonify({'message':'Token is missing!'}),401
+#         try:
+#             data = jwt.decode(token,app.config['SECRET_KEY'])
+#             current_user = data[_id]
+#         except:
+#             return jsonify({'message':'token is invalid'}),401
+
+#         return f(current_user,*args,**kwargs)
+#     return decorated

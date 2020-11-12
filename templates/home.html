@@ -1,14 +1,128 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Welcome!</title>
-</head>
-<body>
-<h1>This is our home page.</h1>
-<a href="login" methods="GET">Go to Login</a><br/>
-<a href="register" methods="GET">Go to Register</a><br/>
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Moo Dairy</title>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="../static/css/main.css" />
+	</head>
+	<body class="landing is-preload">
+		<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+		<script src="../static/js/jquery.fly.js"></script>
+		<script src="../static/js/jquery.fly.min.js"></script>
+		<script src="../static/js/cart.js"></script>
+		<div id="page-wrapper">
 
+			<!-- Header -->
+				<header id="header" class="alt">
+<!-- 					<div class="logo_container"> -->
+					<h1><a href="index.html"><img src="../static/css/images/logo.png" alt=""><span></span></a></h1>
+		<!-- 			</div> -->
+					<nav id="nav">
+						<ul>
+                            <li><a href="home.html">Home</a></li>
+							<li><a href="products.html">Product</a></li>
+							<li><a href="#">About</a></li>
+							<li><a href="#" class="fas fa-search"></a></li>
+							<input type="text" class="input" placeholder="Search..">
+							<li><a href="#" class="fas fa-shopping-cart" id="cart"></a></li>
+							<li><a href="login.html" class="fas fa-user"></a></li>
+						</ul>
+					</nav>
+				</header>
 
-</body>
+			<!-- Products -->
+			<div class="goods_list">
+				<div class="grid-container">
+					<div class="card">
+                        <h2 class="a-size-large">
+                            <span>Milk category</span>
+                        </h2>
+						<img class="product-pic" src="../static/css/images/milk1.png" alt="milk" style="width:100%">
+						<p class="price">$3.79</p>
+						<p class="product-name">Organic Valley 2% Reduced Fat Milk</p>
+						<p class="product-vol">32 oz</p>
+						<button onclick="addCart(event)">+</button>
+					</div>
+					<div class="card">
+						<img class="product-pic" src="../static/css/images/milk3.png" alt="milk" style="width:100%">
+						<p class="price">$6.89</p>
+						<p class="product-name">2% Reduced Fat Organic Ultra-Filtered Milk</p>
+						<p class="product-vol">56 oz</p>
+						<button onclick="addCart(event)">+</button>
+					</div>
+					<div class="card">
+						<img class="product-pic" src="../static/css/images/milk7.png" alt="milk" style="width:100%">
+						<p class="price">$4.59</p>
+						<p class="product-name">Simply Smart One Percent Lowfat Milk</p>
+						<p class="product-vol">1 gal</p>
+						<button onclick="addCart(event)">+</button>
+                    </div>
+					<div class="card">
+						<img class="product-pic" src="../static/css/images/butter1.png" alt="butter" style="width:100%">
+						<p class="price">$5.79</p>
+						<p class="product-name">Organic valley salted Butter</p>
+						<p class="product-vol">23 oz</p>
+						<button onclick="addCart(event)">+</button>
+                    </div>
+                    <div class="card">
+						<img class="product-pic" src="../static/css/images/butter2.png" alt="butter" style="width:100%">
+						<p class="price">$7.79</p>
+						<p class="product-name">Vital Farms Pasture-Raised Butter</p>
+						<p class="product-vol">36 oz</p>
+						<button onclick="addCart(event)">+</button>
+                    </div>
+                    <div class="card">
+						<img class="product-pic" src="../static/css/images/butter3.png" alt="butter" style="width:100%">
+						<p class="price">$9.79</p>
+						<p class="product-name">Grass-Fed Butter</p>
+						<p class="product-vol">34 oz</p>
+						<button onclick="addCart(event)">+</button>
+                    </div>
+                    <div class="card">
+						<img class="product-pic" src="../static/css/images/cheese1.png" alt="butter" style="width:100%">
+						<p class="price">$10.79</p>
+						<p class="product-name">Provolone</p>
+						<p class="product-vol">30 oz</p>
+						<button onclick="addCart(event)">+</button>
+                    </div>
+                    <div class="card">
+						<img class="product-pic" src="../static/css/images/cheese2.png" alt="butter" style="width:100%">
+						<p class="price">$15.99</p>
+						<p class="product-name">Brie de Meaux</p>
+						<p class="product-vol">27 oz</p>
+						<button onclick="addCart(event)">+</button>
+                    </div>
+                    <div class="card">
+						<img class="product-pic" src="../static/css/images/chesse3.png" alt="butter" style="width:100%">
+						<p class="price">$8.79</p>
+						<p class="product-name">Swiss cheese</p>
+						<p class="product-vol">29 oz</p>
+						<button onclick="addCart(event)">+</button>
+                    </div>
+                    <div class="card">
+						<img class="product-pic" src="../static/css/images/yogurt2.png" alt="butter" style="width:100%">
+						<p class="price">$10.79</p>
+						<p class="product-name">greek yogurt</p>
+						<p class="product-vol">59 oz</p>
+						<button onclick="addCart(event)">+</button>
+                    </div>
+                    <div class="card">
+						<img class="product-pic" src="../static/css/images/yogurt3.png" alt="butter" style="width:100%">
+						<p class="price">$15.99</p>
+						<p class="product-name">organic yogurt</p>
+						<p class="product-vol">45 oz</p>
+						<button onclick="addCart(event)">+</button>
+                    </div>
+                    <div class="card">
+						<img class="product-pic" src="../static/css/images/yogurt5.png" alt="butter" style="width:100%">
+						<p class="price">$17.99</p>
+						<p class="product-name">soya yogurt</p>
+						<p class="product-vol">59 oz</p>
+						<button onclick="addCart(event)">+</button>
+                    </div>
+            </div>
+
+		</div>
+	</body>
 </html>
+
