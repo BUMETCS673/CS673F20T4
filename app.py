@@ -15,7 +15,7 @@ from flask_session import Session
 from authlib.integrations.flask_client import OAuth
 import os
 from datetime import timedelta
-
+import json
 f = open("flask_yaml/mongo-credential.yaml")
 data = f.read()
 yaml_reader = yaml.safe_load(data)
@@ -122,10 +122,33 @@ def cart():
 @app.route('/about.html', methods=['GET'])
 def about():
     return render_template("about.html")
+
+@app.route('/profile.html', methods=['GET'])
+def profile():
+    return render_template("profile.html")
+
+@app.route('/profile/', methods=['POST'])
+def ajax_add():
+    # current_password_json = request.get_json()
+    # current_password = current_password_json['currentpassword']
+    # password1 = current_password_json['password1']
+    # password2 = current_password_json['password2']
+    #
+    # if current_password == 'a':
+    #     return json.dumps('True')
+    # elif current_password!='a':
+    #     return json.dumps('False')
+
+    # name_json = request.get_json()
+    # name_type = name_json['type_name'][0]
+    # name_content = name_json['type_name'][1]
+    # print(name_type,name_content)
+    return json.dumps('True')
+
 # def database_retrieval(to_be_checked):
 #     query = {"_id":to_be_checked}
 #     docs_list = list(db_collection_product.find(query))
-#     tempOutput=[]
+#     tempOutput=[]ç
 #     for curr in docs_list:
 #         tempOutput.append(curr)
 #     headerOutput=[]
