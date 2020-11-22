@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_bcrypt import Bcrypt
-from login import setFirstName, getFirstName
+from login import setFirstName, getFirstName, setUserLoginEmail
 from flask_session import Session
 import pymongo
 import hashlib
@@ -17,6 +17,7 @@ yaml_reader = yaml.safe_load(data)
 client = pymongo.MongoClient(yaml_reader['connection_url'])
 db = client[yaml_reader['db']]
 db_collection_User = db[yaml_reader['collection_User']]
+db_collection_Order_History = db[yaml_reader['collection_Order_History']]
 
 error_ = ""
 
@@ -96,6 +97,7 @@ def register():
         return message
 
     msg = password_check(web_password1)
+    pwd_hash = password_encrypt(web_password1)
 
     # insert one user into DB if passed all checks
     if null_check(web_email, web_firstname) and \
@@ -107,10 +109,18 @@ def register():
                 "fullname": web_firstname + " " + web_lastname,
                 "firstname": web_firstname,
                 "lastname": web_lastname,
-                "password_hash": password_encrypt(web_password1),
+                "password_hash": pwd_hash,
                 }
+        user_order_history = {
+            "email": web_email,
+            "password_hash": pwd_hash,
+            "itemID":""
+
+        }
         _id = db_collection_User.insert_one(user)
+
         setFirstName(web_firstname)
+        setUserLoginEmail(web_email)
         print("You have successfully created your account. Congrats!")
         return redirect(url_for("default"))
 

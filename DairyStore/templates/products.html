@@ -1,7 +1,4 @@
 {% extends "index.html" %}
-{% block name %}
-<li><p id="test"></p></li>
-{% endblock %}
 {% block content %}
 	<div class="goods_list">
 		<div class="grid-container">
@@ -13,7 +10,7 @@
 				<p class="price">{{ _info['Product Price'] }}</p>
 				<p class="product-name">{{ _info['Product Name'] }}</p>
 				<p class="product-vol">{{ _info['Weight'] }}</p>
-				<button onclick="addCart(event)">+</button>
+				<button onclick="addCart(event)" class="fas fa-plus"></button>
 			</div>
 			{% endfor %}
 			{% endblock %}
@@ -36,7 +33,7 @@
 				<option value="4">4</option>
 				<option value="5">5</option>
 			</SELECT>
-			<button class="addtocart" onclick="PopaddCart(event)">+ Add to cart</button>
+			<button type="button" class="btn btn-success" id="pop-add" onclick="PopaddCart(event)">+ Add to cart</button>
 		</div>
 		<i class="fas fa-times" id="close" onclick="popwindow(event)" ></i>
 	</div>

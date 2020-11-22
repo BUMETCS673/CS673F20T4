@@ -3,7 +3,7 @@
 
 	html, body, div, span, h1, p, a, ul, li,
 	label,
-	footer, header, nav, 
+	footer, header,
 	section {
 		margin: 0;
 		padding: 0;
@@ -12,8 +12,7 @@
 		font: inherit;
 		vertical-align: baseline;
 	}
-
-	footer, header, nav, section {
+	footer, header, section {
 		display: block;
 	}
 
@@ -224,79 +223,6 @@
 
 
 /* Header */
-    
-	#header {
-		background: #FFFFFF;
-		color: #bbb;
-		cursor: default;
-		height: 3.25em;
-		left: 0;
-		line-height: 3.25em;
-		position: fixed;
-		top: 0;
-		width: 100%;
-		z-index: 2;
-	}
-
-		#header h1 {
-			height: inherit;
-			position: relative;
-		}
-
-			#header h1 img {
-				display: inline-block;
-				position: relative;
-				margin-top: 10px;
-				padding: 0 1em;
-			}
-
-		#header nav {
-			height: inherit;
-			line-height: inherit;
-			position: absolute;
-			right: 0.75em;
-			top: 0;
-			vertical-align: middle;
-		}
-
-			#header nav > ul {
-				list-style: none;
-				margin: 0;
-				padding-left: 0;
-			}
-
-				#header nav > ul > li {
-					display: inline-block;
-					padding-left: 0;
-				}
-
-
-					#header nav > ul > li a {
-						display: inline-block;
-						height: 2em;
-						line-height: 1.95em;
-						padding: 0 1em;
-						border-radius: 6px;
-					}
-					/* product button */
-					#header nav > ul > li a:not(.button) {
-						color: #000000;
-						display: inline-block;
-						text-decoration: none;
-						border: 0;
-						font-weight: bold;
-					}
-
-		.badge {
-		  position: relative;
-		  left: -25px;
-		  top: -8px;
-		  padding-left: 9px;
-		  padding-right: 9px;
-		  -webkit-border-radius: 9px;
-		  -moz-border-radius: 9px;
-		  border-radius: 9px;
-		}
 		#lblCartCount {
 		    font-size: 12px;
 		    background: #ff0000;
@@ -305,36 +231,60 @@
 		    vertical-align: top;
 		    margin-left: -10px;
 			display: none;
+			border-radius:50%;
 		}
 		#username{
             font-family: "Roboto", sans-serif;
             font-weight:bold;
             color:black;
 		}
-		.search-form{
-		    width:200px;
-		}
-
 		#search-button{
-		    position: relative;
-		    right: 50px;
-		    width:3px;
-		    font-size:20px;
 		    border:none;
 		    background-color:transparent;
 		}
-			
+        #cart{
+            border:none;
+		    background-color:transparent;
+		}
+		#user{
+            border:none;
+		    background-color:transparent;
+		}
+
+        #category >ul {
+            display: none;
+            position: absolute;
+        }
+
+        #category:hover >ul{
+            display: block;
+            position:absolute;
+            left:0;
+            background-color:white;
+            width:100%;
+        }
+
+        #category > ul > li{
+            display: inline-block;
+            list-style-type:none;
+        }
+
+        #category li a{
+            font-size:15px;
+        }
+
+
 /* Banner */
 
 	#banner {
-		background-attachment:/* scroll,							 */fixed;
+		background-attachment: fixed;
 		background-color: #666;
-		background-image: /* url("images/overlay.png"), */url("images/banner.jpeg");
-		background-position: /* top left,						 */center center;
-		background-repeat: /* repeat,							 */no-repeat;
-		background-size: /* auto,							 */cover;
+		background-image:url("images/banner.jpeg");
+		background-position: center center;
+		background-repeat:no-repeat;
+		background-size: cover;
 		color: #fff;
-		padding: /* 12em 0 */ 20em 0;
+		padding: 8em 0;
 		text-align: center;
 	}
 
@@ -350,14 +300,14 @@
 		}
 		
 	#user_banner{
-		background-attachment:scroll,							fixed;
+		background-attachment: scroll,	fixed;
 		background-color: #666;
-		background-image: url("images/overlay.png"),url("images/userbanner.jpeg");
-		background-position: top left,						center center;
-		background-repeat: repeat,							no-repeat;
-		background-size: auto,							cover;
+		background-image:  url("images/overlay.png"), url("images/userbanner.jpeg");
+		background-position: top left,	center center;
+		background-repeat: repeat,	no-repeat;
+		background-size: auto,	cover;
 		color: #fff;
-		padding: 12em 0 20em 0;
+		padding:  20em 0;
 		text-align: center;
 	}
 
@@ -646,14 +596,15 @@
 
 /* product */
 			.goods_list{
-				background-attachment:fixed;
-				background-color: #666;
-				background-image:url("images/productback.jpeg");
-				background-repeat: no-repeat;
-				background-size:cover;
-				color: #fff;
-				padding: 20em 0;
-				text-align: center;
+				background-attachment: fixed;
+                background-color: #666;
+                background-image:url("images/productback.jpeg");
+                background-position: center center;
+                background-repeat:no-repeat;
+                background-size: cover;
+                color: #fff;
+                padding: 20em 0;
+                text-align: center;
 			}
 			
 			.grid-container {
@@ -663,7 +614,7 @@
 
 				position: absolute;
 				left: 0;
-				top:25%;
+				top: 25%;
 				right: 0;
 				bottom: 0;
 				margin: auto;
@@ -686,8 +637,12 @@
 				margin: 5%;
 				text-align: center;
 				font-family: AppleGothic, sans-serif;
+				border:none;
             }
-			
+			.card >p{
+			    white-space: pre-wrap;
+			}
+
 			.product-pic{
 				position: relative;
 				top: 5%;
@@ -717,27 +672,26 @@
 				text-align: left;
 				line-height:120%
 			}
+
             .card button {
 				position: absolute;
 				top: 5%;
 				right: 5%;
-                border-color: #4CAF50;            
-                padding: 12px;
                 color: #4CAF50;
-                background-color: #FFFFFF;
-                text-align: center;
-				font-weight: bold;
+                border:none;
+                background-color:transparent;
                 cursor: pointer;
-                width: 40px;
-				height: 40px;
-                font-size: 12px;
-				border-radius: 50%;
+                font-size: 30px;
             }
-
             .card button:hover {
                 opacity: 0.7;
             }
-			
+            .card img{
+                cursor: pointer;
+            }
+			.card img:hover{
+			    opacity: 0.7;
+			}
 			.pop-layer{
 			    display:none;
 				position: fixed;
@@ -882,6 +836,13 @@
 				right: -35px;
 				
 			}
+
+			#pop-add{
+                position:absolute;
+                left:100px;
+                height: 40px;
+                width:200px;
+			}
 /* cart */
 .shopping-cart {
 	position: absolute;
@@ -977,6 +938,7 @@
 	color: #43484D;
 	font-weight: 300;
 }
+/*
 button[class*=btn] {
   width: 30px;
   height: 30px;
@@ -986,7 +948,7 @@ button[class*=btn] {
   cursor: pointer;
   color: gray;
 }
-
+*/
 /* total cal */
 .totals{
 	position: absolute;
@@ -1116,7 +1078,6 @@ button[class*=btn] {
 					padding-left: 0;
 				}
 
-
 /* about container */
 #myVideo {
     width:100%;
@@ -1144,4 +1105,83 @@ button[class*=btn] {
     font-size:65px;
     text-decoration: none;
     color:white;
+}
+
+/* profile */
+#profile-container{
+    position:absolute;
+    padding:5%;
+    width:100%;
+    top:60px;
+    height:90%;
+}
+.list-group{
+    border-radius:8px;
+    opacity:0.7;
+}
+.list-group-item{
+    background: rgba(255, 255, 255, 1);
+    color:black;
+    font-size:18px;
+}
+.list-group-item > span{
+    padding:10%;
+}
+
+.profile-right{
+    background: rgba(255, 255, 255, 0.7);
+    padding:10px;
+    height:100%;
+    border-radius:8px;
+
+}
+
+.info-card{
+    background:white;
+    border-radius:8px;
+    margin-top:10px;
+    margin-bottom:15px;
+    margin-left:15px;
+    padding:10px;
+    padding-left:25px;
+    width:95%;
+    height:21%;
+}
+
+.info-card >h{
+    font-size:15px;
+    color:black;
+    font-family: "Source Sans Pro", sans-serif;
+    font-weight:bold;
+}
+
+.info-card>.row{
+    font-size:15px;
+    line-height:150%;
+}
+.change{
+    background-color:transparent;
+    border:none;
+    color: #519D60;
+}
+
+.select-address{
+    border-color: #4CAF50;
+    color: #4CAF50;
+    background-color: #FFFFFF;
+    cursor: pointer;
+    font-size: 12px;
+    border-radius:5px;
+}
+
+.address-form{
+    margin:50px;
+    padding:20px;
+}
+
+#inputname {
+    border-width: 1px;
+    border-color: green;
+    height:20px;
+    width:50%;
 }
