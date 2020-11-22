@@ -45,11 +45,9 @@
 						</div>
 
 						<div class="dropDownContent">
-							Test Drop Down Content Address
+							<select id="addressInfos" onchange="setAddress(this.value)"></select>
 						</div>
 					</div>
-
-					
 
 					<div id="shopping-deliveryFee" class="shopping-subContainers">
 						<div class="shopping-subContainerContent">
@@ -59,7 +57,12 @@
 						</div>
 
 						<div class="dropDownContent">
-							Test Drop Down Content Delivery Fee
+							<form id="deliveryFeeOptions">
+								<template id="optionsTemplate">
+									<input type="radio" id="deliveryOptionName" name="deliveryFeeOptions" onclick="setDeliveryFeePlan(this.id)">
+									<label for="deliveryOptionName">____ Delivery $0.00</label><br>
+								</template>
+							</form>
 						</div>
 					</div>
 
@@ -71,7 +74,7 @@
 						</div>
 
 						<div class="dropDownContent">
-							Test Drop Down Content Credit Info
+							<select id="creditCardInfos" onchange="setCard(this.value)"></select>
 						</div>
 					</div>
 
@@ -87,7 +90,18 @@
 						</div>
 
 						<div class="dropDownContent">
-							Test Drop Down Content Shopping Items
+							<div id="shoppingItemList">
+							</div>
+
+							<template id="itemTemplate">
+								<div class="shoppingItem">
+									<img class="itemImg" src="css/images/image.jpg">
+									<div class="itemDetails">
+										<div class="itemName">Item Display Name</div>
+										<div class="itemCost">$0.60 Qty.0</div>
+									</div>
+								</div>
+							</template>
 						</div>
 					</div>
 
@@ -113,7 +127,7 @@
 						<hr>
 						<div class="shopping-total-containers">
 							<div class="text">Total:</div>
-							<div id="tax-txt" class="cost-text">$24.17</div>
+							<div id="total-txt" class="cost-text">$24.17</div>
 						</div>
 						<hr>
 					</div>
