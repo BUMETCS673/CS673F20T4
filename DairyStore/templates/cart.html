@@ -7,45 +7,48 @@
 		<div class="title">My Cart</div>
 
 		<!-- Product #1 -->
-		<div class="item">
-			<div class="image"><img src="../static/css/images/10002007001.png" alt="" /></div>
-			<div class="description">
-				<p class="product-name"> Whole Ultra-Filtered Milk</p>
-				<p class="product-vol">52 oz</p>
-			</div>
+        {% set display_dict = dict_id_qty_prc_nm_dsc_vol %}
+        {% for prod_id, prod_info in display_dict.items() %}
+            {% set img_src = "../static/css/images/" + prod_id + ".png" %}
+		    <div class="item">
+                <div class="image"><img src={{ img_src }} id={{ prod_id }} alt="" /></div>
+                <div class="description">
+                    <p class="product-name">{{ prod_info["productName"] }}</p>
+                    <p class="product-vol">{{ prod_info["weight"] }}</p>
+                </div>
 
-			<div class="quantity">
-				<button type="button" class="btn btn-light" id="minus-btn" name="button" onclick="updatenum(event)">-</button>
-				<input type="text" name="name" value="1">
-				<button type="button" class="btn btn-light" id="plus-btn" name="button" onclick="updatenum(event)">+</button>
-			</div>
+                <div class="quantity">
+                    <button type="button" class="btn btn-light" id="minus-btn" name="button" onclick="updatenum(event)">-</button>
+                    <input type="text" name="name" value={{ prod_info['qty'] }}>
+                    <button type="button" class="btn btn-light" id="plus-btn" name="button" onclick="updatenum(event)">+</button>
+                </div>
 
-			<div class="total-price" value="5.79">$5.79</div>
-			<div class="cart-buttons">
-				<i class="far fa-trash-alt" id="cart-delete" onclick="removefromcart(event)"></i>
-			</div>
-
-		</div>
+                <div class="total-price" value={{ prod_info["unitPrice"] }}>{{ prod_info["totalPrice"] }}</div>
+                <div class="cart-buttons">
+                    <i class="far fa-trash-alt" id="cart-delete" onclick="removefromcart(event)"></i>
+                </div>
+		    </div>
+        {% endfor %}
 
   <!-- Product #2 -->
-		<div class="item">
-			<div class="image"><img src="../static/css/images/10002007002.png" alt="" /></div>
-			<div class="description" >
-				<p class="product-name">Fairlife Whole Ultra-Filtered Milk</p>
-				<p class="product-vol">52 oz</p>
-			</div>
-
-			<div class="quantity">
-				<button type="button" class="btn btn-light" id="minus-btn" name="button" onclick="updatenum(event)">-</button>
-				<input type="text" name="name" value="1">
-				<button type="button" class="btn btn-light" id="plus-btn" name="button" onclick="updatenum(event)">+</button>
-			</div>
-
-			<div class="total-price" value="5.79">$5.79</div>
-			<div class="cart-buttons">
-				<i class="far fa-trash-alt" id="cart-delete" onclick="removefromcart(event)"></i>
-			</div>
-		</div>
+{#		<div class="item">#}
+{#			<div class="image"><img src="../static/css/images/10002007002.png" id="" alt="" /></div>#}
+{#			<div class="description" >#}
+{#				<p class="product-name">Fairlife Whole Ultra-Filtered Milk</p>#}
+{#				<p class="product-vol">52 oz</p>#}
+{#			</div>#}
+{##}
+{#			<div class="quantity">#}
+{#				<button type="button" class="btn btn-light" id="minus-btn" name="button" onclick="updatenum(event)">-</button>#}
+{#				<input type="text" name="name" value="1">#}
+{#				<button type="button" class="btn btn-light" id="plus-btn" name="button" onclick="updatenum(event)">+</button>#}
+{#			</div>#}
+{##}
+{#			<div class="total-price" value="5.79">$5.79</div>#}
+{#			<div class="cart-buttons">#}
+{#				<i class="far fa-trash-alt" id="cart-delete" onclick="removefromcart(event)"></i>#}
+{#			</div>#}
+{#		</div>#}
 
   <!-- Product #3 -->
 

@@ -1,12 +1,15 @@
 @import url("fontawesome-all.min.css");
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
-
+@font-face {
+    font-family:'nex';
+    src: url("../webfonts/NexaRustSlabDemo-BlackShadow1.otf")format("woff");
+}
 	html, body, div, span, h1, p, a, ul, li,
 	label,
 	footer, header,
 	section {
 		margin: 0;
-		padding: 0;
+		padding: 0;s
 		border: 0;
 		font-size: 100%;
 		font: inherit;
@@ -271,76 +274,96 @@
 
         #category li a{
             font-size:15px;
+            text-decoration: none;
         }
 
+        #category li img{
+            max-height:80px;
+            max-width: 80px;
+             vertical-align:middle;
+        }
+        .cate{
+            text-align:center;
+        }
+
+        .dropdown-item{
+            cursor:pointer;
+        }
+        .dropdown-item:hover{
+            font-size:15px;
+        }
 
 /* Banner */
+          .canvas{
+                position: absolute;
+                background-image:url("images/overlay.png");
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+          }
+         .carousel-caption button{
+            margin:50px;
+            font-family: 'nex';
+            color: #fff;
+            font-size:50px;
+            width:400px;
+            height:100px;
+            border:none;
+            border-radius:10px;
+            background-color:red;
+            outline:none;
+         }
 
-	#banner {
-		background-attachment: fixed;
-		background-color: #666;
-		background-image:url("images/banner.jpeg");
-		background-position: center center;
-		background-repeat:no-repeat;
-		background-size: cover;
-		color: #fff;
-		padding: 8em 0;
-		text-align: center;
-	}
+         #buy2{
+           background-color:#556B2F;
+         }
+         .carousel-caption button:hover{
+            opacity:0.7;
+         }
+         #title{
+         font-family: 'nex';
+         font-size:80px;
+         margin:100px;
+         }
 
-		#banner :last-child {
-			margin-bottom: 0;
-		}
 
-		#banner p {
-			margin: 80pt;
-			font-size: 20pt;
-			letter-spacing: normal;
-			line-height: normal;
-		}
-		
-	#user_banner{
-		background-attachment: scroll,	fixed;
-		background-color: #666;
-		background-image:  url("images/overlay.png"), url("images/userbanner.jpeg");
-		background-position: top left,	center center;
-		background-repeat: repeat,	no-repeat;
-		background-size: auto,	cover;
-		color: #fff;
-		padding:  20em 0;
-		text-align: center;
-	}
 
-		#banner :last-child {
-			margin-bottom: 0;
-		}
+        #user_banner{
+            background-attachment: scroll,	fixed;
+            background-color: #666;
+            background-image:  url("images/overlay.png"), url("images/userbanner.jpeg");
+            background-position: top left,	center center;
+            background-repeat: repeat,	no-repeat;
+            background-size: auto,	cover;
+            color: #fff;
+            padding:  20em 0;
+            text-align: center;
+        }
 
-		#banner p {
-			margin: 80pt;
-			font-size: 20pt;
-			letter-spacing: normal;
-			line-height: normal;
-		}
+       .dropdown-item:hover{
+            font-size:15px;
+       }
 		
 /* login */
 	.login-page {
 		width: 400px;
-		height: 600px;
+		height: 650px;
 		padding: 13px;
-	 
+
 		position: absolute;
 		left: 50%;
 		top: 45%;
 		margin-left: -200px;
 		margin-top: -300px;
-	 
+
 		background-color: rgba(240, 255, 255, 0.5);
-	 
+
 		border-radius: 10px;
 		text-align: center;
 
 	}
-	
+
 	.p1{
 		font-size: 70%;
 		position: relative;
@@ -349,7 +372,7 @@
 		font-family: "Roboto", sans-serif;
 		color: #605f61;
 	}
-	
+
 	.p2{
 		position:relative;
 		top:-80px;
@@ -384,7 +407,7 @@
 	  position: relative;
 	  top: -70px;
 	}
-	
+
 	.form button {
 	  border-radius: 8px;
 	  font-family: "Roboto", sans-serif;
@@ -400,7 +423,7 @@
 	  top: -100px;
 	}
 	
-	#fa-eye1 {
+	#eye-login {
 	  position: absolute;
 	  right: 12%;
 	  top: 29%;
@@ -408,7 +431,7 @@
 	  color: #b8b8b8;
 	}
 	
-	#fa-eye-slash1 {
+	#slash-login {
 	  position: absolute;
 	  right: 12%;
 	  top: 29%;
@@ -416,42 +439,58 @@
 	  display: none;
 	  color: #b8b8b8;
 	}
-	
-	/* register password */
-	#fa-eye2 {
-	  position: absolute;
-	  right: 12%;
-	  top: 52%;
-	  cursor: pointer;
-	  color: #b8b8b8;
+/* register */
+    #form1 input {
+	  border-radius: 8px;
+	  font-family: "Roboto", sans-serif;
+	  outline: 0;
+	  background: #f2f2f2;
+	  width: 90%;
+	  height:90%;
+	  border: 0;
+	  margin: 0 0 15px;
+	  padding: 15px;
+	  box-sizing: border-box;
+	  font-size: 14px;
+	  position: relative;
+	  top: -70px;
 	}
-	
-	#fa-eye-slash2 {
-	  position: absolute;
-	  right: 12%;
-	  top: 52%;
-	  cursor: pointer;
-	  display: none;
-	  color: #b8b8b8;
+
+	#eye-p1{
+	    position:absolute;
+        top: -45%;
+        cursor: pointer;
+        color: #b8b8b8;
+        right: 15%;
 	}
-	/* register confirm password */
-	#fa-eye3 {
-	  position: absolute;
-	  right: 12%;
-	  top: 62%;
-	  cursor: pointer;
-	  color: #b8b8b8;
+	#eye-p2{
+	    position:absolute;
+        top: 5%;
+        cursor: pointer;
+        color: #b8b8b8;
+        right: 15%;
 	}
-	
-	#fa-eye-slash3{
-	  position: absolute;
-	  right: 12%;
-	  top: 62%;
-	  cursor: pointer;
-	  display: none;
-	  color: #b8b8b8;
+
+	#eye-reg-p1 {
+	    position:absolute;
+	    display:block;
 	}
-	
+
+	#slash-reg-p1 {
+	    position:absolute;
+	    display:none;
+	}
+
+	#eye-reg-p2 {
+    	position:absolute;
+	    display:block;
+	}
+
+	#slash-reg-p2 {
+	    position:absolute;
+	    display:none;
+	}
+
 	#password-requirement{
 	  font-family: "Roboto", sans-serif;
 	  display:none;
@@ -603,7 +642,7 @@
                 background-repeat:no-repeat;
                 background-size: cover;
                 color: #fff;
-                padding: 20em 0;
+                padding: 25em 0;
                 text-align: center;
 			}
 			
@@ -614,7 +653,7 @@
 
 				position: absolute;
 				left: 0;
-				top: 25%;
+				top: 300px;
 				right: 0;
 				bottom: 0;
 				margin: auto;
@@ -711,9 +750,9 @@
 				position: absolute;
 				border-radius: 9px;
 			    width: 50%;
-			    height: 60%;
+			    height: 700px;
 			    margin: auto;
-			    top: 0; left: 0; bottom: 0; right: 0;
+			    top: 200px; left: 0; bottom: 0; right: 0;
 				background-color: rgb(255,255,255,1);
 				z-index: 4;
 				opacity:1;	
@@ -748,11 +787,22 @@
 				font-family: "Roboto", sans-serif;
 
 			}
-			.product-detail-vol{
+
+			.product-detail-brand{
 				position: absolute;
 				top: 0;
 				margin-left: 50%;
 				margin-top: 15%;
+				font-size: 15px;
+				color: gray;
+				font-family: "Roboto", sans-serif;
+			}
+
+			.product-detail-vol{
+				position: absolute;
+				top: 0;
+				margin-left: 50%;
+				margin-top: 20%;
 				font-size: 15px;
 				color: gray;
 				font-family: "Roboto", sans-serif;
@@ -762,12 +812,10 @@
 				position: absolute;
 				top: 0;
 				margin-left: 50%;
-				margin-top: 20%;
+				margin-top: 25%;
 				font-size: 25px;
 				font-weight: bold;
 				color: black;
-/* 				font-family: "Roboto", sans-serif; */
-				
 			} 
 			.product-detail-quantity{
 				position: absolute;
@@ -826,13 +874,40 @@
 				font-size: 80%;
 				cursor:pointer;
 			}
-			
+
+			.pro-line{
+			    position: relative;
+			    left: 5%;
+			    display: inline-block;
+                width: 90%;
+                border-top: 0.3px solid #E0E0E0;
+			}
+			.pop-box > label{
+			    margin-left:20px;
+			    margin-bottom:0;
+			    margin-top:0;
+			    font-weight:bold;
+			    font-family: "Roboto", sans-serif;
+			}
+			.product-detail-specialty{
+                margin-top:0;
+                margin-bottom:5px;
+			    margin-left:20px;
+			    font-size:15px;
+			    font-family: "Roboto", sans-serif;
+			}
+			.product-detail-des{
+			    margin-left:20px;
+			    font-size:15px;
+			    font-family: "Roboto", sans-serif;
+			}
 			#close{
 				z-index: 7;
 				font-size: 35px;
 				color: white;
 				cursor: pointer;
 				position: absolute;
+				top:0;
 				right: -35px;
 				
 			}

@@ -42,8 +42,9 @@ app.register_blueprint(product_api)
 client = pymongo.MongoClient(yaml_reader['connection_url'])
 db = client['dairy_user_info']
 db_collection_User = db['User']
-db_collection_userlogin = db['OAUTH_USER_DETAILS']
+db_collection_OAuthUser = db['OAUTH_USER_DETAILS']
 db_collection_product = db['Product']
+db_collection_cart_history = db[yaml_reader['collection_Cart_History']]
 
 # dotenv setup
 from dotenv import load_dotenv
@@ -137,8 +138,8 @@ def authorize():
         resp = google.get('userinfo', token=token)  # userinfo contains stuff u specificed in the scrope
         user_info = resp.json()
 
-        if db_collection_userlogin.find_one({"email": user_info['email']}) is None:
-            db_collection_userlogin.insert_one(user_info)
+        if db_collection_OAuthUser.find_one({"email": user_info['email']}) is None:
+            db_collection_OAuthUser.insert_one(user_info)
         setFirstName(user_info['given_name'])
         setUserLoginEmail(user_info['email'])
 
@@ -191,17 +192,18 @@ def token_required(f):
 
     # return make_response('Could not verify', 401, {'WWW-Authenticate' : 'Basic realm="Login required!"'})
 
-
 @app.route('/login-result', methods=["POST"])
 def login1():
-    em, login_password = request.form.get("email"), request.form.get("password")
+    ajax_json = request.get_json()
+    # em, login_password = request.form.get("email"), request.form.get("password")
+    em, login_password = ajax_json["email"], ajax_json["password"]
     if not em or not login_password:
         return make_response('Could not verify', 401, {'WWW-Authenticate': 'Basic realm="Login required!"'})
     # user = db_collection_User.find_one({"fullname":auth.username})
     query = {"email": em}
     info = db_collection_User.find_one(query)
     if not info:
-        return render_template("login_fail.html")
+        return json.dumps('False')
 
     if bcrypt.check_password_hash(pw_hash= info['password_hash'],
                                       password=login_password):
@@ -223,18 +225,82 @@ def login1():
         token = jwt.encode(
             {'public_id': tempOutput[0]['password_hash'], 'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=1)},
             app.config['SECRET_KEY'])
-        # print(token)
-        return redirect(url_for("default")), {'x-access-token': token}
 
-    return render_template("login_fail.html")
+        r = {"token":token.decode('ascii')}
+        return jsonify(r)
 
+    return json.dumps('False')
+
+
+@app.route('/product2cart', methods=['POST'])
+def product2cart():
+    em = getUserLoginEmail()
+    query = {"email": em}
+    ajax_json = request.get_json()
+    prod_info = db_collection_cart_history.find_one(query)['productInfo'] # info := {"10002007001" : qty}
+    print(prod_info)
+    prod_id, prod_qty = ajax_json['id'], ajax_json['quantity']
+    if prod_id in prod_info:
+        qty = prod_info[prod_id]
+        prod_info[prod_id] = qty + 1
+        db_collection_cart_history.update_one(query, {"$set" : {"productInfo": prod_info}})
+    else:
+        prod_info[prod_id] = 1
+        db_collection_cart_history.update_one(query, {"$set": {"productInfo": prod_info}})
+
+    return json.dumps("")
 
 @app.route('/cart', methods=['GET'])
 def cart():
-    url_decode = jwt.decode(request.args.get("token"), app.config['SECRET_KEY'], algorithms=['HS256'])
-    user_info = db_collection_User.find_one({"password_hash": url_decode['public_id']})
-    print(user_info['email'])
-    return render_template("cart.html")
+    # print(getUserLoginEmail())
+    query_em = {"email":getUserLoginEmail()}
+    user_cart_info = db_collection_cart_history.find_one(query_em)['productInfo']
+    print(user_cart_info)
+    # send info back to html
+    dict_id_qty_prc_nm_dsc_vol = {}
+    for prod_id, prod_qty in user_cart_info.items():
+        prod_info = db_collection_product.find_one({"_id": int(prod_id)})
+        if prod_info:
+            dict_id_qty_prc_nm_dsc_vol[prod_id] = {
+                "qty": prod_qty,
+                "totalPrice": "$" + str(float(prod_info["Product Price"][1:]) * prod_qty),
+                "unitPrice": float(prod_info["Product Price"][1:]),
+                "productName": prod_info["Product Name"],
+                "description": prod_info["Description"],
+                "weight": prod_info["Weight"]
+            }
+
+    return render_template("cart.html", dict_id_qty_prc_nm_dsc_vol = dict_id_qty_prc_nm_dsc_vol)
+
+@app.route("/cartremove", methods=["POST"])
+def cartRemove():
+    ajax_json = request.get_json()
+    pid = ajax_json['pid']
+    query_em = {"email":getUserLoginEmail()}
+    user_cart_info = db_collection_cart_history.find_one(query_em)['productInfo']
+    user_cart_info.pop(pid)
+    db_collection_cart_history.update_one(query_em, {"$set" : {"productInfo": user_cart_info}})
+    return json.dumps("True")
+
+
+@app.route("/cartchange", methods=["POST"])
+def cartChange():
+    ajax_json = request.get_json()
+    change_type, pid = ajax_json['change_type'], ajax_json['pid']
+    query_em = {"email": getUserLoginEmail()}
+    prod_info = db_collection_cart_history.find_one(query_em)['productInfo']
+    if change_type == '+':
+        prod_info[pid] += 1
+        db_collection_cart_history.update_one(query_em, {"$set": {"productInfo": prod_info}})
+    else:
+        prod_info[pid] -= 1
+        if prod_info[pid] == 0:
+            prod_info.pop(pid)
+        db_collection_cart_history.update_one(query_em, {"$set": {"productInfo": prod_info}})
+
+    return json.dumps("True")
+
+
 
 
 @app.route('/about', methods=['GET'])
@@ -258,9 +324,22 @@ def email():
     return 'Sent'
 
 
-@app.route('/profile.html', methods=['GET'])
+@app.route('/profile-account', methods=['GET', 'POST'])
 def profile():
-    return render_template("profile.html")
+    if request.method == 'POST':
+        ajax_json = request.get_json()
+        data = ajax_json["data"]
+
+        if data:
+            return json.dumps("True")
+        else:
+            return json.dumps('False')
+
+    if request.method == 'GET':
+        if getToken():
+            return render_template("profile.html")
+        else:
+            return render_template("notfound.html")
 
 
 @app.route('/profile/', methods=['GET', 'POST'])
@@ -308,9 +387,11 @@ def funcProfile():
 
         return json.dumps('True')
 
-@app.route("/log-out", methods=["GET"])
+@app.route("/log-out", methods=["POST"])
 def logout():
-    pass
+    global token
+    token = ""
+    return json.dumps('True')
 
 if __name__ == '__main__':
     app.run(
