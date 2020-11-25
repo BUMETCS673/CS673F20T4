@@ -4,8 +4,8 @@
 
         <form class="login-form" id="form1" action="/register-result" method="POST">
           <input type="first name" name="firstname" placeholder="First Name"/>
-       <input type="last name" name="lastname" placeholder="Last Name"/>
-         <input type="email" name="email" placeholder="Email Address"/>
+            <input type="last name" name="lastname" placeholder="Last Name"/>
+          <input type="email" name="email" placeholder="Email Address"/>
 
        <div class="div_txt">
        <span class="txt">Don’t worry. We’ll never share your email with anyone</span>
@@ -13,18 +13,17 @@
 
        <div class="password">
          <input type="password" id="password2" name="password2" placeholder="Password"/>
-       <input type="password" id="password3" name="password3" placeholder="Confirm Password"/>
+            <div class="eye" id="eye-p1">
+                <i class="far fa-eye" id="eye-reg-p1" onclick="closeeye(event)"></i>
+                <i class="far fa-eye-slash" id="slash-reg-p1" onclick="openeye(event)"></i>
+            </div>
+         <input type="password" id="password3" name="password3" placeholder="Confirm Password"/>
+            <div class="eye" id="eye-p2">
+                <i class="far fa-eye" id="eye-reg-p2" onclick="closeeye(event)"></i>
+                <i class="far fa-eye-slash" id="slash-reg-p2" onclick="openeye(event)"></i>
+            </div>
        </div>
 
-       <div class="eye" id="eye2">
-        <i class="far fa-eye" id="fa-eye2"></i>
-        <i class="far fa-eye-slash" id="fa-eye-slash2"></i>
-       </div>
-
-       <div class="eye" id="eye3">
-        <i class="far fa-eye" id="fa-eye3"></i>
-        <i class="far fa-eye-slash" id="fa-eye-slash3"></i>
-       </div>
 
        <div id="password-requirement">
          <h1>Password must contain the following:</h1>

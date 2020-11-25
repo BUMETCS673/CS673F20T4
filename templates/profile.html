@@ -23,7 +23,7 @@
       <div class="col-sm-9 col-md-9 col-lg-9 col-xl-9">
           <div class="profile-right" id="account-setting">
                 {% set titles = ["Account Information","Personal Information"] %}
-                {% set rows = [[['Email','example@gmail.com'],['Password','*****']],[['First Name','Moo'],['Last Name','Dairy']]] %}
+                {% set rows = [[['Email','example@gmail.com'],['Password','*****']],[['First Name', "Moo"],['Last Name','Dairy']]] %}
 
                 <div class="info-card">
 
@@ -31,7 +31,7 @@
 
                    <div class="row">
                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">Email</div>
-                       <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">example@gmail.com</div>
+                       <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">{{ getUserLoginEmail() }}</div>
                   </div>
 
                   <div class="row">
@@ -48,7 +48,9 @@
                    <h>Personal Information</h>
 
                    {% set names = ['First Name','Last Name'] %}
-                   {% set data = ['Moo','Dairy'] %}
+                   {% set fn = getFirstName() %}
+                   {% set ln = getLastName() %}
+                   {% set data = [fn, ln] %}
                    {% for i in range(2) %}
                    <div class="row">
                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">{{names[i]}}</div>

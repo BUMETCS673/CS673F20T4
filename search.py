@@ -25,15 +25,11 @@ def getItemList():
 
 @search_api.route('/search-result', methods=['POST'])
 def searchProducts():
-    keyword = request.form.get('keyword').strip()
+    keyword = request.form.get('keyword').lower()
     itemDict = getItemList()
     resDict = itemDict.copy()
-
-    if not keyword:
-        return render_template("search_product.html", search_dict = resDict)
-
     import re
     for _id, info in itemDict.items():
-        if not re.findall(r'\b' + keyword.lower() + r'\b', info['Product Name'].lower()):
+        if not re.findall(r'\b' + keyword + r'\b', info['Product Name'].lower()):
             del resDict[_id]
     return render_template("search_product.html", search_dict = resDict)

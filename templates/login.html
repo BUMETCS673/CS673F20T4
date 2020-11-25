@@ -11,20 +11,16 @@
 			  {% block form %}
 			 <p class = "p1">Welcome Back</p>
 
-			  <form class="login-form" id="form1" action="/login-result" method="POST">
-			  <input type="email" name="email" placeholder="Email Address"/>
+			  <input type="email" id="email" name="email" placeholder="Email Address"/>
 			  <input type="password" id="password1" name="password" placeholder="Password"/>
 
-			  <div class="eye" id="eye1">
-				<i class="far fa-eye" id="fa-eye1"></i>
-				<i class="far fa-eye-slash" id="fa-eye-slash1"></i>
+			  <div class="eye" id="eye">
+				<i class="far fa-eye" id="eye-login" onclick="closeeye(event)"></i>
+				<i class="far fa-eye-slash" id="slash-login" onclick="openeye(event)"></i>
 			  </div>
 
-			  </form>
-
 			  <p class="p2" href="#">forget password?</p>
-
-			  <button id="login_button" form="form1" type="submit">login</button>
+			  <button id="login_button" type="submit" onclick="login(event)">login</button>
 			  <a href="index.html"><button id="cancel_button">cancel</button></a>
 
 			  <div class="line_div">
