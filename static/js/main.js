@@ -191,7 +191,7 @@ function addCart(event) {
 // info for Duan Lin: 点击图片右上角加一个产品到购物车。url要更新，传product id和数量1到后端
     product_to_cart = {id:pid,quantity:1};
     $.ajax({
-        url: '/',
+        url: '/product2cart',
         type: "post",
         data: JSON.stringify(product_to_cart),
         dataType: 'json',
@@ -258,10 +258,10 @@ function PopaddCart(event) {
         timer: 1000,
         width: 200
     });
-    // info for Duan Lin: 在popup window点击add to cart加产品到购物车。url要更新，传一个product id和数量到后端
+
     product_to_cart = {id:pid,quantity:count}
     $.ajax({
-        url: '/',
+        url: '/product2cart',
         type: "post",
         data: JSON.stringify(product_to_cart),
         dataType: 'json',
@@ -290,29 +290,49 @@ function updatenum(event) {
     var value = parseInt(input.val());
     var _class = _this.attr("id");
     var price_loc = _this.closest('div').next();
+    //unit price
     var price = parseFloat(price_loc.attr("value"));
+    var subtotal = parseFloat($('#cart-subtotal').text().slice(1));
+    var current_cart = parseInt($('#lblCartCount').text());
 
+    //update quantity for each prod
     if (_class == "plus-btn") {
         var change_type='+';
         value++
+        subtotal += price
+        $('#lblCartCount').text(current_cart+1);
     } else {
+        $('#lblCartCount').text(current_cart-1);
          var change_type='-';
         if (value > 1) {
             value--
+            subtotal -= price
         } else {
             _this.closest('.item').remove();
-        }
+            subtotal -= price;
+            }
+        };
+
+    $('#cart-subtotal').text('$'+subtotal.toFixed(2))
+    if(subtotal >= 35){
+        document.getElementById("freeshipping").style.display = "none"
+        $('#cart-shipping').text('$'+0);
+    }else{
+        var need_price = 35-subtotal;
+        $('#freeshipping').text('Add'+' $'+need_price.toFixed(2)+' more to have a FREE delivery!');
+        $('#cart-shipping').text('$'+7);
     }
-    ;
+    var total = (parseFloat($('#cart-shipping').text().slice(1))+parseFloat($('#cart-subtotal').text().slice(1))).toFixed(2);
+
+    $('#cart-total').text('$'+total);
+
     input.val(value);
+    var total_price = (price * value).toFixed(2)
+    price_loc.text("$"+total_price);
 
-    price_loc.text("$" + price * value.toFixed(2));
-
-    // info for Duan Lin: 购物车页面点击加好减号删减产品数量。传增减类型，产品id到后端
-    //change_type:'+'代表增加一个，'-'代表减少一个
     item_change = {change_type:change_type,pid:pid};
     $.ajax({
-        url: '/',
+        url: '/cartchange',
         type: "post",
         data: JSON.stringify(item_change),
         dataType: 'json',
@@ -326,12 +346,27 @@ function updatenum(event) {
 function removefromcart(event) {
     var _this = $(event.target);
     var pid = _this.closest('.item').first('div').find('img').attr('id');
-    _this.closest('.item').remove();
+    var current_cart = parseInt($('#lblCartCount').text());
+    var subtotal = parseFloat($('#cart-subtotal').text().slice(1));
+    var cur_q = _this.closest('div').prev().prev().find('input').attr('value');
+    var total_p = parseFloat(_this.closest('div').prev().text().slice(1));
 
-    // info for Duan Lin: 点击购物车中的垃圾桶删除这个item
+    $('#cart-subtotal').text('$'+(subtotal-total_p).toFixed(2));
+    if(subtotal-total_p >=35){
+       $('#freeshipping').text('$0')
+    }else{
+       $('#freeshipping').text('$7')
+    };
+    $('#cart-total').text('$'+(subtotal-total_p+parseInt($('#freeshipping').text().slice(1))).toFixed(2));
+
+    $('#lblCartCount').text(current_cart-cur_q);
+
+
+    _this.closest('.item').remove();
     item_remove = {pid:pid};
+
     $.ajax({
-        url: '/',
+        url: '/cartremove',
         type: "post",
         data: JSON.stringify(item_remove),
         dataType: 'json',
@@ -598,9 +633,24 @@ function login(event){
         dataType: 'json',
         contentType: "application/json; charset=utf-8",
         success: function (data) {
-            document.cookie= data['token'];
-            window.location.href='/index.html'
-                    }
+            if (data=="none") {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'It seems you have not registered',
+                    width: 500
+                });
+            }else if(data=="wrong"){
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Your password is incorrect!',
+                    width: 500
+                });
+            }else {
+                document.cookie = data['token'];
+                window.location.href = '/index.html'
+            }
+        }
+
 })
 }
 

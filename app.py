@@ -1,22 +1,19 @@
 import os
 
-import flask
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify, make_response, Response, flash, \
     sessions
 from login import login_api, getFirstName, getUserLoginEmail, setFirstName, setUserLoginEmail, getLastName
 from product import product_api
 from register import register_api
 import pymongo
-import hashlib
+
 import re
 import jwt
 import yaml
-from redis import Redis
 from flask_session import Session
-# from flask import Flask, redirect, url_for, session
 from authlib.integrations.flask_client import OAuth
 from flask_mail import Mail, Message
-from werkzeug.security import generate_password_hash, check_password_hash
+
 import os
 from datetime import timedelta
 from functools import wraps
@@ -25,7 +22,6 @@ import json
 from bson import ObjectId, json_util
 from flask_bcrypt import Bcrypt
 from search import search_api
-from flask_login import login_user, login_required, logout_user, current_user
 
 f = open("flask_yaml/mongo-credential.yaml")
 data = f.read()
@@ -43,8 +39,9 @@ app.register_blueprint(product_api)
 client = pymongo.MongoClient(yaml_reader['connection_url'])
 db = client['dairy_user_info']
 db_collection_User = db['User']
-db_collection_userlogin = db['OAUTH_USER_DETAILS']
+db_collection_OAuthUser = db['OAUTH_USER_DETAILS']
 db_collection_product = db['Product']
+db_collection_cart_history = db[yaml_reader['collection_Cart_History']]
 
 # dotenv setup
 from dotenv import load_dotenv
@@ -97,7 +94,8 @@ app.add_template_global(getUserLoginEmail, 'getUserLoginEmail')
 
 user = ""
 token = ""
-
+error_ = ""
+cartNum = None
 
 @app.route('/', methods=['GET'])
 def default():
@@ -138,20 +136,13 @@ def authorize():
         resp = google.get('userinfo', token=token)  # userinfo contains stuff u specificed in the scrope
         user_info = resp.json()
 
-        if db_collection_userlogin.find_one({"email": user_info['email']}) is None:
-            db_collection_userlogin.insert_one(user_info)
+        if db_collection_OAuthUser.find_one({"email": user_info['email']}) is None:
+            db_collection_OAuthUser.insert_one(user_info)
         setFirstName(user_info['given_name'])
         setUserLoginEmail(user_info['email'])
 
         token = jwt.encode({'public_id': user_info['email'],
                             'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=1)}, app.config['SECRET_KEY'])
-        # return {"shreyas":user_info}
-        # user = oauth.google.userinfo(token=token)  # uses openid endpoint to fetch user info
-        # Here you use the profile/user data that you got and query your database find/register the user
-        # and set ur own data in the session not the profile from google
-        # session['profile'] = user_info
-        # session.permanent = True  # make the session permanant so it keeps existing after broweser gets closed
-        # return redirect('/')
 
     session['profile'] = user_info
     session.permanent = True  # make the session permanent so it keeps existing after browser gets closed
@@ -165,18 +156,22 @@ def add_JWT():
 def getToken():
     return token
 
+def getCartNum():
+    user_cart_info = db_collection_cart_history.find_one({"email":getUserLoginEmail()})['productInfo']
+    count = 0
+    if user_cart_info:
+        for val in user_cart_info.values():
+            count += int(val)
+    return count
 
 app.add_template_global(getToken, "getToken")
-
+app.add_template_global(getCartNum, "getCartNum")
 
 def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
         global token
         token = request.args.get("token")
-        # if 'x-access-token' not in request.headers:
-        #     request.headers['x-access-token'] = token
-
         if not token:
             return jsonify({'message': 'Token is missing!'}), 401
 
@@ -190,58 +185,225 @@ def token_required(f):
 
     return decorated
 
-    # return make_response('Could not verify', 401, {'WWW-Authenticate' : 'Basic realm="Login required!"'})
-
-
 @app.route('/login-result', methods=["POST"])
 def login1():
     ajax_json = request.get_json()
-    # em, login_password = request.form.get("email"), request.form.get("password")
+
     em, login_password = ajax_json["email"], ajax_json["password"]
-    print(em)
-    print(login_password)
     if not em or not login_password:
         return make_response('Could not verify', 401, {'WWW-Authenticate': 'Basic realm="Login required!"'})
-    # user = db_collection_User.find_one({"fullname":auth.username})
     query = {"email": em}
     info = db_collection_User.find_one(query)
     if not info:
-        return render_template("login_fail.html")
+        return json.dumps('none')
 
     if bcrypt.check_password_hash(pw_hash= info['password_hash'],
                                       password=login_password):
         setUserLoginEmail(email=em)
         setFirstName(info['firstname'])
-        # print(query)
+        global cartNum
         global user
         user = json.loads(json_util.dumps(list(db_collection_User.find(query))))
-        # print(user)
-        # return {"res":json.loads(json_util.dumps(user))}
-        # return {"res":user}
         tempOutput = []
         for curr in user:
             tempOutput.append(curr)
-        # return {"check":tempOutput}
-        # if not user:
-        #     return make_response('Could not verify', 401, {'WWW-Authenticate' : 'Basic realm="Login required!"'})
         global token
         token = jwt.encode(
             {'public_id': tempOutput[0]['password_hash'], 'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=1)},
             app.config['SECRET_KEY'])
-        print(token)
+
         r = {"token":token.decode('ascii')}
         return jsonify(r)
-        # return redirect(url_for("default")), {'x-access-token': token}
 
-    return render_template("login_fail.html")
+    return json.dumps('wrong')
 
+
+@app.route('/register-result', methods=['POST'])
+def register():
+    web_email = request.form.get("email")
+    web_firstname = request.form.get("firstname")
+    web_lastname = request.form.get("lastname")
+    web_password1 = request.form.get("password2")
+    web_password2 = request.form.get("password3")
+
+    email_regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
+    warning_empty = "The username or Email cannot be empty!"
+    warning_email_format_invalid = "The Email format is invalid! Please check and retry."
+
+    def password_encrypt(password):
+        _password = bcrypt.generate_password_hash(password).decode("utf-8")
+        return _password
+
+    def password_confirm_check(passwd: str, cfm_passwd: str):
+        return passwd == cfm_passwd
+
+    # Function to validate the username and email
+    def null_check(email: str, field: str):
+        if email.split() == "" or field.split() == "":
+            return False
+
+        return True
+
+    def unique_email_check(email):
+        if db_collection_User.find_one({"email": email}):
+            return False
+        return True
+
+    # Function to validate the email format
+    def email_format_check(email: str):
+        if re.search(email_regex, email):
+            return True
+        else:
+            return False
+
+    # Function to validate the password
+    def password_check(passwd):
+
+        message = ""
+
+        if not (8 <= len(passwd) <= 20):
+            message = "Password should have length between 8~20"
+
+        if not any(char.isdigit() for char in passwd):
+            message = 'Password should have at least one numeral'
+
+        if not any(char.isupper() for char in passwd):
+            message = 'Password should have at least one uppercase letter'
+
+        if not any(char.islower() for char in passwd):
+            message = 'Password should have at least one lowercase letter'
+
+        return message
+
+    msg = password_check(web_password1)
+    pwd_hash = password_encrypt(web_password1)
+
+    # insert one user into DB if passed all checks
+    if null_check(web_email, web_firstname) and \
+            null_check(web_email, web_lastname) and \
+            password_confirm_check(web_password1, web_password2) and \
+            email_format_check(web_email) and msg == "" and \
+            unique_email_check(web_email):
+        user = {"email": web_email,
+                "fullname": web_firstname + " " + web_lastname,
+                "firstname": web_firstname,
+                "lastname": web_lastname,
+                "password_hash": pwd_hash,
+                }
+        user_cart_history = {
+            "email": web_email,
+            "modifiedOn": datetime.datetime.now(),
+            "productInfo": {
+            }
+        }
+        _id = db_collection_User.insert_one(user)
+        db_collection_cart_history.insert_one(user_cart_history)
+
+        setFirstName(web_firstname)
+        setUserLoginEmail(web_email)
+        global token
+        token = jwt.encode(
+            {'public_id': pwd_hash,
+             'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=1)},
+            app.config['SECRET_KEY'])
+        print("You have successfully created your account. Congrats!")
+        return redirect(url_for("default"))
+
+    global error_
+
+    if not null_check(web_email, web_firstname) or not null_check(web_email, web_lastname):
+        error_ = warning_empty
+
+    if not email_format_check(web_email):
+        error_ = warning_email_format_invalid
+
+    if not password_confirm_check(web_password1, web_password2):
+        error_ = "Password and confirm password must be same. Please try again!"
+
+    if not unique_email_check(web_email):
+        error_ = "This Email account has been registered, please try another!"
+
+    if msg != "":
+        error_ = msg
+
+    return redirect("register.html", msg = error_)
+
+
+@app.route('/product2cart', methods=['POST'])
+def product2cart():
+    em = getUserLoginEmail()
+    query = {"email": em}
+    ajax_json = request.get_json()
+    prod_info = db_collection_cart_history.find_one(query)['productInfo'] # info := {"10002007001" : qty}
+    print(prod_info)
+    prod_id, prod_qty = ajax_json['id'], int(ajax_json['quantity'])
+    if prod_id in prod_info:
+        qty = prod_info[prod_id]
+        prod_info[prod_id] = qty + prod_qty
+        db_collection_cart_history.update_one(query, {"$set" : {"productInfo": prod_info}})
+    else:
+        prod_info[prod_id] = int(prod_qty)
+        db_collection_cart_history.update_one(query, {"$set": {"productInfo": prod_info}})
+
+    return json.dumps("")
 
 @app.route('/cart', methods=['GET'])
 def cart():
-    url_decode = jwt.decode(request.args.get("token"), app.config['SECRET_KEY'], algorithms=['HS256'])
-    user_info = db_collection_User.find_one({"password_hash": url_decode['public_id']})
-    print(user_info['email'])
-    return render_template("cart.html")
+    # print(getUserLoginEmail())
+    query_em = {"email":getUserLoginEmail()}
+    user_cart_info = db_collection_cart_history.find_one(query_em)['productInfo']
+    print(user_cart_info)
+    # send info back to html
+    dict_id_qty_prc_nm_dsc_vol = {}
+    subtotal = 0
+    for prod_id, prod_qty in user_cart_info.items():
+        prod_info = db_collection_product.find_one({"_id": int(prod_id)})
+        subtotal += float(prod_info["Product Price"][1:]) * prod_qty
+        if prod_info:
+            dict_id_qty_prc_nm_dsc_vol[prod_id] = {
+                "qty": prod_qty,
+                "totalPrice": "$" + str(round(float(prod_info["Product Price"][1:]) * prod_qty, 2)),
+                "unitPrice": float(prod_info["Product Price"][1:]),
+                "productName": prod_info["Product Name"],
+                "description": prod_info["Description"],
+                "weight": prod_info["Weight"]
+            }
+    if subtotal >=35:
+        total = subtotal
+    else:
+        total = subtotal+7
+    global cartNum
+    cartNum = sum(user_cart_info.values()) if user_cart_info else 0
+    return render_template("cart.html", dict_id_qty_prc_nm_dsc_vol = dict_id_qty_prc_nm_dsc_vol, subtotal = round(subtotal,2), d_left=round(35-subtotal,2),total=round(total,2))
+
+@app.route("/cartremove", methods=["POST"])
+def cartRemove():
+    ajax_json = request.get_json()
+    pid = ajax_json['pid']
+    query_em = {"email":getUserLoginEmail()}
+    user_cart_info = db_collection_cart_history.find_one(query_em)['productInfo']
+    user_cart_info.pop(pid)
+    db_collection_cart_history.update_one(query_em, {"$set" : {"productInfo": user_cart_info}})
+    return json.dumps("True")
+
+
+@app.route("/cartchange", methods=["POST"])
+def cartChange():
+    ajax_json = request.get_json()
+    change_type, pid = ajax_json['change_type'], ajax_json['pid']
+    query_em = {"email": getUserLoginEmail()}
+    prod_info = db_collection_cart_history.find_one(query_em)['productInfo']
+    if change_type == '+':
+        prod_info[pid] += 1
+        db_collection_cart_history.update_one(query_em, {"$set": {"productInfo": prod_info}})
+    else:
+        prod_info[pid] -= 1
+        if prod_info[pid] == 0:
+            prod_info.pop(pid)
+        db_collection_cart_history.update_one(query_em, {"$set": {"productInfo": prod_info}})
+
+    return json.dumps("True")
+
 
 
 @app.route('/about', methods=['GET'])
@@ -264,6 +426,7 @@ def email():
     mail.send(msg)
     return 'Sent'
 
+
 @app.route('/profile-account', methods=['GET', 'POST'])
 def profile():
     if request.method == 'POST':
@@ -280,7 +443,6 @@ def profile():
             return render_template("profile.html")
         else:
             return render_template("notfound.html")
-
 
 
 @app.route('/profile/', methods=['GET', 'POST'])
@@ -302,7 +464,6 @@ def funcProfile():
                 # update user new pwd
                 update_query = { "$set" : { "password_hash" : bcrypt.generate_password_hash(password=pwd1).decode("utf-8") }}
                 db_collection_User.update_one(query, update_query)
-                return json.dumps('True')
                 return json.dumps('True')
             else:
                 return json.dumps('False')

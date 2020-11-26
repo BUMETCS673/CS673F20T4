@@ -6,6 +6,7 @@ import pymongo
 import hashlib
 import yaml
 import re
+import datetime
 
 from redis import Redis
 
@@ -18,6 +19,7 @@ client = pymongo.MongoClient(yaml_reader['connection_url'])
 db = client[yaml_reader['db']]
 db_collection_User = db[yaml_reader['collection_User']]
 db_collection_Order_History = db[yaml_reader['collection_Order_History']]
+db_collection_cart_history = db[yaml_reader['collection_Cart_History']]
 
 error_ = ""
 
@@ -111,13 +113,14 @@ def register():
                 "lastname": web_lastname,
                 "password_hash": pwd_hash,
                 }
-        user_order_history = {
+        user_cart_history = {
             "email": web_email,
-            "password_hash": pwd_hash,
-            "itemID":""
-
+            "modifiedOn": datetime.datetime.now(),
+            "productInfo": {
+            }
         }
         _id = db_collection_User.insert_one(user)
+        db_collection_cart_history.insert_one(user_cart_history)
 
         setFirstName(web_firstname)
         setUserLoginEmail(web_email)

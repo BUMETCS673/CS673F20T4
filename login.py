@@ -50,6 +50,12 @@ def login_page():
 def login_page1():
     return render_template("login.html")
 
+@login_api.route("/login-fail", methods=['GET'])
+def login_page2():
+    return render_template("login_fail.html")
+
+
+
 # @login_api.route('/login-result', methods=['POST'])
 # def login():
 #     _email, _password = request.form.get("email"), request.form.get("password")

@@ -1,76 +1,70 @@
 {% extends 'products.html' %}
 {% block content %}
 			<!-- cart -->
-<div class="goods_list">
-	<div class="shopping-cart">
-		<!-- Title -->
-		<div class="title">My Cart</div>
+	<div class="container-fluid" id="backg">
+		<div class="row" id="cart-content">
+			<div class="shopping-cart col-7">
+				<div class="title">My Cart</div>
+				<div class="container" id="item-content">
+				{% set display_dict = dict_id_qty_prc_nm_dsc_vol %}
+				{% for prod_id, prod_info in display_dict.items() %}
+				{% set img_src = "../static/css/images/" + prod_id + ".png" %}
+					<div class="item row">
+						<div class="image col-2"><img src={{ img_src }} id={{ prod_id }} style="width: 100%;"></div>
+						<div class="description col-4">
+							<p class="product-name">{{ prod_info["productName"] }}</p>
+							<p class="product-vol">{{ prod_info["weight"] }}</p>
+						</div>
 
-		<!-- Product #1 -->
-		<div class="item">
-			<div class="image"><img src="../static/css/images/10002007001.png" id="1" alt="" /></div>
-			<div class="description">
-				<p class="product-name"> Whole Ultra-Filtered Milk</p>
-				<p class="product-vol">52 oz</p>
+						<div class="quantity col-3">
+							<button type="button" class="btn btn-light" id="minus-btn" name="button" onclick="updatenum(event)">-</button>
+							<input type="text" name="name" value={{ prod_info['qty'] }}>
+							<button type="button" class="btn btn-light" id="plus-btn" name="button" onclick="updatenum(event)">+</button>
+						</div>
+
+						<div class="total-price col-1" value={{ prod_info["unitPrice"] }}>{{ prod_info["totalPrice"] }}</div>
+						<div class="cart-buttons col-1">
+							<i class="far fa-trash-alt" id="cart-delete" onclick="removefromcart(event)"></i>
+						</div>
+					</div>
+				{% endfor %}
+				</div>
 			</div>
 
-			<div class="quantity">
-				<button type="button" class="btn btn-light" id="minus-btn" name="button" onclick="updatenum(event)">-</button>
-				<input type="text" name="name" value="1">
-				<button type="button" class="btn btn-light" id="plus-btn" name="button" onclick="updatenum(event)">+</button>
+			<div class="totals col-3">
+				<div class="title">Total</div>
+				<div class="totals-item container">
+					<div class="row">
+						<label>Subtotal</label>
+						<div class="totals-value" id="cart-subtotal">${{ subtotal }}</div>
+					</div>
+					<div class="row">
+						<label>Tax</label>
+						<div class="totals-value" id="cart-tax">$0</div>
+					</div>
+					<div class="row">
+						<label>Shipping</label>
+						{% if subtotal>=35 %}
+						<div class="totals-value" id="cart-shipping">$0</div>
+						{% else %}
+						<div class="totals-value" id="cart-shipping">$7</div>
+						{% endif %}
+					</div>
+					<div class="row">
+						{% if subtotal>=35 %}
+						<span id="freeshipping"></span>
+						{% else %}
+						<span id="freeshipping">Add ${{ d_left }} more to have a FREE delivery!</span>
+						{% endif %}
+					</div>
+					<div class="final-price row">
+						<label>Total</label>
+						<div class="totals-value" id="cart-total">${{total}}</div>
+					</div>
+					<button class="checkout">CHECKOUT</button>
+				</div>
 			</div>
 
-			<div class="total-price" value="5.79">$5.79</div>
-			<div class="cart-buttons">
-				<i class="far fa-trash-alt" id="cart-delete" onclick="removefromcart(event)"></i>
-			</div>
-
-		</div>
-
-  <!-- Product #2 -->
-		<div class="item">
-			<div class="image"><img src="../static/css/images/10002007002.png" id="" alt="" /></div>
-			<div class="description" >
-				<p class="product-name">Fairlife Whole Ultra-Filtered Milk</p>
-				<p class="product-vol">52 oz</p>
-			</div>
-
-			<div class="quantity">
-				<button type="button" class="btn btn-light" id="minus-btn" name="button" onclick="updatenum(event)">-</button>
-				<input type="text" name="name" value="1">
-				<button type="button" class="btn btn-light" id="plus-btn" name="button" onclick="updatenum(event)">+</button>
-			</div>
-
-			<div class="total-price" value="5.79">$5.79</div>
-			<div class="cart-buttons">
-				<i class="far fa-trash-alt" id="cart-delete" onclick="removefromcart(event)"></i>
-			</div>
-		</div>
-
-  <!-- Product #3 -->
-
-	</div>
-
-	<div class="totals">
-		<div class="title">Total</div>
-		<div class="totals-item">
-			<label>Subtotal</label>
-			<div class="totals-value" id="cart-subtotal">$0</div>
-		</div>
-		<div class="totals-item">
-			<label>Tax</label>
-			<div class="totals-value" id="cart-tax">$0</div>
-		</div>
-		<div class="totals-item">
-			<label>Shipping</label>
-			<div class="totals-value" id="cart-shipping">$0</div>
-		</div>
-		<div class="final-price">
-			<label>Total</label>
-			<div class="totals-value" id="cart-total">$0</div>
 		</div>
 	</div>
-
-	<button class="checkout">CHECKOUT</button>
-</div>
 {% endblock %}
