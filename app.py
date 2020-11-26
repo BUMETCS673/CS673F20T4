@@ -162,6 +162,7 @@ def getCartNum():
     if user_cart_info:
         for val in user_cart_info.values():
             count += int(val)
+    print(count)
     return count
 
 app.add_template_global(getToken, "getToken")
@@ -335,7 +336,7 @@ def product2cart():
     query = {"email": em}
     ajax_json = request.get_json()
     prod_info = db_collection_cart_history.find_one(query)['productInfo'] # info := {"10002007001" : qty}
-    print(prod_info)
+
     prod_id, prod_qty = ajax_json['id'], int(ajax_json['quantity'])
     if prod_id in prod_info:
         qty = prod_info[prod_id]
@@ -352,7 +353,7 @@ def cart():
     # print(getUserLoginEmail())
     query_em = {"email":getUserLoginEmail()}
     user_cart_info = db_collection_cart_history.find_one(query_em)['productInfo']
-    print(user_cart_info)
+
     # send info back to html
     dict_id_qty_prc_nm_dsc_vol = {}
     subtotal = 0

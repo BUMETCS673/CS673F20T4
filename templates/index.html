@@ -74,12 +74,16 @@
                             {% if getToken() %}
                             <a class="nav-link" href={{ url_for("cart", token = getToken()) }}>
                                 <button class="fas fa-shopping-cart" id="cart"></button>
+								{% if getCartNum()!=0 %}
                                 <span class="badge badge-warning" id="lblCartCount">{{ getCartNum() }}</span>
+								{% else %}
+								<span class="badge badge-warning" id="lblCartCount" style="display:none;">{{ getCartNum() }}</span>
+								{% endif %}
                             </a>
                             {% else %}
                             <a class="nav-link">
                                 <button class="fas fa-shopping-cart" id="cart"  onclick="force_login(event)"></button>
-                                <span class="badge badge-warning" id="lblCartCount">0</span>
+                                <span class="badge badge-warning" id="lblCartCount" style="display:none;">0</span>
                             </a>
                             {% endif %}
 						</li>

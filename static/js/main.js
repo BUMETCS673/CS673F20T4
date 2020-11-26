@@ -157,6 +157,40 @@ function updateCart(num, count) {
     $('#lblCartCount').text(num);
 }
 
+//register page
+function register(event){
+    var first_name = document.getElementById("firstname").value;
+    var last_name = document.getElementById("lastname").value;
+    var email_address = document.getElementById("email").value;
+    var password_2 = document.getElementById("password2").value;
+    var password_3 = document.getElementById("password3").value;
+
+    register_info = {
+        first_name:first_name,
+        last_name:last_name,
+        email_address:email_address,
+        password_2:password_2,
+        password_3:password_3
+    };
+//    $.ajax({
+//        url:'/register-result',
+//        type: "post",
+//        data: JSON.stringify(register_info),
+//        dataType: 'json',
+//        contentType: "application/json; charset=utf-8",
+//        success: function (data) {
+//            if(data!='OK'){
+//                    Swal.fire({
+//                        icon: 'error',
+//                        title: 'Oops...',
+//                        text: data,
+//                        showConfirmButton: false,
+//                     });
+//            }
+//        }
+//    })
+
+}
 
 // fly to cart 
 function addCart(event) {
@@ -188,7 +222,6 @@ function addCart(event) {
     });
     updateCart(num, 1);
 
-// info for Duan Lin: 点击图片右上角加一个产品到购物车。url要更新，传product id和数量1到后端
     product_to_cart = {id:pid,quantity:1};
     $.ajax({
         url: '/product2cart',
@@ -637,8 +670,16 @@ function login(event){
                 Swal.fire({
                     icon: 'warning',
                     title: 'It seems you have not registered',
-                    width: 500
-                });
+                    width: 500,
+                    showCancelButton: true,
+                    cancelButtonColor: '#c9c9c9',
+                    confirmButtonText: 'Sign Up Now!',
+                    confirmButtonColor: '#519D60',
+                }).then((result)=>{
+                    if(result.isConfirmed){
+                        window.location.href = 'register.html'
+                    }
+                })
             }else if(data=="wrong"){
                 Swal.fire({
                     icon: 'warning',
