@@ -635,35 +635,27 @@
 /* product */
 			.goods_list{
 				background-attachment: fixed;
-                background-color: #666;
                 background-image:url("images/productback.jpeg");
                 background-position: center center;
-                background-repeat:no-repeat;
+                background-repeat:repeat;
                 background-size: cover;
                 color: #fff;
-                padding: 25em 0;
-                text-align: center;
+                position: relative;
+                padding:20% 0;
 			}
 			
 			.grid-container {
 				width: 950px;
-				height: 750px;
 				padding: 18px;
-
-				position: absolute;
-				left: 0;
-				top: 300px;
-				right: 0;
-				bottom: 0;
-				margin: auto;
-
 				background-color: rgba(240, 255, 255, 0.5);
-
+                margin:0 auto;
 				border-radius: 10px;
 				text-align: center;
 				display: grid;
 				grid-template-columns: repeat(4, 1fr);
 				align-items: stretch;
+				position: relative;
+
             }
 
             .card {
@@ -676,6 +668,7 @@
 				text-align: center;
 				font-family: AppleGothic, sans-serif;
 				border:none;
+				display:none;
             }
 			.card >p{
 			    white-space: pre-wrap;

@@ -28,31 +28,31 @@
 						</li>
 
 						<li class="nav-item" id="category">
-							<a class="nav-link" href="products.html">Product</a>
+							<a class="nav-link" href="products.html" onclick="category('all')">Product</a>
 							<ul class="cate">
             					<li>
-									<a class="dropdown-item" href="products.html">View All</a>
-									<img class="dropdown-item" href="products.html" src="../static/css/images/viewall.png"/>
+									<a class="dropdown-item" href="products.html" onclick="category('all')">View All</a>
+									<img class="dropdown-item" src="../static/css/images/viewall.png"/>
 								</li>
             					<li>
-									<a class="dropdown-item" href="#">Milk</a>
-									<img class="dropdown-item" href="products.html" src="../static/css/images/milk.png"/>
+									<a class="dropdown-item" href="#" onclick="category('milk')">Milk</a>
+									<img class="dropdown-item" src="../static/css/images/milk.png"/>
 								</li>
 								<li>
-									<a class="dropdown-item" href="#">Yogurt</a>
-									<img class="dropdown-item" href="products.html" src="../static/css/images/yogurt.png"/>
+									<a class="dropdown-item" href="#" onclick="category('yogurt')">Yogurt</a>
+									<img class="dropdown-item" src="../static/css/images/yogurt.png"/>
 								</li>
 								<li>
-									<a class="dropdown-item" href="#">Cheese</a>
-									<img class="dropdown-item" href="products.html" src="../static/css/images/cheese.png"/>
+									<a class="dropdown-item" href="#" onclick="category('cheese')">Cheese</a>
+									<img class="dropdown-item"  src="../static/css/images/cheese.png"/>
 								</li>
 								<li>
-									<a class="dropdown-item" href="#">Cream</a>
-									<img class="dropdown-item" href="products.html" src="../static/css/images/cream-cupcake.png"/>
+									<a class="dropdown-item" href="#" onclick="category('cream')">Cream</a>
+									<img class="dropdown-item" src="../static/css/images/cream-cupcake.png"/>
 								</li>
 								<li>
-									<a class="dropdown-item" href="#">Butter</a>
-									<img class="dropdown-item" href="products.html" src="../static/css/images/spread.png"/>
+									<a class="dropdown-item" href="#" onclick="category('butter')">Butter</a>
+									<img class="dropdown-item" src="../static/css/images/spread.png"/>
 								</li>
         					</ul>
 						</li>
@@ -171,6 +171,7 @@
 
 			{% endblock %}
 			<!-- Footer -->
+			{% block footer %}
 			<footer id="footer">
 				<ul class="icons">
 					<li><a href="https://twitter.com/" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
@@ -182,7 +183,7 @@
 					<li>&copy; Untitled. All rights reserved.</li><li>Design: Moo Dairy</li>
 				</ul>
 			</footer>
-
+			{% endblock %}
 		</div>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
@@ -194,5 +195,6 @@
 	<script src="../static/js/jquery.fly.js"></script>
 	<script src="../static/js/jquery.fly.min.js"></script>
 	<script src="../static/js/main.js"></script>
+	<script src="../static/js/infinite-scroll.pkgd.min.js"></script>
 	</body>
 </html>

@@ -3,6 +3,18 @@ function gomilk(id){
     window.open("products.html?flag=true&id="+id,'_self');
 }
 
+function category(p_category){
+    cate = {category: p_category};
+
+    $.ajax({
+        url: '/products.html',
+        type: "post",
+        data: JSON.stringify(cate),
+        dataType: 'json',
+        contentType: "application/json; charset=utf-8"
+    })
+}
+
 //login page
 function closeeye(event){
     var _this = $(event.target);
@@ -135,6 +147,30 @@ myInput.onkeyup = function() {
 
 
 // product page
+//loading more
+		$(".card").slice(0, 8).show();
+		$("#loadMore").on('click', function () {
+   			$(".card:hidden").slice(0, 8).show();
+    		if ($(".card:hidden").length == 0) {
+       	 		$("#loadMore").fadeOut();
+    		}
+		});
+
+//
+//$('a[href=#top]').click(function () {
+//    $('body,html').animate({
+//        scrollTop: 0
+//    }, 600);
+//    return false;
+//});
+
+//$(window).scroll(function () {
+//    if ($(this).scrollTop() > 50) {
+//        $('.totop a').fadeIn();
+//    } else {
+//        $('.totop a').fadeOut();
+//    }
+//});
 
 //check if its from index page
 var url = window.location.href;
@@ -172,24 +208,6 @@ function register(event){
         password_2:password_2,
         password_3:password_3
     };
-//    $.ajax({
-//        url:'/register-result',
-//        type: "post",
-//        data: JSON.stringify(register_info),
-//        dataType: 'json',
-//        contentType: "application/json; charset=utf-8",
-//        success: function (data) {
-//            if(data!='OK'){
-//                    Swal.fire({
-//                        icon: 'error',
-//                        title: 'Oops...',
-//                        text: data,
-//                        showConfirmButton: false,
-//                     });
-//            }
-//        }
-//    })
-
 }
 
 // fly to cart 
