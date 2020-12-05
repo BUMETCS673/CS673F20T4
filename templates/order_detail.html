@@ -1,0 +1,72 @@
+{% extends "profile.html" %}
+{% block content %}
+<div class="detail_back">
+    <div class="container-fluid" id="back">
+    <div class="path">
+        <a href="/profile-account">Your Account > </a>
+        <a href="/profile-order">Your Orders > </a>
+        <a>Order Details</a>
+    </div>
+
+    <div class="ordertitle">Order Detail</div>
+    <div class="time_number">
+        <a>Ordered on December 03, 2020</a>
+        <a>|</a>
+        <a>Order#12345</a>
+    </div>
+    <div class="container-fluid info">
+
+        <div class="row subtitle">
+            <div class="col-4">Shipping Address</div>
+            <div class="col-4">Payment Method</div>
+            <div class="col-4">Order Summary</div>
+        </div>
+
+        <div class="row content_info">
+            <div class="col-4">1200 Commonwealth Ave, 02133, Boston, MA</div>
+            <div class="col-4">Paypal</div>
+            <div class="col-4 container-fluid">
+                <div class="row">
+                    <div class="col-6">Subtotal: </div>
+                    <div class="col-6">$45.00</div>
+                </div>
+                <div class="row">
+                    <div class="col-6">Shipping: </div>
+                    <div class="col-6">$0.00</div>
+                </div>
+                <div class="row">
+                    <div class="col-6">Tax: </div>
+                    <div class="col-6">$0.00</div>
+                </div>
+                <div class="row">
+                    <div class="col-6">Tax: </div>
+                    <div class="col-6">$0.00</div>
+                </div>
+                <div class="row">
+                    <div class="col-6">Total: </div>
+                    <div class="col-6">$45.00</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid items">
+
+        <div class="row item_detail">
+            <div class="col-2 img"><img id="order_img" onclick="gomilk(10002007001)" src="../static/css/images/10002007001.png" style="width:70%"/></div>
+            <div class="col-5 description">Organic Valley Organic 2% Reduced Fat Milk</div>
+            <div class="col-1 quantity">1</div>
+            <div class="col-2 total-price">$3.98</div>
+            <div class="col-2 again" onclick="addCart(10002007001)"s>Buy it again</div>
+        </div>
+        <div class="row item_detail">
+            <div class="col-2"><img id="order_img" onclick="gomilk(10002007001)" src="../static/css/images/10002007001.png" style="width:70%"/></div>
+            <div class="col-5 description">Organic Valley Organic 2% Reduced Fat Milk</div>
+            <div class="col-1 quantity">1</div>
+            <div class="col-2 total-price">$3.98</div>
+            <div class="col-2 again" onclick="addCart(10002007001)">Buy it again</div>
+        </div>
+
+    </div>
+    </div>
+</div>
+{% endblock %}

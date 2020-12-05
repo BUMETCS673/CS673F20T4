@@ -14,14 +14,14 @@
 				<pre class="product-Description" style="display:none;">{{ _info['Description'] }}</pre>
 				<p class="product-Specialty" style="display:none;">{{ _info['Specialty'] }}</p>
 				{% if getToken() %}
-				<button onclick="addCart(event)" class="fas fa-plus"></button>
+				<button onclick="addCart({{ _id }})" class="fas fa-plus"></button>
 				{% else %}
 				<button onclick="force_login(event)" class="fas fa-plus"></button>
 				{% endif %}
 			</div>
 			{% endfor %}
 			{% endblock %}
-			<a id="loadMore">Load More</a>
+			<i id="loadMore">Load More...</i>
 		</div>
 	</div>
 <!--pop-up window-->

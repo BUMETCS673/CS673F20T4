@@ -356,7 +356,7 @@
 		margin-left: -200px;
 		margin-top: -300px;
 
-		background-color: rgba(240, 255, 255, 0.5);
+		background-color: rgba(255, 255, 255, 0.5);
 
 		border-radius: 10px;
 		text-align: center;
@@ -543,6 +543,9 @@
 		position: relative;
 		top: -90px;
 		
+	}
+	#forgetpass{
+	    cursor:pointer;
 	}
 	
 
@@ -910,6 +913,12 @@
                 height: 40px;
                 width:200px;
 			}
+
+			#loadMore{
+                cursor: pointer;
+                border-radius: 20px;
+                color:green;
+			}
 /* cart */
     #backg{
         background-attachment: scroll, fixed;
@@ -957,7 +966,6 @@
     .item {
         position: relative;
         margin-bottom:15px;
-        height:100px;
         height: 120px;
         display: flex;
         border-radius: 15px;
@@ -1214,4 +1222,125 @@
     border-color: green;
     height:20px;
     width:50%;
+}
+
+/* order history */
+.orders{
+    padding: 0 20px;
+    font-size:18px;
+
+}
+#vieworder{
+    color: #4CAF50;
+    cursor:pointer;
+}
+
+/* view order */
+.detail_back{
+    position:relative;
+    font-family: "Roboto", sans-serif;
+
+    background-attachment: scroll, fixed;
+    color: #fff;
+    background-image:url("images/overlay.png"),url("images/productback.jpeg");
+    background-repeat:repeat, no-repeat;
+    background-size: auto, cover;
+    padding: 5em 10em;
+
+}
+#back{
+	background-color: rgba(255, 255, 255, 0.5);
+	border-radius:5px;
+	padding:30px;
+	padding-top:0;
+	color:gray;
+
+}
+.path{
+    margin-bottom:30px;
+}
+.path a{
+    font-size: 15px;
+    text-decoration:none;
+}
+.ordertitle{
+    color:green;
+    font-weight:bold;
+}
+.time_number{
+    font-size: 15px;
+}
+.info{
+    box-shadow: 1px 2px 3px 0px rgba(0,0,0,0.10);
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius:5px;
+    font-size: 15px;
+    padding:1% 4%;
+}
+.subtitle{
+    font-weight:bold;
+    color:	#2F4F4F;
+}
+
+.items{
+    box-shadow: 1px 2px 3px 0px rgba(0,0,0,0.10);
+    background-color: rgba(255, 255, 255, 0.8);
+    margin-top:40px;
+    margin-bottom:40px;
+
+    border-radius:5px;
+    font-size: 15px;
+
+}
+
+.item_detail{
+    padding:20px;
+    line-height:80px;
+}
+.again{
+    color:green;
+    cursor:pointer;
+}
+.again:hover{
+    color:#2F4F4F;
+}
+#order_img{
+    cursor:pointer;
+}
+#order_img:hover{
+    opacity:0.8;
+}
+
+/* forget password */
+.forgetback{
+    background-attachment: scroll,	fixed;
+    background-image:  url("images/overlay.png"), url("images/userbanner.jpeg");
+    background-position: top left,	center center;
+    background-repeat: repeat,	no-repeat;
+    background-size: auto,	cover;
+    padding:  5em 0;
+    text-align: center;
+}
+.forgetpa{
+    margin:30%;
+    box-shadow: 1px 2px 3px 0px rgba(0,0,0,0.10);
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius:10px;
+    padding:7%;
+}
+#setnew{
+    margin-top:70px;
+    margin-bottom:0;
+    font-size:20px;
+}
+.form-control{
+    height:60px;
+    margin-bottom:50px;
+}
+#forbtn{
+    width:40%;
+    height:60px;
+    line-height:50px;
+    font-size:20px;
+    font-family: "Roboto", sans-serif;
 }

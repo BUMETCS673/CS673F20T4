@@ -2,9 +2,9 @@
 function gomilk(id){
     window.open("products.html?flag=true&id="+id,'_self');
 }
-
+//category
 function category(p_category){
-    cate = {category: p_category};
+    cate = {'Category': p_category};
 
     $.ajax({
         url: '/products.html',
@@ -13,6 +13,20 @@ function category(p_category){
         dataType: 'json',
         contentType: "application/json; charset=utf-8"
     })
+}
+
+//cart empty alert
+function emptycart(token){
+    if($('#lblCartCount').text()=='0'){
+        Swal.fire({
+            icon: 'info',
+            title: 'It seems your cart is empty',
+            showConfirmButton: false,
+            timer: 1500,
+        });
+    }else{
+        window.location.replace('/cart');
+    };
 }
 
 //login page
@@ -156,22 +170,6 @@ myInput.onkeyup = function() {
     		}
 		});
 
-//
-//$('a[href=#top]').click(function () {
-//    $('body,html').animate({
-//        scrollTop: 0
-//    }, 600);
-//    return false;
-//});
-
-//$(window).scroll(function () {
-//    if ($(this).scrollTop() > 50) {
-//        $('.totop a').fadeIn();
-//    } else {
-//        $('.totop a').fadeOut();
-//    }
-//});
-
 //check if its from index page
 var url = window.location.href;
 var index = url.indexOf("flag");
@@ -194,35 +192,171 @@ function updateCart(num, count) {
 }
 
 //register page
-function register(event){
+function register(event) {
     var first_name = document.getElementById("firstname").value;
     var last_name = document.getElementById("lastname").value;
     var email_address = document.getElementById("email").value;
     var password_2 = document.getElementById("password2").value;
     var password_3 = document.getElementById("password3").value;
-
-    register_info = {
-        first_name:first_name,
-        last_name:last_name,
-        email_address:email_address,
-        password_2:password_2,
-        password_3:password_3
-    };
+    if(email_address.substring(email_address.length - 3, email_address.length) =='edu'){
+        Swal.fire({
+            icon: 'info',
+            title: 'Sorry, we currently do not accept the education email',
+            showConfirmButton: false,
+            timer: 1800,
+        });
+    }else{
+    if (first_name && last_name && email_address && password_2 && password_3) {
+        register_info = {
+            first_name: first_name,
+            last_name: last_name,
+            email_address: email_address,
+            password_2: password_2,
+            password_3: password_3
+        };
+        $.ajax({
+            url: '/register-result',
+            type: "post",
+            data: JSON.stringify(register_info),
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                if (data != 'OK') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: data,
+                        showConfirmButton: true,
+                    });
+                } else {
+                    window.location.replace('/index.html')
+                }
+            }
+        })
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Your information cannot be empty!',
+            showConfirmButton: true,
+        });
+    }
+    }
+}
+//forget password
+function forget_password(event){
+    var email = $('#email').val();
+    if(email.length==0){
+        Swal.fire({
+            icon: 'info',
+            text: 'Please fill in your email address.',
+            showConfirmButton: false,
+            timer: 1000,
+            width: 200
+        });
+    }else{
+        email_json = {email_address:email}
+        $.ajax({
+            url: '/forget-password',
+            type: "post",
+            data: JSON.stringify(email_json),
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8"
+        }).done(function (data) {
+            Swal.fire({
+            icon: 'success',
+            text: 'The password reset link is sending to '+email,
+            showConfirmButton: false,
+            timer: 1500,
+            });
+        })
+    }
 }
 
+//reset
+function reset(event){
+    var password1 = $('#for_password1').val();
+    var password2 = $('#for_password2').val();
+    var passwords = {
+            password1: password1,
+            password2: password2
+        };
+
+    var lowerCaseLetters = /[a-z]/g;
+    var upperCaseLetters = /[A-Z]/g;
+    var numbers = /[0-9]/g;
+
+    var text = '';
+    if (password1 == '' || password2 == '') {
+        var text = 'Password cannot be empty!'
+    } else if (password1.length > 20 || password1.length < 8) {
+        var text = 'Password length should between 8-20!'
+    } else if (password1.match(lowerCaseLetters) == null) {
+        var text = 'Password should have at least one lower case letter!'
+    } else if (password1.match(upperCaseLetters) == null) {
+        var text = 'Password should have at least one upper case letter!'
+    } else if (password1.match(numbers) == null) {
+        var text = 'Password should have at least one number!'
+    } else if (password1 != password2) {
+        var text = 'New password and confirm password should be same!'
+    };
+    if(text!=''){
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: text,
+        })
+    }else{
+        $.ajax({
+            url: '/',
+            type: "post",
+            data: JSON.stringify(passwords),
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                if (data == 'True') {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'bottom-start',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'You have successfully changed the password!'
+                    })
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Current password is not correct!'
+                    })
+                }
+            }
+        })
+    }
+}
+
+
 // fly to cart 
-function addCart(event) {
+function addCart(pid) {
     var s_left = event.clientX;
     var s_top = event.clientY;
     var e_left = $("#cart").offset().left;
     var e_top = $("#cart").offset().top;
     var _this = $(event.target);
-    var img = _this.closest("div").find("img").attr("src");
-    var pid = _this.closest("div").find("img").attr("id");
+    var img = '../static/css/images/'+pid+'.png'
+
     var flyer = $("<img src='" + img + "' width='50' style='border-radius:50%'/>");
+
     var num = parseInt($('#lblCartCount').text());
 
-    flyer.css({'z-index': 900});
+
+    flyer.css({'z-index': 10000});
     flyer.fly({
         start: {
             left: s_left,
@@ -241,6 +375,7 @@ function addCart(event) {
     updateCart(num, 1);
 
     product_to_cart = {id:pid,quantity:1};
+
     $.ajax({
         url: '/product2cart',
         type: "post",
@@ -248,6 +383,7 @@ function addCart(event) {
         dataType: 'json',
         contentType: "application/json; charset=utf-8"
     })
+
 }
 
 
@@ -656,6 +792,34 @@ function updateaddress(event) {
         }
     })
 }
+// change payment
+function updateaddress(event) {
+    payment = {address: $("#select-payment option:selected").text()}
+    $.ajax({
+        url: '/profile/',
+        type: "post",
+        data: JSON.stringify(payment),
+        dataType: 'json',
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'center',
+                showConfirmButton: false,
+                timer: 3000,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+            Toast.fire({
+                icon: 'success',
+                title: 'You have successfully changed the default payment !'
+            })
+        }
+    })
+}
+
 
 function force_login(event) {
     Swal.fire({
@@ -742,4 +906,38 @@ function account_setting(event){
             }
         }
     });
+}
+
+//account_setting
+function order_history(event){
+    var account = {data: 'hey,bro'};
+    $.ajax({
+        url: '/profile-account',
+        type: "post",
+        dataType: 'json',
+        data: JSON.stringify(account),
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            if(data=="True"){
+                window.location.replace('/profile-order');
+            }else{
+                alert('oops');
+            }
+        }
+    });
+}
+
+function vieworder(orderid){
+    order = {order_id:orderid}
+    $.ajax({
+        url: '/order-detail',
+        type: "post",
+        dataType: 'json',
+        data: JSON.stringify(order),
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            window.location.replace('/order-detail')
+        }
+    });
+
 }

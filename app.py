@@ -1,9 +1,9 @@
+import collections
 import os
 
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify, make_response, Response, flash, \
     sessions
 from login import login_api, getFirstName, getUserLoginEmail, setFirstName, setUserLoginEmail, getLastName
-from product import product_api
 from register import register_api
 import pymongo
 
@@ -34,7 +34,6 @@ app.config['SECRET_KEY'] = os.urandom(24)
 app.register_blueprint(login_api)
 app.register_blueprint(register_api)
 app.register_blueprint(search_api)
-app.register_blueprint(product_api)
 
 client = pymongo.MongoClient(yaml_reader['connection_url'])
 db = client['dairy_user_info']
@@ -221,11 +220,22 @@ def login1():
 
 @app.route('/register-result', methods=['POST'])
 def register():
-    web_email = request.form.get("email")
-    web_firstname = request.form.get("firstname")
-    web_lastname = request.form.get("lastname")
-    web_password1 = request.form.get("password2")
-    web_password2 = request.form.get("password3")
+    '''
+    register_info = {
+        first_name:first_name,
+        last_name:last_name,
+        email_address:email_address,
+        password_2:password_2,
+        password_3:password_3
+    };
+    :return:
+    '''
+    ajax_json = request.get_json()
+    web_email = ajax_json['email_address']
+    web_firstname = ajax_json['first_name']
+    web_lastname = ajax_json['last_name']
+    web_password1 = ajax_json['password_2']
+    web_password2 = ajax_json['password_3']
 
     email_regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
     warning_empty = "The username or Email cannot be empty!"
@@ -308,7 +318,7 @@ def register():
              'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=1)},
             app.config['SECRET_KEY'])
         print("You have successfully created your account. Congrats!")
-        return redirect(url_for("default"))
+        return json.dumps("OK")
 
     global error_
 
@@ -327,7 +337,7 @@ def register():
     if msg != "":
         error_ = msg
 
-    return redirect("register.html", msg = error_)
+    return json.dumps(error_)
 
 
 @app.route('/product2cart', methods=['POST'])
@@ -335,9 +345,10 @@ def product2cart():
     em = getUserLoginEmail()
     query = {"email": em}
     ajax_json = request.get_json()
+
     prod_info = db_collection_cart_history.find_one(query)['productInfo'] # info := {"10002007001" : qty}
 
-    prod_id, prod_qty = ajax_json['id'], int(ajax_json['quantity'])
+    prod_id, prod_qty = str(ajax_json['id']), int(ajax_json['quantity'])
     if prod_id in prod_info:
         qty = prod_info[prod_id]
         prod_info[prod_id] = qty + prod_qty
@@ -414,18 +425,19 @@ def about():
 
 @app.route('/forget-password', methods=['GET', 'POST'])
 def email():
-    print(email)
-    msg = Message("Reset Your MooDairy Password",
-                  sender="lincelot97@gmail.com",
-                  recipients=[getUserLoginEmail()])
-    fname = getFirstName()
-    msg.body = "Hello " + fname + "!\n" \
-                                  "Thanks for using MooDairy. \n" \
-                                  "Maintaining your security is our top priority. \n" \
-                                  "Please click the link below to finish resetting your password.\n" \
-                                  "http:127.0.0.1:5000/forget_password.html"
-    mail.send(msg)
-    return 'Sent'
+    ajax_json = request.get_json()
+    data = ajax_json["email_address"]
+    # msg = Message("Reset Your MooDairy Password",
+    #               sender="lincelot97@gmail.com",
+    #               recipients=[getUserLoginEmail()])
+    # fname = getFirstName()
+    # msg.body = "Hello " + fname + "!\n" \
+    #                               "Thanks for using MooDairy. \n" \
+    #                               "Maintaining your security is our top priority. \n" \
+    #                               "Please click the link below to finish resetting your password.\n" \
+    #                               "http:127.0.0.1:5000/forget_password.html"
+    # mail.send(msg)
+    return json.dumps('Sent')
 
 
 @app.route('/profile-account', methods=['GET', 'POST'])
@@ -445,6 +457,39 @@ def profile():
         else:
             return render_template("notfound.html")
 
+@app.route('/profile-order', methods=['GET', 'POST'])
+def order_history():
+    if request.method == 'POST':
+        ajax_json = request.get_json()
+        data = ajax_json["data"]
+
+        if data:
+            return json.dumps("True")
+        else:
+            return json.dumps('False')
+
+    if request.method == 'GET':
+        if getToken():
+            return render_template("order_history.html")
+        else:
+            return render_template("notfound.html")
+
+@app.route('/order-detail', methods=['GET', 'POST'])
+def vieworder():
+    if request.method == 'POST':
+        ajax_json = request.get_json()
+        order_id = ajax_json["order_id"]
+
+        if data:
+            return json.dumps("True")
+        else:
+            return json.dumps('False')
+
+    if request.method == 'GET':
+        if getToken():
+            return render_template("order_detail.html")
+        else:
+            return render_template("notfound.html")
 
 @app.route('/profile/', methods=['GET', 'POST'])
 def funcProfile():
@@ -495,6 +540,25 @@ def logout():
     global token
     token = ""
     return json.dumps('True')
+
+
+@app.route('/products.html', methods=['GET'])
+def product():
+    category = request.args.get("category")
+    cate_dict = {"milk":1, "yogurt":2, "butter":3,"cream":4, "cheese":5}
+    if category=="all":
+        query = {}
+    else:
+        query = {"Category":cate_dict[category]}
+    Product_Dictionary = collections.defaultdict(dict)
+    for each_product in db_collection_product.find(query):
+        _id = str(each_product['_id'])
+        Product_Dictionary[_id] = each_product
+    return render_template("products.html", product_dict=Product_Dictionary)
+
+@app.route('/forget_password', methods=['GET'])
+def forget_password():
+    return render_template("forget_password.html")
 
 if __name__ == '__main__':
     app.run(

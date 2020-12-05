@@ -7,11 +7,11 @@
           <ul class="list-group">
               <li class="list-group-item">
                   <i class="fas fa-cog"></i>
-                  <span class="btn" role="button" data-toggle="collapse" href="#account-setting">Account Setting</span>
+                  <span class="btn" role="button" data-toggle="collapse" onclick="account_setting(event)">Account Setting</span>
               </li>
               <li class="list-group-item">
                   <i class="fas fa-clipboard"></i>
-                  <span class="btn" role="button" data-toggle="collapse" href="#order-history">Order History</span>
+                  <span class="btn" role="button" data-toggle="collapse" onclick="order_history(event)">Order History</span>
               </li>
               <li class="list-group-item">
                   <i class="fas fa-sign-out-alt"></i>
@@ -22,6 +22,7 @@
 
       <div class="col-sm-9 col-md-9 col-lg-9 col-xl-9">
           <div class="profile-right" id="account-setting">
+                {% block right_content %}
                 {% set titles = ["Account Information","Personal Information"] %}
                 {% set rows = [[['Email','example@gmail.com'],['Password','*****']],[['First Name', "Moo"],['Last Name','Dairy']]] %}
 
@@ -85,8 +86,23 @@
               </div>
 
 
-              <div class="info-card">Payment Method</div>
-
+              <div class="info-card">
+                  <h>Payment Method</h>
+                   <div class="row">
+                      <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">Default Payment</div>
+                       <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                           <SELECT name="payment" class="select-address" id="select-address">
+                                <option value="default">Mater Card xxxx252</option>
+                                <option value="1">Mater Card xxxx234</option>
+                                <option value="">Add&hellip;</option>
+                            </SELECT>
+                       </div>
+                       <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                           <button class="change" id="change-payment" onclick="updatepayment(event)">Update</button>
+                       </div>
+                  </div>
+              </div>
+          {% endblock %}
           </div>
       </div>
     </div>
