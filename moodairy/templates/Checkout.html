@@ -1,0 +1,113 @@
+{% extends 'cart.html' %}
+	{% block content %}
+
+			<div id="shopping-container">
+				<div id="shopping-info">
+					<div id="shopping-address" class="shopping-subContainers">
+						<div class="shopping-subContainerContent">
+							<div class="fas fa-map-marker"></div>
+							<div id="address-container">
+								<div id="address-primary" class="shopping-text">
+									Boston University, One Silber Way
+								</div>
+								<div id="address-secondary" class="shopping-text">
+									Boston, MA 02215
+								</div>
+							</div>
+
+							<div onClick="onDropDownBtnClick(this)" class="dropDownBtn fas fa-caret-up fa-lg"></div>
+						</div>
+
+						<div class="dropDownContent">
+							<select onchange="setAddress(this.value)"></select>
+						</div>
+					</div>
+
+
+
+					<div id="shopping-creditCardInfo" class="shopping-subContainers">
+						<div class="shopping-subContainerContent">
+							<div class="fas fa-credit-card"></div>
+							<div id="creditCardInfo" class="shopping-text">Mastercard ending with 0000</div>
+							<div onClick="onDropDownBtnClick(this)" class="dropDownBtn fas fa-caret-up fa-lg"></div>
+						</div>
+
+						<div class="dropDownContent">
+							<select id="creditCardInfos" onchange="setCard(this.value)"></select>
+						</div>
+					</div>
+
+
+
+					<div id="shopping-items" class="shopping-subContainers">
+						<div class="shopping-subContainerContent">
+							<div class="fas fa-shopping-cart"></div>
+							<div id="shopping-items-list">
+								<div id="numberOfItems" class="shopping-text">
+									{{item_quantity}} Items
+								</div>
+							</div>
+							<div onClick="onDropDownBtnClick(this)" class="dropDownBtn fas fa-caret-up fa-lg"></div>
+						</div>
+
+						<div class="dropDownContent">
+							<div id="shoppingItemList">
+
+								<div class="shoppingItem">
+									{% set display_dict = dict_id_qty_prc_nm_dsc_vol %}
+									{% for prod_id, prod_info in display_dict.items() %}
+									{% set img_src = "../static/css/images/" + prod_id + ".png" %}
+									<img class="itemImg" src={{ img_src }}>
+									<div class="itemDetails">
+										<div class="itemName">{{ prod_info["productName"] }}</div>
+										{% set qty_price = prod_info['qty'] * prod_info["unitPrice"]%}
+										<div class="itemCost">${{qty_price}} Qty. {{ prod_info['qty'] }}</div>
+									</div>
+									{% endfor %}
+								</div>
+
+							</div>
+
+							<template id="itemTemplate">
+							</template>
+						</div>
+
+					</div>
+
+				</div>
+
+				<div id="shopping-receipt">
+					
+					<div id="placeOrderBtn">Place Order</div>
+
+					<div id="shopping-totals">
+						<div class="shopping-total-containers">
+							<div class="text">Price:</div>
+							<div class="cost-text">${{ subtotal }}</div>
+						</div>
+						<div class="shopping-total-containers">
+							<div class="text">Delivery Fees:</div>
+							{% if subtotal>=35 %}
+							<div class="cost-text">$0</div>
+							{% else %}
+							<div class="cost-text">$7</div>
+							{% endif %}
+						</div>
+						<div class="shopping-total-containers">
+							<div class="text">Tax:</div>
+							<div class="cost-text">$0</div>
+						</div>
+						<hr>
+						<div class="shopping-total-containers">
+							<div class="text">Total:</div>
+							<div class="cost-text">$ {{total}}</div>
+						</div>
+						<hr>
+					</div>
+				</div>
+
+			</div>
+
+
+{% endblock %}
+

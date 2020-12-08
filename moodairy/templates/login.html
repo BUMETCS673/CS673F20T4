@@ -1,0 +1,42 @@
+{% extends 'index.html' %}
+{% block header %}
+{% endblock %}
+{% block content %}
+		<!-- LoginFrame -->
+		<section id="user_banner"></section>
+		<div class="login-page">
+		  <div class="form">
+
+			 <p id="image_logo"><a href="index.html"><img src="../static/css/images/logo.png"></a></p>
+			  {% block form %}
+			 <p class = "p1">Welcome Back</p>
+
+			  <input type="email" id="email" name="email" placeholder="Email Address"/>
+			  <input type="password" id="password1" name="password" placeholder="Password"/>
+
+			  <div class="eye" id="eye">
+				<i class="far fa-eye" id="eye-login" onclick="closeeye(event)"></i>
+				<i class="far fa-eye-slash" id="slash-login" onclick="openeye(event)"></i>
+			  </div>
+
+			  <p class="p2" href="#">forget password?</p>
+			  <button id="login_button" type="submit" onclick="login(event)">login</button>
+			  <a href="index.html"><button id="cancel_button">cancel</button></a>
+
+			  <div class="line_div">
+			  <span class="line"></span>
+		      <span class="txt">or</span>
+			  <span class="line"></span>
+		      </div>
+
+			  <form action="/login" method="POST">
+				<button id="google_button" name="google" type="submit"><i class="fab fa-google"></i>Continue with Google</button>
+			  </form>
+              <button id="facebook_button" name="facebook"><i class="fab fa-facebook"></i>Continue with Facebook</button>
+			  <p class="message">Not registered? <a href="register.html">Create an account</a></p>
+
+			  </div>
+			  {% endblock %}
+		  </div>
+		</div>
+{% endblock %}

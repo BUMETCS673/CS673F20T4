@@ -1,0 +1,41 @@
+{% extends 'login.html' %}
+{% block form %}
+        <p class = "p1">Join Moo Dairy today</p >
+
+        <div class="login-form" id="form1">
+          <input id='firstname' type="first name" name="firstname" placeholder="First Name"/>
+          <input id='lastname' type="last name" name="lastname" placeholder="Last Name"/>
+          <input id='email' type="email" name="email" placeholder="Email Address"/>
+
+           <div class="div_txt">
+           <span class="txt">Don’t worry. We’ll never share your email with anyone</span>
+           </div>
+
+           <div class="password">
+             <input type="password" id="password2" name="password2" placeholder="Password"/>
+                <div class="eye" id="eye-p1">
+                    <i class="far fa-eye" id="eye-reg-p1" onclick="closeeye(event)"></i>
+                    <i class="far fa-eye-slash" id="slash-reg-p1" onclick="openeye(event)"></i>
+                </div>
+             <input type="password" id="password3" name="password3" placeholder="Confirm Password"/>
+                <div class="eye" id="eye-p2">
+                    <i class="far fa-eye" id="eye-reg-p2" onclick="closeeye(event)"></i>
+                    <i class="far fa-eye-slash" id="slash-reg-p2" onclick="openeye(event)"></i>
+                </div>
+           </div>
+
+           <div id="password-requirement">
+             <h1>Password must contain the following:</h1>
+             <p id="letter" class="invalid">A <b>lowercase</b> letter</p >
+             <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p >
+             <p id="number" class="invalid">A <b>number</b></p >
+             <p id="length" class="invalid">Length <b>between 8-20</b></p >
+           </div>
+        </div>
+         <button id="submit_button" type="submit" onclick="register(event)">submit</button>
+         <a href="index.html"><button id="cancel_button">cancel</button></a >
+
+         <p class="message">Already have an account? <a href="login.html">Log in</a ></p >
+         <p class="terms">By signing up you confirm that you accept the terms of the Moo Dairy Usage Agreement and Privacy Notice.</p >
+         </div>
+{% endblock %}
