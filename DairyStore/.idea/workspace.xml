@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a3454e4f-47c5-4be9-9442-20b4e5bd5696" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Flask Main" />
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
+    <envs>
+      <env key="FLASK_APP" value="app" />
+    </envs>
+    <option name="myCustomStartScript" value="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))" />
+    <option name="myEnvs">
+      <map>
+        <entry key="FLASK_APP" value="app" />
+      </map>
+    </option>
+  </component>
+  <component name="JupyterTrust" id="122c4827-d721-492c-b9b7-6a1e8ac127d3" />
+  <component name="ProjectId" id="1ifETxe6WPV3gu8KUarMbPfViiR" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="mongo" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/static" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/static" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/test" />
+      <recent name="$PROJECT_DIR$/static/js" />
+      <recent name="$PROJECT_DIR$/static" />
+      <recent name="$PROJECT_DIR$/templates" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python tests.Unittests in testRegister.py">
+    <configuration name="DairyStore" type="Python.FlaskServer">
+      <module name="DairyStore" />
+      <option name="target" value="$PROJECT_DIR$/app.py" />
+      <option name="targetType" value="PATH" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Flask (app.py)" type="Python.FlaskServer" temporary="true" nameIsGenerated="true">
+      <option name="flaskDebug" value="true" />
+      <module name="DairyStore" />
+      <option name="target" value="$PROJECT_DIR$/app.py" />
+      <option name="targetType" value="PATH" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Flask (app.py)" type="Python.FlaskServer" temporary="true" nameIsGenerated="true">
+      <module name="DairyStore" />
+      <option name="target" value="$PROJECT_DIR$/app.py" />
+      <option name="targetType" value="PATH" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unittests for testLogin.MyTestClass.test_wrong_email_password" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="DairyStore" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;testLogin.MyTestClass.test_wrong_email_password&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unittests for testLogin.MyTestClass.test_wrong_email_password2" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="DairyStore" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;testLogin.MyTestClass.test_wrong_email_password2&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unittests in testLogin.py" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="DairyStore" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/testLogin.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unittests in testRegister.py" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="DairyStore" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/testRegister.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Flask server.DairyStore" />
+      <item itemvalue="Flask server.Flask (app.py)" />
+      <item itemvalue="Python tests.Unittests in testLogin.py" />
+      <item itemvalue="Python tests.Unittests for testLogin.MyTestClass.test_wrong_email_password" />
+      <item itemvalue="Python tests.Unittests for testLogin.MyTestClass.test_wrong_email_password2" />
+      <item itemvalue="Python tests.Unittests in testRegister.py" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python tests.Unittests in testRegister.py" />
+        <item itemvalue="Python tests.Unittests in testLogin.py" />
+        <item itemvalue="Python tests.Unittests for testLogin.MyTestClass.test_wrong_email_password2" />
+        <item itemvalue="Python tests.Unittests for testLogin.MyTestClass.test_wrong_email_password" />
+        <item itemvalue="Flask server.Flask (app.py)" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a3454e4f-47c5-4be9-9442-20b4e5bd5696" name="Default Changelist" comment="" />
+      <created>1602290257723</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1602290257723</updated>
+      <workItem from="1602290270807" duration="2374000" />
+      <workItem from="1602606988742" duration="651000" />
+      <workItem from="1602791180814" duration="13470000" />
+      <workItem from="1602892625736" duration="5540000" />
+      <workItem from="1602911308191" duration="898000" />
+      <workItem from="1602988803361" duration="1715000" />
+      <workItem from="1602990826187" duration="6177000" />
+      <workItem from="1603061862848" duration="1571000" />
+      <workItem from="1603070474438" duration="1972000" />
+      <workItem from="1603230284479" duration="2607000" />
+      <workItem from="1603324039945" duration="4342000" />
+      <workItem from="1603335128918" duration="2568000" />
+      <workItem from="1603344193492" duration="260000" />
+      <workItem from="1603392165594" duration="3310000" />
+      <workItem from="1603896072468" duration="16000" />
+      <workItem from="1604521666984" duration="1861000" />
+      <workItem from="1604524507086" duration="214000" />
+      <workItem from="1604542736759" duration="1731000" />
+      <workItem from="1604611990164" duration="2585000" />
+      <workItem from="1604881558774" duration="35789000" />
+      <workItem from="1605162895899" duration="7534000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="221" y="99" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1604522359550">
+      <screen x="0" y="23" width="1440" height="840" />
+    </state>
+    <state x="216" y="102" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1405.877@0.23.1405.877" timestamp="1603070549012" />
+    <state x="221" y="97" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.825@0.23.1440.825" timestamp="1602795547609" />
+    <state x="221" y="99" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.840@0.23.1440.840" timestamp="1604522359550" />
+    <state x="112" y="123" width="1328" height="630" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1605120358065">
+      <screen x="0" y="23" width="1440" height="830" />
+    </state>
+    <state x="112" y="123" width="1328" height="630" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.23.1440.830@0.23.1440.830" timestamp="1605120358065" />
+    <state width="1423" height="179" key="GridCell.Tab.0.bottom" timestamp="1605209559097">
+      <screen x="0" y="23" width="1440" height="829" />
+    </state>
+    <state width="1398" height="193" key="GridCell.Tab.0.bottom/-1920.-85.1920.1057/0.23.1440.825@0.23.1440.825" timestamp="1602804725009" />
+    <state width="1398" height="193" key="GridCell.Tab.0.bottom/-1920.-85.1920.1057/0.23.1440.827@0.23.1440.827" timestamp="1602816103644" />
+    <state width="1398" height="200" key="GridCell.Tab.0.bottom/0.23.1440.823@0.23.1440.823" timestamp="1602792106490" />
+    <state width="1398" height="200" key="GridCell.Tab.0.bottom/0.23.1440.825@0.23.1440.825" timestamp="1602802299855" />
+    <state width="1398" height="200" key="GridCell.Tab.0.bottom/0.23.1440.826@0.23.1440.826" timestamp="1602801017848" />
+    <state width="1423" height="179" key="GridCell.Tab.0.bottom/0.23.1440.829@0.23.1440.829" timestamp="1605209559097" />
+    <state width="1486" height="197" key="GridCell.Tab.0.bottom/0.23.1440.830@0.23.1440.830" timestamp="1605121500619" />
+    <state width="1398" height="202" key="GridCell.Tab.0.bottom/0.23.1440.840@0.23.1440.840" timestamp="1604524493490" />
+    <state width="1361" height="217" key="GridCell.Tab.0.bottom/35.23.1405.877@35.23.1405.877" timestamp="1602298268102" />
+    <state width="1361" height="217" key="GridCell.Tab.0.bottom/36.23.1404.877@36.23.1404.877" timestamp="1602291371116" />
+    <state width="1340" height="217" key="GridCell.Tab.0.bottom/37.23.1403.877@37.23.1403.877" timestamp="1602290860564" />
+    <state width="1423" height="179" key="GridCell.Tab.0.center" timestamp="1605209559095">
+      <screen x="0" y="23" width="1440" height="829" />
+    </state>
+    <state width="1398" height="193" key="GridCell.Tab.0.center/-1920.-85.1920.1057/0.23.1440.825@0.23.1440.825" timestamp="1602804725007" />
+    <state width="1398" height="193" key="GridCell.Tab.0.center/-1920.-85.1920.1057/0.23.1440.827@0.23.1440.827" timestamp="1602816103642" />
+    <state width="1398" height="200" key="GridCell.Tab.0.center/0.23.1440.823@0.23.1440.823" timestamp="1602792106488" />
+    <state width="1398" height="200" key="GridCell.Tab.0.center/0.23.1440.825@0.23.1440.825" timestamp="1602802299853" />
+    <state width="1398" height="200" key="GridCell.Tab.0.center/0.23.1440.826@0.23.1440.826" timestamp="1602801017847" />
+    <state width="1423" height="179" key="GridCell.Tab.0.center/0.23.1440.829@0.23.1440.829" timestamp="1605209559095" />
+    <state width="1486" height="197" key="GridCell.Tab.0.center/0.23.1440.830@0.23.1440.830" timestamp="1605121500617" />
+    <state width="1398" height="202" key="GridCell.Tab.0.center/0.23.1440.840@0.23.1440.840" timestamp="1604524493490" />
+    <state width="1361" height="217" key="GridCell.Tab.0.center/35.23.1405.877@35.23.1405.877" timestamp="1602298268100" />
+    <state width="1361" height="217" key="GridCell.Tab.0.center/36.23.1404.877@36.23.1404.877" timestamp="1602291371115" />
+    <state width="1340" height="217" key="GridCell.Tab.0.center/37.23.1403.877@37.23.1403.877" timestamp="1602290860564" />
+    <state width="1423" height="179" key="GridCell.Tab.0.left" timestamp="1605209559094">
+      <screen x="0" y="23" width="1440" height="829" />
+    </state>
+    <state width="1398" height="193" key="GridCell.Tab.0.left/-1920.-85.1920.1057/0.23.1440.825@0.23.1440.825" timestamp="1602804725005" />
+    <state width="1398" height="193" key="GridCell.Tab.0.left/-1920.-85.1920.1057/0.23.1440.827@0.23.1440.827" timestamp="1602816103641" />
+    <state width="1398" height="200" key="GridCell.Tab.0.left/0.23.1440.823@0.23.1440.823" timestamp="1602792106487" />
+    <state width="1398" height="200" key="GridCell.Tab.0.left/0.23.1440.825@0.23.1440.825" timestamp="1602802299852" />
+    <state width="1398" height="200" key="GridCell.Tab.0.left/0.23.1440.826@0.23.1440.826" timestamp="1602801017846" />
+    <state width="1423" height="179" key="GridCell.Tab.0.left/0.23.1440.829@0.23.1440.829" timestamp="1605209559094" />
+    <state width="1486" height="197" key="GridCell.Tab.0.left/0.23.1440.830@0.23.1440.830" timestamp="1605121500617" />
+    <state width="1398" height="202" key="GridCell.Tab.0.left/0.23.1440.840@0.23.1440.840" timestamp="1604524493489" />
+    <state width="1361" height="217" key="GridCell.Tab.0.left/35.23.1405.877@35.23.1405.877" timestamp="1602298268099" />
+    <state width="1361" height="217" key="GridCell.Tab.0.left/36.23.1404.877@36.23.1404.877" timestamp="1602291371114" />
+    <state width="1340" height="217" key="GridCell.Tab.0.left/37.23.1403.877@37.23.1403.877" timestamp="1602290860563" />
+    <state width="1423" height="179" key="GridCell.Tab.0.right" timestamp="1605209559096">
+      <screen x="0" y="23" width="1440" height="829" />
+    </state>
+    <state width="1398" height="193" key="GridCell.Tab.0.right/-1920.-85.1920.1057/0.23.1440.825@0.23.1440.825" timestamp="1602804725008" />
+    <state width="1398" height="193" key="GridCell.Tab.0.right/-1920.-85.1920.1057/0.23.1440.827@0.23.1440.827" timestamp="1602816103643" />
+    <state width="1398" height="200" key="GridCell.Tab.0.right/0.23.1440.823@0.23.1440.823" timestamp="1602792106489" />
+    <state width="1398" height="200" key="GridCell.Tab.0.right/0.23.1440.825@0.23.1440.825" timestamp="1602802299854" />
+    <state width="1398" height="200" key="GridCell.Tab.0.right/0.23.1440.826@0.23.1440.826" timestamp="1602801017847" />
+    <state width="1423" height="179" key="GridCell.Tab.0.right/0.23.1440.829@0.23.1440.829" timestamp="1605209559096" />
+    <state width="1486" height="197" key="GridCell.Tab.0.right/0.23.1440.830@0.23.1440.830" timestamp="1605121500618" />
+    <state width="1398" height="202" key="GridCell.Tab.0.right/0.23.1440.840@0.23.1440.840" timestamp="1604524493490" />
+    <state width="1361" height="217" key="GridCell.Tab.0.right/35.23.1405.877@35.23.1405.877" timestamp="1602298268101" />
+    <state width="1361" height="217" key="GridCell.Tab.0.right/36.23.1404.877@36.23.1404.877" timestamp="1602291371115" />
+    <state width="1340" height="217" key="GridCell.Tab.0.right/37.23.1403.877@37.23.1403.877" timestamp="1602290860564" />
+    <state width="1398" height="271" key="GridCell.Tab.1.bottom" timestamp="1604524493484">
+      <screen x="0" y="23" width="1440" height="840" />
+    </state>
+    <state width="1398" height="271" key="GridCell.Tab.1.bottom/0.23.1440.840@0.23.1440.840" timestamp="1604524493484" />
+    <state width="1398" height="271" key="GridCell.Tab.1.center" timestamp="1604524493484">
+      <screen x="0" y="23" width="1440" height="840" />
+    </state>
+    <state width="1398" height="271" key="GridCell.Tab.1.center/0.23.1440.840@0.23.1440.840" timestamp="1604524493484" />
+    <state width="1398" height="271" key="GridCell.Tab.1.left" timestamp="1604524493483">
+      <screen x="0" y="23" width="1440" height="840" />
+    </state>
+    <state width="1398" height="271" key="GridCell.Tab.1.left/0.23.1440.840@0.23.1440.840" timestamp="1604524493483" />
+    <state width="1398" height="271" key="GridCell.Tab.1.right" timestamp="1604524493484">
+      <screen x="0" y="23" width="1440" height="840" />
+    </state>
+    <state width="1398" height="271" key="GridCell.Tab.1.right/0.23.1440.840@0.23.1440.840" timestamp="1604524493484" />
+    <state x="296" y="118" key="SettingsEditor" timestamp="1605069436194">
+      <screen x="0" y="23" width="1440" height="830" />
+    </state>
+    <state x="417" y="124" key="SettingsEditor/0.23.1440.823@0.23.1440.823" timestamp="1602792196117" />
+    <state x="296" y="118" key="SettingsEditor/0.23.1440.829@0.23.1440.829" timestamp="1604725038827" />
+    <state x="296" y="118" key="SettingsEditor/0.23.1440.830@0.23.1440.830" timestamp="1605069436194" />
+    <state x="296" y="118" key="SettingsEditor/0.23.1440.831@0.23.1440.831" timestamp="1605068879222" />
+    <state x="296" y="119" key="SettingsEditor/0.23.1440.840@0.23.1440.840" timestamp="1604614247930" />
+    <state x="296" y="119" key="SettingsEditor/0.23.1440.841@0.23.1440.841" timestamp="1603324432519" />
+    <state x="296" y="123" key="SettingsEditor/0.23.1440.877@0.23.1440.877" timestamp="1603230917138" />
+    <state x="443" y="165" key="SettingsEditor/35.23.1405.877@35.23.1405.877" timestamp="1602298187982" />
+    <state x="385" y="176" width="670" height="676" key="search.everywhere.popup" timestamp="1605139831337">
+      <screen x="0" y="23" width="1440" height="829" />
+    </state>
+    <state x="385" y="176" width="670" height="676" key="search.everywhere.popup/0.23.1440.829@0.23.1440.829" timestamp="1605139831337" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/DairyStore$Flask__app_py___1_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1602801988401" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/DairyStore$Unittests_for_test_MyTestClass_test_wrong_email_password2.coverage" NAME="Unittests for test.MyTestClass.test_wrong_email_password2 Coverage Results" MODIFIED="1605201676052" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/DairyStore$Unittests_in_test_py.coverage" NAME="Unittests in testLogin.py Coverage Results" MODIFIED="1605209528210" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/DairyStore$Unittests_in_testRegister_py.coverage" NAME="Unittests in testRegister.py Coverage Results" MODIFIED="1605209533603" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/DairyStore$DairyStore.coverage" NAME="DairyStore Coverage Results" MODIFIED="1605032895761" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/DairyStore$Unittests_for_test_MyTestClass_test_wrong_email_password.coverage" NAME="Unittests for test.MyTestClass.test_wrong_email_password Coverage Results" MODIFIED="1605152381780" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/DairyStore$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1602795490605" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+</project>
