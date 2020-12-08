@@ -31,14 +31,14 @@
                    <h>Account Information</h>
 
                    <div class="row">
-                       <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">Email</div>
-                       <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">{{ getUserLoginEmail() }}</div>
+                       <div class="col-4">Email</div>
+                       <div class="col-6">{{ getUserLoginEmail() }}</div>
                   </div>
 
                   <div class="row">
-                       <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">Password</div>
-                       <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">*******</div>
-                       <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                       <div class="col-4">Password</div>
+                       <div class="col-6">*******</div>
+                       <div class="col-2">
                            <button class="change" onclick="changepassword(event)">Change</button>
                        </div>
                   </div>
@@ -54,13 +54,13 @@
                    {% set data = [fn, ln] %}
                    {% for i in range(2) %}
                    <div class="row">
-                       <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">{{names[i]}}</div>
-                       <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                       <div class="col-4">{{names[i]}}</div>
+                       <div class="col-6">
                            <form>
                                <span>{{data[i]}}</span>
                            </form>
                        </div>
-                       <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                       <div class="col-2">
                            <button class="change" id="change-name" onclick="changename(event)">Change</button>
                        </div>
                   </div>
@@ -71,15 +71,18 @@
               <div class="info-card">
                   <h>Address Book</h>
                    <div class="row">
-                      <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">Default Address</div>
-                       <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                      <div class="col-4">Default Address</div>
+                       <div class="col-6">
                            <SELECT name="address" class="select-address" id="select-address">
-                                <option value="default">One Silber Way, Boston, MA, 02215</option>
-                                <option value="1">666</option>
+                                <option value="default">{{ address[0]['Defaultaddress'] }}</option>
+                               {% for k,v in address[0]['Address_list'].items() %}
+                               <option value={{k}}>{{ v }}</option>
+                               {% endfor %}
                                 <option value="">Add&hellip;</option>
+
                             </SELECT>
                        </div>
-                       <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                       <div class="col-2">
                            <button class="change" id="change-address" onclick="updateaddress(event)">Update</button>
                        </div>
                   </div>
@@ -89,15 +92,17 @@
               <div class="info-card">
                   <h>Payment Method</h>
                    <div class="row">
-                      <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">Default Payment</div>
-                       <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                           <SELECT name="payment" class="select-address" id="select-address">
-                                <option value="default">Mater Card xxxx252</option>
-                                <option value="1">Mater Card xxxx234</option>
+                      <div class="col-4">Default Payment</div>
+                       <div class="col-6">
+                           <SELECT name="payment" class="select-payment" id="select-payment">
+                                <option value="default">{{ payment[0]['default_card_type'] }} {{ payment[0]['default_card_no'] }}</option>
+                               {% for k,v in payment[0]['card_list'].items() %}
+                                <option value={{k}}>{{v['card_type']}} {{v['card_no']}}</option>
+                               {% endfor %}
                                 <option value="">Add&hellip;</option>
                             </SELECT>
                        </div>
-                       <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                       <div class="col-2">
                            <button class="change" id="change-payment" onclick="updatepayment(event)">Update</button>
                        </div>
                   </div>

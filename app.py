@@ -41,6 +41,9 @@ db_collection_User = db['User']
 db_collection_OAuthUser = db['OAUTH_USER_DETAILS']
 db_collection_product = db['Product']
 db_collection_cart_history = db[yaml_reader['collection_Cart_History']]
+db_collection_address= db['Address']
+db_collection_payment= db['PaymentInfo']
+db_collection_order_history= db['Order_History']
 
 # dotenv setup
 from dotenv import load_dotenv
@@ -453,9 +456,24 @@ def profile():
 
     if request.method == 'GET':
         if getToken():
-            return render_template("profile.html")
+            query = {"email": getUserLoginEmail()}
+            result_address = []
+            result_payment = []
+            for each_product in db_collection_address.find(query):
+                result_address.append(each_product)
+            for each_product in db_collection_payment.find(query):
+                result_payment.append(each_product)
+            return render_template("profile.html",address=result_address,payment=result_payment)
         else:
             return render_template("notfound.html")
+
+@app.route('/update-address', methods=['POST'])
+def updateaddress():
+    ajax_json = request.get_json()
+    key, default_address = ajax_json["key"],ajax_json["address"]
+    ######  ###
+    print(key,default_address)
+    return json.dumps('True')
 
 @app.route('/profile-order', methods=['GET', 'POST'])
 def order_history():
@@ -470,7 +488,12 @@ def order_history():
 
     if request.method == 'GET':
         if getToken():
-            return render_template("order_history.html")
+            query = {"email": getUserLoginEmail()}
+            result = []
+            for each_product in db_collection_order_history.find(query):
+                result.append(each_product)
+            print(result)
+            return render_template("order_history.html", order=result)
         else:
             return render_template("notfound.html")
 
@@ -487,7 +510,13 @@ def vieworder():
 
     if request.method == 'GET':
         if getToken():
-            return render_template("order_detail.html")
+            query = {"email": getUserLoginEmail()}
+            result = []
+            for each_product in db_collection_order_history.find(query):
+                result.append(each_product)
+                ##########
+
+            return render_template("order_detail.html",order=result)
         else:
             return render_template("notfound.html")
 
@@ -555,6 +584,16 @@ def product():
         _id = str(each_product['_id'])
         Product_Dictionary[_id] = each_product
     return render_template("products.html", product_dict=Product_Dictionary)
+
+@app.route('/orderhistory', methods=['GET'])
+def orderhistory():
+    query = {"email":getUserLoginEmail()}
+    result=[]
+    for each_product in db_collection_order_history.find(query):
+        result.append(each_product)
+    return render_template("order_history.html", order=result)
+
+
 
 @app.route('/forget_password', methods=['GET'])
 def forget_password():

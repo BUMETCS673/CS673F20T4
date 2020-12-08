@@ -1311,6 +1311,7 @@
     opacity:0.8;
 }
 
+
 /* forget password */
 .forgetback{
     background-attachment: scroll,	fixed;
@@ -1321,6 +1322,7 @@
     padding:  5em 0;
     text-align: center;
 }
+
 .forgetpa{
     margin:30%;
     box-shadow: 1px 2px 3px 0px rgba(0,0,0,0.10);
@@ -1333,10 +1335,12 @@
     margin-bottom:0;
     font-size:20px;
 }
-.form-control{
+
+.pass{
     height:60px;
     margin-bottom:50px;
 }
+
 #forbtn{
     width:40%;
     height:60px;

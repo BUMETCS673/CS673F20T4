@@ -767,9 +767,10 @@ function changepassword(event) {
 
 // change address
 function updateaddress(event) {
-    address = {address: $("#select-address option:selected").text()}
+    address = {address: $("#select-address option:selected").text(),key: $("#select-address option:selected").val()};
+
     $.ajax({
-        url: '/profile/',
+        url: '/update-address',
         type: "post",
         data: JSON.stringify(address),
         dataType: 'json',
@@ -793,10 +794,10 @@ function updateaddress(event) {
     })
 }
 // change payment
-function updateaddress(event) {
-    payment = {address: $("#select-payment option:selected").text()}
+function updatepayments(event) {
+    payment = {key: $("#select-payment option:selected").val(),payment: $("#select-payment option:selected").text()}
     $.ajax({
-        url: '/profile/',
+        url: '/update-payment',
         type: "post",
         data: JSON.stringify(payment),
         dataType: 'json',
