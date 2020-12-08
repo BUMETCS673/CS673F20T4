@@ -1,0 +1,45 @@
+{% extends 'login.html' %}
+{% block form %}
+        <p class = "p1">Join Moo Dairy today</p >
+
+        <form class="login-form" id="form1" action="/register-result" method="POST">
+          <input type="first name" name="firstname" placeholder="First Name"/>
+       <input type="last name" name="lastname" placeholder="Last Name"/>
+         <input type="email" name="email" placeholder="Email Address"/>
+
+       <div class="div_txt">
+       <span class="txt">Don’t worry. We’ll never share your email with anyone</span>
+       </div>
+
+       <div class="password">
+         <input type="password" id="password2" name="password2" placeholder="Password"/>
+       <input type="password" id="password3" name="password3" placeholder="Confirm Password"/>
+       </div>
+
+       <div class="eye" id="eye2">
+        <i class="far fa-eye" id="fa-eye2"></i>
+        <i class="far fa-eye-slash" id="fa-eye-slash2"></i>
+       </div>
+
+       <div class="eye" id="eye3">
+        <i class="far fa-eye" id="fa-eye3"></i>
+        <i class="far fa-eye-slash" id="fa-eye-slash3"></i>
+       </div>
+
+       <div id="password-requirement">
+         <h1>Password must contain the following:</h1>
+         <p id="letter" class="invalid">A <b>lowercase</b> letter</p >
+         <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p >
+         <p id="number" class="invalid">A <b>number</b></p >
+         <p id="length" class="invalid">Length <b>between 8-20</b></p >
+       </div>
+
+       </form>
+
+         <button id="submit_button" form="form1" type="submit">submit</button>
+         <a href="index.html"><button id="cancel_button">cancel</button></a >
+
+         <p class="message">Already have an account? <a href="login.html">Log in</a ></p >
+         <p class="terms">By signing up you confirm that you accept the terms of the Moo Dairy Usage Agreement and Privacy Notice.</p >
+         </div>
+{% endblock %}

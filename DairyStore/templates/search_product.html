@@ -1,0 +1,13 @@
+{% extends "products.html" %}
+{% block goods_list %}
+{% for _id, _info in search_dict.items() %}
+<div class="card">
+	{% set product_src = "../static/css/images/" + _id + ".png" %}
+	<img class="product-pic" src={{ product_src }} alt="milk" style="width:100%" onclick="popwindow(event)"></a>
+	<p class="price">{{ _info['Product Price'] }}</p>
+	<p class="product-name">{{ _info['Product Name'] }}</p>
+	<p class="product-vol">{{ _info['Weight'] }}</p>
+	<button onclick="addCart(event)">+</button>
+</div>
+{% endfor %}
+{% endblock %}
