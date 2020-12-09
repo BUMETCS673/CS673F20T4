@@ -1,6 +1,6 @@
 //index page
 function gomilk(id){
-    window.open("products.html?flag=true&id="+id,'_self');
+    window.open("products.html?category=milk&flag=true&id="+id,'_self');
 }
 //category
 function category(p_category){
@@ -178,6 +178,7 @@ if(index !=-1) {
     var id = "#"+url.substring(start + "id".length+1);
     $(id).click();
 }
+
 function updateCart(num, count) {
     var cart = $('#cart');
     var num_cart = document.getElementById("lblCartCount");
@@ -256,6 +257,7 @@ function forget_password(event){
         });
     }else{
         email_json = {email_address:email}
+
         $.ajax({
             url: '/forget-password',
             type: "post",
@@ -308,7 +310,7 @@ function reset(event){
         })
     }else{
         $.ajax({
-            url: '/',
+            url: '/forget-reset',
             type: "post",
             data: JSON.stringify(passwords),
             dataType: 'json',
@@ -505,6 +507,7 @@ function updatenum(event) {
         document.getElementById("freeshipping").style.display = "none"
         $('#cart-shipping').text('$'+0);
     }else{
+        document.getElementById("freeshipping").style.display = "block"
         var need_price = 35-subtotal;
         $('#freeshipping').text('Add'+' $'+need_price.toFixed(2)+' more to have a FREE delivery!');
         $('#cart-shipping').text('$'+7);
@@ -540,11 +543,15 @@ function removefromcart(event) {
 
     $('#cart-subtotal').text('$'+(subtotal-total_p).toFixed(2));
     if(subtotal-total_p >=35){
-       $('#freeshipping').text('$0')
+        document.getElementById("freeshipping").style.display = "none";
+
     }else{
-       $('#freeshipping').text('$7')
+       document.getElementById("freeshipping").style.display = "block";
+       var need_price = 35-subtotal+total_p;
+       $('#freeshipping').text('Add'+' $'+need_price.toFixed(2)+' more to have a FREE delivery!');
     };
-    $('#cart-total').text('$'+(subtotal-total_p+parseInt($('#freeshipping').text().slice(1))).toFixed(2));
+
+    $('#cart-total').text('$'+(subtotal-total_p+parseInt($('#cart-shipping').text().slice(1))).toFixed(2));
 
     $('#lblCartCount').text(current_cart-cur_q);
 

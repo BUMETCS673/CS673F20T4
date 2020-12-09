@@ -1211,7 +1211,14 @@
     font-size: 12px;
     border-radius:5px;
 }
-
+.select-payment{
+    border-color: #4CAF50;
+    color: #4CAF50;
+    background-color: #FFFFFF;
+    cursor: pointer;
+    font-size: 12px;
+    border-radius:5px;
+}
 .address-form{
     margin:50px;
     padding:20px;
@@ -1347,4 +1354,54 @@
     line-height:50px;
     font-size:20px;
     font-family: "Roboto", sans-serif;
+}
+
+/* service page css */
+
+.contact-section {
+    margin: 100px;
+}
+.contact-section h2 {
+    font-weight: normal;
+}
+.contact-section p {
+    font-size: 22px;
+    font-weight: 500;
+}
+
+input.contact-form-text {
+    padding: 16px 20px;
+    outline: none;
+    margin-top: 20px;
+    width: 42%;
+    font-size: 18px;
+    border: 1px solid #ddd;
+}
+input.contact-form-text:focus {
+	box-shadow: 0 0 10px 4px #a19e9e;
+}
+textarea.contact-form-text {
+	padding: 18px 20px;
+	border: 1px solid #ddd;
+	margin-top: 20px;
+	font-size: 18px;
+    width: 42%;
+    height: 120px;
+    outline: none;
+}
+textarea.contact-form-text:focus{
+	box-shadow: 0 0 10px 4px #a19e9e;
+}
+input.contact-form-but {
+    color: #fff;
+    outline: none;
+    background: #03af9e;
+    width: 150px;
+    height: 65px;
+    border: none;
+    margin-top: 20px;
+    cursor: pointer;
+}
+input.contact-form-but:focus{
+	box-shadow: 0 0 10px 4px #a19e9e;
 }

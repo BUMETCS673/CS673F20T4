@@ -91,13 +91,13 @@ mail = Mail(app)
 bcrypt = Bcrypt()
 app.add_template_global(getFirstName, 'getFirstName')
 app.add_template_global(getLastName, 'getLastName')
-
 app.add_template_global(getUserLoginEmail, 'getUserLoginEmail')
 
 user = ""
 token = ""
 error_ = ""
 cartNum = None
+forget_email_addr = ""
 
 @app.route('/', methods=['GET'])
 def default():
@@ -426,21 +426,33 @@ def about():
     return render_template("about.html")
 
 
-@app.route('/forget-password', methods=['GET', 'POST'])
+@app.route('/forget-password', methods=['POST'])
 def email():
     ajax_json = request.get_json()
-    data = ajax_json["email_address"]
-    # msg = Message("Reset Your MooDairy Password",
-    #               sender="lincelot97@gmail.com",
-    #               recipients=[getUserLoginEmail()])
-    # fname = getFirstName()
-    # msg.body = "Hello " + fname + "!\n" \
-    #                               "Thanks for using MooDairy. \n" \
-    #                               "Maintaining your security is our top priority. \n" \
-    #                               "Please click the link below to finish resetting your password.\n" \
-    #                               "http:127.0.0.1:5000/forget_password.html"
-    # mail.send(msg)
-    return json.dumps('Sent')
+    global forget_email_addr
+    forget_email_addr = ajax_json['email_address']
+    msg = Message("Reset Your MooDairy Password",
+                  sender="lincelot97@gmail.com",
+                  recipients=[forget_email_addr])
+    fname = getFirstName()
+    msg.body = "Hello " + fname + "!\n" \
+                                  "Thanks for using MooDairy. \n" \
+                                  "Maintaining your security is our top priority. \n" \
+                                  "Please click the link below to finish resetting your password.\n" \
+                                  "http://localhost:5000/forget_password.html"
+    mail.send(msg)
+    return json.dumps("Sent")
+
+@app.route('/forget-reset', methods=["POST"])
+def forgetAndReset():
+    user_email = forget_email_addr
+    query = {"email": user_email}
+    ajax_json = request.get_json()
+    pwd1 = ajax_json['password1']
+    pwd2 = ajax_json['password2']
+    update_query = { "$set" : { "password_hash" : bcrypt.generate_password_hash(password=pwd1).decode("utf-8") }}
+    db_collection_User.update_one(user_email, update_query)
+    return json.dumps("True")
 
 
 @app.route('/profile-account', methods=['GET', 'POST'])
@@ -472,7 +484,6 @@ def updateaddress():
     ajax_json = request.get_json()
     key, default_address = ajax_json["key"],ajax_json["address"]
     ######  ###
-    print(key,default_address)
     return json.dumps('True')
 
 @app.route('/profile-order', methods=['GET', 'POST'])
@@ -514,7 +525,6 @@ def vieworder():
             result = []
             for each_product in db_collection_order_history.find(query):
                 result.append(each_product)
-                ##########
 
             return render_template("order_detail.html",order=result)
         else:
@@ -598,6 +608,11 @@ def orderhistory():
 @app.route('/forget_password', methods=['GET'])
 def forget_password():
     return render_template("forget_password.html")
+
+
+@app.route('/service', methods=['GET'])
+def service():
+    return render_template("service.html")
 
 if __name__ == '__main__':
     app.run(
