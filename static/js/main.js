@@ -777,7 +777,7 @@ function updateaddress(event) {
     address = {address: $("#select-address option:selected").text(),key: $("#select-address option:selected").val()};
 
     $.ajax({
-        url: '/update-address',
+        url: '/updateaddress',
         type: "post",
         data: JSON.stringify(address),
         dataType: 'json',
@@ -804,7 +804,7 @@ function updateaddress(event) {
 function updatepayments(event) {
     payment = {key: $("#select-payment option:selected").val(),payment: $("#select-payment option:selected").text()}
     $.ajax({
-        url: '/update-payment',
+        url: '/updatepayment',
         type: "post",
         data: JSON.stringify(payment),
         dataType: 'json',

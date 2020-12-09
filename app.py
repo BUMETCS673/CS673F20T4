@@ -479,12 +479,51 @@ def profile():
         else:
             return render_template("notfound.html")
 
-@app.route('/update-address', methods=['POST'])
+# @app.route('/update-address', methods=['POST'])
+# def updateaddress():
+#     ajax_json = request.get_json()
+#     key, default_address = ajax_json["key"],ajax_json["address"]
+#     ######  ###
+#     return json.dumps('True')
+
+
+@app.route('/updateaddress', methods=['POST'])
 def updateaddress():
     ajax_json = request.get_json()
-    key, default_address = ajax_json["key"],ajax_json["address"]
-    ######  ###
-    return json.dumps('True')
+    to_be_updated_key, to_be_made_default_address = ajax_json["key"],ajax_json["address"]
+    query = {"email":getUserLoginEmail()}
+    person=db_collection_address.find(query)
+    def_address=""
+    for each in person:
+        def_address=each['Defaultaddress']
+    print(def_address,to_be_made_default_address,to_be_updated_key)
+    db_collection_address.update_one(query, {"$set": {"Defaultaddress": to_be_made_default_address,"Address_list."+to_be_updated_key:def_address}})
+    return json.dumps("True")
+
+@app.route('/updatepayment', methods=['POST'])
+def updatepayment():
+    ajax_json = request.get_json()
+    to_be_updated_key, to_be_made_default_payment = ajax_json["key"],ajax_json["payment"]
+    query = {"email":getUserLoginEmail()}
+    person=db_collection_payment.find(query)
+    def_card=""
+    def_card_type=""
+    to_be_changed_card_type=""
+    for each in person:
+        def_card=each['default_card_no']
+        def_card_type=each['default_card_type']
+        to_be_changed_card_type=each['card_list'][to_be_updated_key]['card_type']
+    temp_list=to_be_made_default_payment.split(" ")
+    to_be_updated=""
+    for i in range(len(temp_list)):
+        if i!=0 and i!=len(temp_list)-1:
+            to_be_updated=to_be_updated+temp_list[i]
+            to_be_updated=to_be_updated+" "
+        if i==len(temp_list)-1:
+            to_be_updated=to_be_updated+temp_list[i]
+    db_collection_payment.update_one(query, {"$set": {"default_card_no": to_be_updated,"card_list."+to_be_updated_key+".card_type":def_card_type,"card_list."+to_be_updated_key+".card_no":def_card,"default_card_type":to_be_changed_card_type}})
+    return json.dumps("True")
+
 
 @app.route('/profile-order', methods=['GET', 'POST'])
 def order_history():
