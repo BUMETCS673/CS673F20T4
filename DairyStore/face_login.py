@@ -4,14 +4,20 @@ import time
 from io import BytesIO
 from tensorflow import keras
 from PIL import Image
-from pymongo import MongoClient
+import pymongo
 import tensorflow as tf
 import face_recognition
 import numpy as np
+import yaml
 
+f = open("flask_yaml/mongo-credential.yaml")
+data = f.read()
+yaml_reader = yaml.safe_load(data)
 # mongodb connection
-conn = MongoClient('mongodb://root:123@localhost:27017/')
-db = conn.myface  # Connect to mydb database. If not, it will be created automatically
+client = pymongo.MongoClient(yaml_reader['connection_url'])
+db = client[yaml_reader['db']]
+db_collection_User = db[yaml_reader['collection_User']]
+db = db.myface  # Connect to mydb database. If not, it will be created automatically
 user_face = db.user_face  # Use test_ Set collection. If not, it will be created automatically
 face_images = db.face_images
 
