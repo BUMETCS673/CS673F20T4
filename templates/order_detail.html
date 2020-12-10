@@ -10,9 +10,9 @@
 
     <div class="ordertitle">Order Detail</div>
     <div class="time_number">
-        <a>Ordered on December 03, 2020</a>
+        <a>Ordered on {{order[0]['date']}}</a>
         <a>|</a>
-        <a>Order#12345</a>
+        <a>{{order[0]['order_no']}}</a>
     </div>
     <div class="container-fluid info">
 
@@ -23,20 +23,16 @@
         </div>
 
         <div class="row content_info">
-            <div class="col-4">1200 Commonwealth Ave, 02133, Boston, MA</div>
-            <div class="col-4">Paypal</div>
+            <div class="col-4">{{order[0]['shipping_address']}}</div>
+            <div class="col-4">{{order[0]['payment_method']}}</div>
             <div class="col-4 container-fluid">
                 <div class="row">
                     <div class="col-6">Subtotal: </div>
-                    <div class="col-6">$45.00</div>
+                    <div class="col-6">${{order[0]['sub_total']}}</div>
                 </div>
                 <div class="row">
                     <div class="col-6">Shipping: </div>
-                    <div class="col-6">$0.00</div>
-                </div>
-                <div class="row">
-                    <div class="col-6">Tax: </div>
-                    <div class="col-6">$0.00</div>
+                    <div class="col-6">${{order[0]['delivery_fee']}}</div>
                 </div>
                 <div class="row">
                     <div class="col-6">Tax: </div>
@@ -44,28 +40,22 @@
                 </div>
                 <div class="row">
                     <div class="col-6">Total: </div>
-                    <div class="col-6">$45.00</div>
+                    <div class="col-6">${{order[0]['total']}}</div>
                 </div>
             </div>
         </div>
     </div>
     <div class="container-fluid items">
-
+        {% for product in order[0]['product_list'].values() %}
+        {% set pic_src = "../static/css/images/"+product['product_id']+".png" %}
         <div class="row item_detail">
-            <div class="col-2 img"><img id="order_img" onclick="gomilk(10002007001)" src="../static/css/images/10002007001.png" style="width:70%"/></div>
-            <div class="col-5 description">Organic Valley Organic 2% Reduced Fat Milk</div>
-            <div class="col-1 quantity">1</div>
-            <div class="col-2 total-price">$3.98</div>
-            <div class="col-2 again" onclick="addCart(10002007001)"s>Buy it again</div>
+            <div class="col-2 img"><img id="order_img" onclick="gomilk({{product['product_id']}})" src={{ pic_src }} style="width:70%"/></div>
+            <div class="col-5 description">{{ product['product_name'] }}</div>
+            <div class="col-1 quantity">{{ product['quantity'] }}</div>
+            <div class="col-2 total-price">${{product['price']}}</div>
+            <div class="col-2 again" onclick="addCart({{product['product_id']}})">Buy it again</div>
         </div>
-        <div class="row item_detail">
-            <div class="col-2"><img id="order_img" onclick="gomilk(10002007001)" src="../static/css/images/10002007001.png" style="width:70%"/></div>
-            <div class="col-5 description">Organic Valley Organic 2% Reduced Fat Milk</div>
-            <div class="col-1 quantity">1</div>
-            <div class="col-2 total-price">$3.98</div>
-            <div class="col-2 again" onclick="addCart(10002007001)">Buy it again</div>
-        </div>
-
+        {% endfor %}
     </div>
     </div>
 </div>

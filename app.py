@@ -564,7 +564,7 @@ def vieworder():
             result = []
             for each_product in db_collection_order_history.find(query):
                 result.append(each_product)
-
+            print(result[0])
             return render_template("order_detail.html",order=result)
         else:
             return render_template("notfound.html")
