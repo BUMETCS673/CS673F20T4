@@ -1,32 +1,26 @@
-<!DOCTYPE HTML>
-<html>
-	<head>
-		<title>Moo Dairy</title>
-		<meta charset="utf-8" />
-		<link rel="stylesheet" href="../static/css/main.css" />
-	</head>
-	<body class="landing is-preload">
+{% extends 'index.html' %}
+{% block header %}
+{% endblock %}
+{% block content %}
 		<!-- LoginFrame -->
+		<section id="user_banner"></section>
 		<div class="login-page">
 		  <div class="form">
 
-			 <p id="image_logo"><a href="index.html"><img src="../static/css/images/logo.png"></p></a>
+			 <p id="image_logo"><a href="index.html"><img src="../static/css/images/logo.png"></a></p>
+			  {% block form %}
 			 <p class = "p1">Welcome Back</p>
 
-			  <form class="login-form" id="form1" action="/login-result" method="POST">
-			  <input type="email" name="email" placeholder="Email Address"/>
+			  <input type="email" id="email" name="email" placeholder="Email Address"/>
 			  <input type="password" id="password1" name="password" placeholder="Password"/>
 
-			  <div class="eye" id="eye1">
-				<i class="far fa-eye" id="fa-eye1"></i>
-				<i class="far fa-eye-slash" id="fa-eye-slash1"></i>
+			  <div class="eye" id="eye">
+				<i class="far fa-eye" id="eye-login" onclick="closeeye(event)"></i>
+				<i class="far fa-eye-slash" id="slash-login" onclick="openeye(event)"></i>
 			  </div>
 
-			  </form>
-
-			  <p class="p2" href="#">forget password?</p>
-
-			  <button id="login_button" form="form1" type="submit">login</button>
+			  <a id="forgetpass" onclick="forget_password(event)"><p class="p2">forget password?</p></a>
+			  <button id="login_button" type="submit" onclick="login(event)">login</button>
 			  <a href="index.html"><button id="cancel_button">cancel</button></a>
 
 			  <div class="line_div">
@@ -42,29 +36,7 @@
 			  <p class="message">Not registered? <a href="register.html">Create an account</a></p>
 
 			  </div>
-
+			  {% endblock %}
 		  </div>
 		</div>
-
-			<!-- Banner -->
-				<section id="user_banner"></section>
-			<!-- Footer -->
-				<footer id="footer">
-					<ul class="icons">
-						<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-						<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-						<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-						<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
-					</ul>
-					<ul class="copyright">
-						<li>&copy; Untitled. All rights reserved.</li><li>Design: Moo Dairy</li>
-					</ul>
-				</footer>
-
-		</div>
-		<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
-		<script src="../static/js/jquery.validate.js"></script>
-		<script src="../static/js/layer/layer.js"></script>
-		<script src="../static/js/login_register.js"></script>
-	</body>
-</html>
+{% endblock %}
