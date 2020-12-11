@@ -3,73 +3,199 @@
 	<head>
 		<title>Moo Dairy</title>
 		<meta charset="utf-8" />
-		<link rel="stylesheet" href="../static/css/main.css" />
+		<link rel="stylesheet" href="../static/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../static/css/main.css">
+		<link rel="icon" type="image/x-ico" href="../static/css/images/ww.ico" />
+		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" media="all">
 	</head>
 	<body class="landing is-preload">
 		<div id="page-wrapper">
 
 			<!-- Header -->
 			{% block header %}
-				<header id="header" class="alt">
-					<h1><a href="index.html"><img src="../static/css/images/logo.png" alt=""><span></span></a></h1>
-					<nav id="nav">
-						<ul>
-							<li><a href="index.html">Home</a></li>
-							<li><a href="products.html">Product</a></li>
-							<li><a href="about.html">About</a></li>
+			<nav class="navbar fixed-top navbar-expand-lg bg-light navbar-light">
+				<a class="navbar-brand" href="index.html">
+					<img src="../static/css/images/logo.png" alt="">
+				</a>
+				<button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+					<span class="navbar-toggler-icon"></span>
+				</button>
 
-							<li>
-								 <form class="search-form" id="form-search" action="/search-result" method="POST">
-									<input type="text" class="input" name="keyword" placeholder="Search..">
-								 </form>
-							</li>
-							<li>
-								 <button class="fas fa-search" id="search-button" form="form-search" type="submit"></button>
-							</li>
-							<li>
-								<a href="cart.html" class="fas fa-shopping-cart" id="cart"></a>
-								<span class="badge badge-warning" id="lblCartCount">0</span>
-							</li>
-							<li><a href="login.html" class="fas fa-user"></a></li>
-							<li><p id="username">
-								{% if getFirstName()!="" %}
-								{{"Hi, "+getFirstName()}}
-								{% endif %}
-							</p></li>
-						</ul>
-					</nav>
-				</header>
+				<div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
+					<ul class="nav navbar-nav">
+						<li class="nav-item">
+							<a class="nav-link" href="index.html">Home</a>
+						</li>
+
+						<li class="nav-item" id="category">
+							<a class="nav-link" href={{ url_for("product", category="all") }}>Product</a>
+							<ul class="cate">
+            					<li>
+									<a class="dropdown-item" href={{ url_for("product", category="all") }}>View All</a>
+									<img class="dropdown-item" href="products.html" src="../static/css/images/viewall.png"/>
+								</li>
+            					<li>
+									<a class="dropdown-item" href={{ url_for("product", category="milk") }}>Milk</a>
+									<img class="dropdown-item" href="products.html" src="../static/css/images/milk.png"/>
+								</li>
+								<li>
+									<a class="dropdown-item" href={{ url_for("product", category="yogurt") }}>Yogurt</a>
+									<img class="dropdown-item" href="products.html" src="../static/css/images/yogurt.png"/>
+								</li>
+								<li>
+									<a class="dropdown-item" href={{ url_for("product", category="cheese") }}>Cheese</a>
+									<img class="dropdown-item" href="products.html" src="../static/css/images/cheese.png"/>
+								</li>
+								<li>
+									<a class="dropdown-item" href={{ url_for("product", category="cream") }}>Cream</a>
+									<img class="dropdown-item" href="products.html" src="../static/css/images/cream-cupcake.png"/>
+								</li>
+								<li>
+									<a class="dropdown-item" href={{ url_for("product", category="butter") }}>Butter</a>
+									<img class="dropdown-item" href="products.html" src="../static/css/images/spread.png"/>
+								</li>
+        					</ul>
+						</li>
+
+						<li class="nav-item">
+							<a class="nav-link" href="about" >About</a>
+						</li>
+
+						<li class="nav-item">
+							<a class="nav-link">
+								<form class="form-inline" id="form-search" action="/search-result" method="POST">
+									<input class="form-control mr-sm-2" name="keyword" type="search" placeholder="Search" aria-label="Search">
+									<button class="fas fa-search" id="search-button" form="form-search" type="submit"></button>
+								</form>
+							</a>
+						</li>
+
+						<li class="nav-item">
+                            {% if getToken() and getCartNum()!=0 %}
+                            <a class="nav-link" id='cart_link' href={{ url_for("cart")}}>
+								<button class="fas fa-shopping-cart" id="cart"></button>
+								<span class="badge badge-warning" id="lblCartCount">{{ getCartNum() }}</span>
+							 </a>
+							{%  elif getToken() %}
+							<a class="nav-link" id='cart_link'>
+								<button class="fas fa-shopping-cart" id="cart"  onclick='emptycart(event)'></button>
+                                <span class="badge badge-warning" id="lblCartCount" style="display:none;">0</span>
+                            </a>
+                            {% else %}
+                            <a class="nav-link" id='cart_link'>
+                                <button class="fas fa-shopping-cart" id="cart"  onclick="force_login(event)"></button>
+                                <span class="badge badge-warning" id="lblCartCount" style="display:none;">0</span>
+                            </a>
+                            {% endif %}
+						</li>
+
+						 {% if getToken() %}
+						<li class="nav-item dropdown">
+							<a class="nav-link" href="#" id="navbarDropdown-pro" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									{% if getFirstName()!="" %}
+									{{"Hi, "+getFirstName()}}
+									{% endif %}
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item" onclick="account_setting(event)">Account Setting</a>
+								<a class="dropdown-item" onclick="order_history(event)">Order History</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" onclick="logout(event)">Log Out</a>
+							</div>
+						</li>
+						{% else %}
+						<li class="nav-item">
+							<a class="nav-link" href="login.html">
+								<button id="user" class="fas fa-user"></button>
+							</a>
+						</li>
+						{% endif %}
+					</ul>
+				</div>
+			</nav>
+
 			{% endblock %}
 			<!-- Banner -->
 			{% block content %}
-				<section id="banner">
-					<p>We work to preserve the ability to pass down the farm to the next generation -- the best definition of sustainability</p><br />
-					<p align="right">Moo Dairy</p>
-				</section>
+			<div id="demo" class="carousel slide" data-ride="carousel">
+
+				<!-- Indicators -->
+				<ul class="carousel-indicators">
+					<li data-target="#demo" data-slide-to="0" class="active"></li>
+					<li data-target="#demo" data-slide-to="1"></li>
+					<li data-target="#demo" data-slide-to="2"></li>
+				</ul>
+
+				<!-- The slideshow -->
+				<div class="carousel-inner">
+					<div class="carousel-item active">
+						<img src="../static/css/images/banner.png" style="width:100%">
+						      <div class="carousel-caption">
+								<h3 id="title">Moo Dairy</h3>
+								<p>We work to preserve the ability to pass down the farm to the next generation &#45;&#45; the best definition of sustainability</p>
+							  </div>
+					</div>
+					<div class="carousel-item">
+						<div class="innercontainer">
+							<div class='vid'>
+								<video playsinline autoplay muted loop style="width:100%">
+									<source src="https://s3.amazonaws.com/DigitalVideos/noram/dairy/horizon/horizon_web_home05.mp4" type="video/mp4">
+								</video>
+							</div>
+
+							<canvas class="canvas"></canvas>
+							 <div class="carousel-caption">
+								 <button onclick="gomilk(10002007002)">Buy now</button>
+								<h3>Horizon Organic</h3>
+								<p>Organic farming is good for our taste buds, our cows, and our planet.</p>
+							  </div>
+						</div>
+					</div>
+					<div class="carousel-item">
+						<img src="../static/css/images/organic.png" style="width:100%">
+						 <div class="carousel-caption">
+							    <button onclick="gomilk(10002007001)" id="buy2">Buy now</button>
+								<h3>Organic Valley Organic</h3>
+								<p>The tastiest and most nutritious milk comes from healthy, happy cows that spend their days in green pastures. Organic Valley farmers helped write the standards on organic pastures—and every day, we work to exceed those standards.</p>
+						 </div>
+					</div>
+				</div>
+
+				<!-- Left and right controls -->
+				<a class="carousel-control-prev" href="#demo" data-slide="prev">
+					<span class="carousel-control-prev-icon"></span>
+				</a>
+				<a class="carousel-control-next" href="#demo" data-slide="next">
+					<span class="carousel-control-next-icon"></span>
+				</a>
+			</div>
+
 			{% endblock %}
 			<!-- Footer -->
-				<footer id="footer">
-					<ul class="icons">
-						<li><a href="https://twitter.com/" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-						<li><a href="https://www.facebook.com/" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-						<li><a href="https://www.instagram.com/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-						<li><a href="https://www.github.com/" class="icon brands fa-github"><span class="label">Github</span></a></li>
-					</ul>
-					<ul class="copyright">
-						<li>&copy; Untitled. All rights reserved.</li><li>Design: Moo Dairy</li>
-					</ul>
-				</footer>
-
+			{% block footer %}
+			<footer id="footer">
+				<ul class="icons">
+					<li><a href="https://twitter.com/" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+					<li><a href="https://www.facebook.com/" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+					<li><a href="https://www.instagram.com/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+					<li><a href="https://www.github.com/" class="icon brands fa-github"><span class="label">Github</span></a></li>
+				</ul>
+				<ul class="copyright">
+					<li>&copy; Untitled. All rights reserved.</li><li>Design: Moo Dairy</li>
+				</ul>
+			</footer>
+			{% endblock %}
 		</div>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
 	<script src="../static/js/jquery-ui-1.12.1/jquery-ui.js"></script>
 	<script src="../static/js/sweetalert2/dist/sweetalert2.all.min.js"></script>
 	<script src="../static/js/jquery.zoom.js"></script>
 	<script src="../static/js/jquery.zoom.min.js"></script>
 	<script src="../static/js/jquery.fly.js"></script>
 	<script src="../static/js/jquery.fly.min.js"></script>
-    <script src="../static/js/login_register.js"></script>
-	<script src="../static/js/cart.js"></script>
-
+	<script src="../static/js/main.js"></script>
+	<script src="../static/js/infinite-scroll.pkgd.min.js"></script>
 	</body>
 </html>

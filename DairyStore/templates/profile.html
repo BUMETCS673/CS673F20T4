@@ -1,0 +1,129 @@
+{% extends "index.html" %}
+{% block content %}
+<section id="user_banner"></section>
+<div class="container-fluid">
+    <div class="row"  id="profile-container">
+      <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
+          <ul class="list-group">
+              <li class="list-group-item">
+                  <i class="fas fa-cog"></i>
+                  <span class="btn" role="button" data-toggle="collapse" onclick="account_setting(event)">Account Setting</span>
+              </li>
+              <li class="list-group-item">
+                  <i class="fas fa-clipboard"></i>
+                  <span class="btn" role="button" data-toggle="collapse" onclick="order_history(event)">Order History</span>
+              </li>
+              <li class="list-group-item">
+                  <i class="fas fa-sign-out-alt"></i>
+                  <span>Log Out</span>
+              </li>
+          </ul>
+      </div>
+
+      <div class="col-sm-9 col-md-9 col-lg-9 col-xl-9">
+          <div class="profile-right" id="account-setting">
+                {% block right_content %}
+                {% set titles = ["Account Information","Personal Information"] %}
+                {% set rows = [[['Email','example@gmail.com'],['Password','*****']],[['First Name', "Moo"],['Last Name','Dairy']]] %}
+
+                <div class="info-card">
+
+                   <h>Account Information</h>
+
+                   <div class="row">
+                       <div class="col-4">Email</div>
+                       <div class="col-6">{{ getUserLoginEmail() }}</div>
+                  </div>
+
+                  <div class="row">
+                       <div class="col-4">Password</div>
+                       <div class="col-6">*******</div>
+                       <div class="col-2">
+                           <button class="change" onclick="changepassword(event)">Change</button>
+                       </div>
+                  </div>
+                </div>
+
+               <div class="info-card">
+
+                   <h>Personal Information</h>
+
+                   {% set names = ['First Name','Last Name'] %}
+                   {% set fn = getFirstName() %}
+                   {% set ln = getLastName() %}
+                   {% set data = [fn, ln] %}
+                   {% for i in range(2) %}
+                   <div class="row">
+                       <div class="col-4">{{names[i]}}</div>
+                       <div class="col-6">
+                           <form>
+                               <span>{{data[i]}}</span>
+                           </form>
+                       </div>
+                       <div class="col-2">
+                           <button class="change" id="change-name" onclick="changename(event)">Change</button>
+                       </div>
+                  </div>
+                  {% endfor %}
+
+                </div>
+
+              <div class="info-card">
+                  <h>Address Book</h>
+                   <div class="row">
+                      <div class="col-4">Default Address</div>
+                       <div class="col-6">
+                           <SELECT name="address" class="select-address" id="select-address">
+                                <option value="default">{{ address[0]['Defaultaddress'] }}</option>
+                               {% for k,v in address[0]['Address_list'].items() %}
+                               <option value={{k}}>{{ v }}</option>
+                               {% endfor %}
+                                <option value="">Add&hellip;</option>
+
+                            </SELECT>
+                       </div>
+                       <div class="col-2">
+                           <button class="change" id="change-address" onclick="updateaddress(event)">Update</button>
+                       </div>
+                  </div>
+              </div>
+
+
+              <div class="info-card">
+                  <h>Payment Method</h>
+                   <div class="row">
+                      <div class="col-4">Default Payment</div>
+                       <div class="col-6">
+                           <SELECT name="payment" class="select-payment" id="select-payment">
+                                <option value="default">{{ payment[0]['default_card_type'] }} {{ payment[0]['default_card_no'] }}</option>
+                               {% for k,v in payment[0]['card_list'].items() %}
+                                <option value={{k}}>{{v['card_type']}} {{v['card_no']}}</option>
+                               {% endfor %}
+                                <option value="">Add&hellip;</option>
+                            </SELECT>
+                       </div>
+                       <div class="col-2">
+                           <button class="change" id="change-payment" onclick="updatepayments(event)">Update</button>
+                       </div>
+                  </div>
+              </div>
+          {% endblock %}
+          </div>
+      </div>
+    </div>
+<!--pop up window for adding new address-->
+    <div class="pop-layer" id="pop-layer"></div>
+	<div class="pop-box" id="pop-box">
+         <form class="address-form">
+              <h1>Add an address</h1>
+			  <input type="address1"  class="form-control" name="address1" placeholder="Address line 1"/>
+			  <input type="address2"  class="form-control" name="address2" placeholder="Address line 2 (optional)"/>
+              <input type="zipcode"  class="form-control" name="zipcode" placeholder="Zip code"/>
+         </form>
+        <button type="button" class="btn btn-success" id="address-cancel">Cancel</button>
+        <button type="button" class="btn btn-success" id="pop-add">Save</button>
+
+		<i class="fas fa-times" id="close" onclick="popwindow(event)" ></i>
+	</div>
+</div>
+{% endblock %}

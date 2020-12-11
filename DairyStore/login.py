@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, jsonify, json
 from flask_bcrypt import Bcrypt
 import pymongo
 
@@ -17,7 +17,10 @@ db_collection_User = db[yaml_reader['collection_User']]
 
 
 firstname = ""
+lastname = ""
 error_msg = ""
+passing_token = ""
+user_login_email = ""
 def setFirstName(name):
     global firstname
     firstname = name
@@ -25,6 +28,18 @@ def setFirstName(name):
 
 def getFirstName():
     return firstname
+
+
+def getLastName():
+    return db_collection_User.find_one({"email":getUserLoginEmail()})['lastname']
+
+def setUserLoginEmail(email):
+    global user_login_email
+    user_login_email = email
+    return ""
+
+def getUserLoginEmail():
+    return user_login_email
 
 @login_api.route("/login1", methods=['GET'])
 def login_page():
@@ -35,66 +50,57 @@ def login_page():
 def login_page1():
     return render_template("login.html")
 
+@login_api.route("/login-fail", methods=['GET'])
+def login_page2():
+    return render_template("login_fail.html")
+
+
+
 # @login_api.route('/login-result', methods=['POST'])
 # def login():
-#     global passing_token
-#     _email = request.form.get("email")
-#     # _username = request.form.get("username")
-#     _password = request.form.get("password")
-#     query = {"email": _email}
-#     user = json.loads(json_util.dumps(list(db_collection_User.find(query))))
-#     # return {"res":json.loads(json_util.dumps(user))}
-#     tempOutput=[]
-#     for curr in user:
-#         tempOutput.append(curr)
-#     # return {"check":tempOutput}
-#     # if not user:
-#     #     return make_response('Could not verify', 401, {'WWW-Authenticate' : 'Basic realm="Login required!"'})
-#     token = jwt.encode({'public_id' :tempOutput[0]['email'], 'exp' : datetime.datetime.utcnow() + datetime.timedelta(seconds=5)}, app.config['SECRET_KEY'])
-#     # return {"check":token}
-#     # token_global=json.loads(token.decode('UTF-8'))
-#     token_global=jsonify({'token' : token.decode('UTF-8')})
-#     passing_token=str(token.decode('UTF-8'))
-#     return {"check":passing_token}
-#
-#     # return {"check":passing_token}
-#     _password = hashlib.md5(_password.encode('utf8')).hexdigest()
-#
+#     _email, _password = request.form.get("email"), request.form.get("password")
 #     if not _email:
+#         setErrorMsg("Empty field.")
 #         return render_template("login_fail.html")
 #
-#     if _email:
-#         if db_collection_User.find_one({"email": _email, "password": _password}):
-#             return render_template("index.html")
+#     userFind = db_collection_User.find_one({"email": _email})
+#     if userFind:
+#         user_info = userFind
+#         pwd_hash = user_info['password_hash']
+#         if bcrypt.check_password_hash(pw_hash=pwd_hash, password=_password):
+#             fname = user_info['firstname']
+#             db_email = user_info['email']
+#             setFirstName(fname)
+#             setUserLoginEmail(db_email)
 #         else:
+#             setErrorMsg("Email and password not match.")
 #             return render_template("login_fail.html")
+#
+#     else:
+#         setErrorMsg("Email not exists. Please sign up.")
+#         return render_template("login_fail.html")
+#
 #     return render_template("index.html")
 
+@login_api.route("/forget_password.html", methods = ["GET"])
+def forgetPWD():
+    return render_template("forget_password.html")
 
-@login_api.route('/login-result', methods=['POST'])
-def login():
-    _email = request.form.get("email")
-    _password = request.form.get("password")
-
-    if not _email:
-        setErrorMsg("Empty field.")
-        return render_template("login_fail.html")
-
-    if db_collection_User.find_one({"email": _email}):
-        user_info = db_collection_User.find_one({"email": _email})
-        pwd_hash = user_info['password_hash']
-        if bcrypt.check_password_hash(pw_hash=pwd_hash, password=_password):
-            fname = user_info['firstname']
-            setFirstName(fname)
-        else:
-            setErrorMsg("Email and password not match.")
-            return render_template("login_fail.html")
+@login_api.route("/reset-password", methods = ["POST"])
+def reset():
+    pwd = request.form.get("resetpwd")
+    pwd2 = request.form.get("resetpwd2")
+    _email = getUserLoginEmail()
+    if pwd == pwd2 and _email:
+        new_hashed_password = bcrypt.generate_password_hash(pwd).decode("utf-8")
+        query = {"email": _email}
+        db_collection_User.update_one(query, { "$set": {"password_hash" : new_hashed_password}})
+        return render_template("reset_success.html")
 
     else:
-        setErrorMsg("Email not exists. Please sign up.")
-        return render_template("login_fail.html")
+        return "Error!"
 
-    return render_template("index.html")
+
 
 def setErrorMsg(msg):
     global error_msg

@@ -1,0 +1,62 @@
+{% extends "profile.html" %}
+{% block content %}
+<div class="detail_back">
+    <div class="container-fluid" id="back">
+    <div class="path">
+        <a href="/profile-account">Your Account > </a>
+        <a href="/profile-order">Your Orders > </a>
+        <a>Order Details</a>
+    </div>
+
+    <div class="ordertitle">Order Detail</div>
+    <div class="time_number">
+        <a>Ordered on {{order[0]['date']}}</a>
+        <a>|</a>
+        <a>{{order[0]['order_no']}}</a>
+    </div>
+    <div class="container-fluid info">
+
+        <div class="row subtitle">
+            <div class="col-4">Shipping Address</div>
+            <div class="col-4">Payment Method</div>
+            <div class="col-4">Order Summary</div>
+        </div>
+
+        <div class="row content_info">
+            <div class="col-4">{{order[0]['shipping_address']}}</div>
+            <div class="col-4">{{order[0]['payment_method']}}</div>
+            <div class="col-4 container-fluid">
+                <div class="row">
+                    <div class="col-6">Subtotal: </div>
+                    <div class="col-6">${{order[0]['sub_total']}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-6">Shipping: </div>
+                    <div class="col-6">${{order[0]['delivery_fee']}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-6">Tax: </div>
+                    <div class="col-6">$0.00</div>
+                </div>
+                <div class="row">
+                    <div class="col-6">Total: </div>
+                    <div class="col-6">${{order[0]['total']}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid items">
+        {% for product in order[0]['product_list'].values() %}
+        {% set pic_src = "../static/css/images/"+product['product_id']+".png" %}
+        <div class="row item_detail">
+            <div class="col-2 img"><img id="order_img" onclick="gomilk({{product['product_id']}})" src={{ pic_src }} style="width:70%"/></div>
+            <div class="col-5 description">{{ product['product_name'] }}</div>
+            <div class="col-1 quantity">{{ product['quantity'] }}</div>
+            <div class="col-2 total-price">${{product['price']}}</div>
+            <div class="col-2 again" onclick="addCart({{product['product_id']}})">Buy it again</div>
+        </div>
+        {% endfor %}
+    </div>
+    </div>
+</div>
+{% endblock %}

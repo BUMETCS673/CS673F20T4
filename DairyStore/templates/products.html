@@ -1,7 +1,4 @@
 {% extends "index.html" %}
-{% block name %}
-<li><p id="test"></p></li>
-{% endblock %}
 {% block content %}
 	<div class="goods_list">
 		<div class="grid-container">
@@ -9,14 +6,22 @@
 			{% for _id, _info in product_dict.items() %}
 			<div class="card">
                 {% set product_src = "../static/css/images/" + _id + ".png" %}
-				<img class="product-pic" src={{ product_src }} alt="milk" style="width:100%" onclick="popwindow(event)"></a>
+				<img class="product-pic" id={{ _id }} src={{ product_src }} alt="milk" style="width:100%" onclick="popwindow(event)"></a>
 				<p class="price">{{ _info['Product Price'] }}</p>
 				<p class="product-name">{{ _info['Product Name'] }}</p>
 				<p class="product-vol">{{ _info['Weight'] }}</p>
-				<button onclick="addCart(event)">+</button>
+				<p class="product-brand" style="display:none;">{{ _info['Brand'] }}</p>
+				<pre class="product-Description" style="display:none;">{{ _info['Description'] }}</pre>
+				<p class="product-Specialty" style="display:none;">{{ _info['Specialty'] }}</p>
+				{% if getToken() %}
+				<button onclick="addCart({{ _id }})" class="fas fa-plus"></button>
+				{% else %}
+				<button onclick="force_login(event)" class="fas fa-plus"></button>
+				{% endif %}
 			</div>
 			{% endfor %}
 			{% endblock %}
+			<i id="loadMore">Load More...</i>
 		</div>
 	</div>
 <!--pop-up window-->
@@ -25,6 +30,7 @@
 		<img class="product-detail-pic" id="product-detail-pic"/>
 		<a class="fas fa-search-plus" id="zoom-icon" onclick="imgShow(event)"></a>
 		<p class="product-detail-name" id="product-name"></p>
+		<p class="product-detail-brand" id="product-brand"></p>
 		<p class="product-detail-vol" id="product-vol"></p>
 		<p class="product-detail-price" id="product-price"></p>
 		<p class="product-detail-quantity">Quantity:</p>
@@ -36,10 +42,21 @@
 				<option value="4">4</option>
 				<option value="5">5</option>
 			</SELECT>
-			<button class="addtocart" onclick="PopaddCart(event)">+ Add to cart</button>
+			{% if getToken() %}
+			<button type="button" class="btn btn-success" id="pop-add" onclick="PopaddCart(event)">+ Add to cart</button>
+			{% else %}
+			<button type="button" class="btn btn-success" id="pop-add" onclick="force_login(event)">+ Add to cart</button>
+			{% endif %}
 		</div>
+	    <span class="pro-line"></span>
+		<label>Specialty:</label>
+		<p class="product-detail-specialty" id="product-specialty"></p>
+		<label>Description: </label>
+		<p class="product-detail-des" id="product-des"></p>
 		<i class="fas fa-times" id="close" onclick="popwindow(event)" ></i>
 	</div>
+{% endblock %}
+{% block footer %}
 {% endblock %}
 
 

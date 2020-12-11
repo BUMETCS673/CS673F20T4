@@ -1,0 +1,19 @@
+{% extends "profile.html" %}
+{% block right_content %}
+<div class="container-fluid">
+    <div class="row title">
+        <div class="col-3">Order Number</div>
+        <div class="col-3">Date</div>
+        <div class="col-3">Total Price</div>
+        <div class="col-3"></div>
+    </div>
+    {% for od in order %}
+    <div class="row orders">
+        <div class="col-3">{{od['order_no']}}</div>
+        <div class="col-3">{{od['date']}}</div>
+        <div class="col-3">${{od['total']}}</div>
+        <div class="col-3" onclick="vieworder({{od['order_no']}})" id="vieworder">View detail</div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
